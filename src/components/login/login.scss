@@ -1,0 +1,14 @@
+.logo {
+  margin-bottom: 32px;
+  &__img {
+    width: 48px;
+    height: 48px;
+    margin-bottom: 12px;
+  }
+  &__text {
+    color: #a4a6b3;
+    font-size: 19px;
+    line-height: 24px;
+    font-weight: 700;
+  }
+}
