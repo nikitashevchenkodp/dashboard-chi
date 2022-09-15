@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './button.scss';
 
-const Button = ({ variant, onClick, children }) => {
+const Button = (props) => {
+  const { variant, children, ...restProps } = props;
   function setClassName(varian) {
     switch (variant) {
       case 'outlined':
@@ -12,7 +13,7 @@ const Button = ({ variant, onClick, children }) => {
   }
 
   return (
-    <button className={setClassName(variant)} onClick={onClick}>
+    <button className={setClassName(variant)} {...restProps}>
       {children}
     </button>
   );
