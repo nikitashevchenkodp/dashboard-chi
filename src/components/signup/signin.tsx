@@ -2,7 +2,7 @@ import React from 'react';
 import Button from '../button';
 import Form from '../form';
 import Input from '../input';
-const SignUp = ({ changeForm }: { changeForm: () => void }) => {
+const SignUp = () => {
   return (
     <Form title={'Sign Up'} subtitle={'Create a new account'} onSubmit={() => {}}>
       <Input type="email" label={'email'} placeholder={'email address'} />
@@ -12,7 +12,7 @@ const SignUp = ({ changeForm }: { changeForm: () => void }) => {
       <Input type="password" />
       <Button>Sign Up</Button>
       <span className="form__question">Already have an account? </span>
-      <span className="form__change" onClick={changeForm}>
+      <span className="form__change" onClick={() => {}}>
         Log In
       </span>
     </Form>

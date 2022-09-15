@@ -6,8 +6,6 @@ type FormProps = {
   children: React.ReactNode;
   title: string;
   subtitle: string;
-  question?: string;
-  change?: string;
   onSubmit?: () => void;
 };
 

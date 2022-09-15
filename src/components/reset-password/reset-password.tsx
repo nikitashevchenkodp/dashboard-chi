@@ -3,14 +3,9 @@ import Button from '../button';
 import Form from '../form';
 import Input from '../input';
 
-const ResetPassword = ({ changeForm }: { changeForm: () => void }) => {
+const ResetPassword = () => {
   return (
-    <Form
-      title={'Reset Password'}
-      subtitle={'Enter new password'}
-      question={'Don’t have an account?'}
-      change={'Sign Up'}
-    >
+    <Form title={'Reset Password'} subtitle={'Enter new password'}>
       <Input type="password" />
       <Input type="password" />
       <Button>Send</Button>

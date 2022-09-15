@@ -3,19 +3,13 @@ import Button from '../button';
 import Form from '../form';
 import Input from '../input';
 
-const ForgotPassword = ({ changeForm }: { changeForm: () => void }) => {
+const ForgotPassword = () => {
   return (
-    <Form
-      title={'Forgot password?'}
-      subtitle={'Enter your email from registered account'}
-      question={'Don’t have an account?'}
-      change={'Sign Up'}
-      onSubmit={() => {}}
-    >
+    <Form title={'Forgot password?'} subtitle={'Enter your email from registered account'} onSubmit={() => {}}>
       <Input type="text" label={'email'} placeholder={'Email adress'} />
       <Button>Send</Button>
       <span className="form__question">Don't have an account? </span>
-      <span className="form__change" onClick={changeForm}>
+      <span className="form__change" onClick={() => {}}>
         Sign Up
       </span>
     </Form>
