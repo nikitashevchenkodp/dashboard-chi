@@ -1,9 +1,8 @@
 import { useState } from 'react';
 
-export function useForm(initialData) {
+export function useForm(initialData: {}) {
   const [form, setForm] = useState(initialData);
-  console.log(form);
-  const changeHandler = (e) => {
+  const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const name = e.target.name;
     const value = e.target.value;
 

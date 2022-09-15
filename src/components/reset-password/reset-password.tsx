@@ -3,7 +3,7 @@ import Button from '../button';
 import Form from '../form';
 import Input from '../input';
 
-const ResetPassword = () => {
+const ResetPassword = ({ changeForm }: { changeForm: () => void }) => {
   return (
     <Form
       title={'Reset Password'}

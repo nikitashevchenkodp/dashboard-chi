@@ -1,9 +1,11 @@
 import React from 'react';
 import './button.scss';
 
-const Button = (props) => {
+type ButtonProp = React.ButtonHTMLAttributes<HTMLButtonElement> & { variant?: string; children: string };
+
+const Button = (props: ButtonProp) => {
   const { variant, children, ...restProps } = props;
-  function setClassName(varian) {
+  function setClassName(variant: string | undefined) {
     switch (variant) {
       case 'outlined':
         return 'button--outlined';

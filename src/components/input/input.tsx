@@ -2,7 +2,12 @@ import React, { useState } from 'react';
 import { FaEyeSlash } from 'react-icons/fa';
 import './input.scss';
 
-const Input = (props) => {
+interface InputProp extends React.InputHTMLAttributes<HTMLInputElement> {
+  type: string;
+  label?: string;
+}
+
+const Input = (props: InputProp) => {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
