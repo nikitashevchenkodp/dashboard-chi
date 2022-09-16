@@ -1,11 +1,14 @@
 import React from 'react';
-import LoginPage from '../../pages/login-page';
+import { BrowserRouter } from 'react-router-dom';
 import './App.scss';
+import AppRouter from '../app-router/app-router';
 
 function App() {
   return (
     <div className="App">
-      <LoginPage />
+      <BrowserRouter>
+        <AppRouter />
+      </BrowserRouter>
     </div>
   );
 }

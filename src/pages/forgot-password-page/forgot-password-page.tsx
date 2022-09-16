@@ -1,9 +1,9 @@
 import React from 'react';
-import Button from '../button';
-import Form from '../form';
-import Input from '../input';
+import Button from '../../components/button';
+import Form from '../../components/form';
+import Input from '../../components/input';
 
-const ForgotPassword = () => {
+const ForgotPasswordPage = () => {
   return (
     <Form title={'Forgot password?'} subtitle={'Enter your email from registered account'} onSubmit={() => {}}>
       <Input type="text" label={'email'} placeholder={'Email adress'} />
@@ -16,4 +16,4 @@ const ForgotPassword = () => {
   );
 };
 
-export default ForgotPassword;
+export default ForgotPasswordPage;

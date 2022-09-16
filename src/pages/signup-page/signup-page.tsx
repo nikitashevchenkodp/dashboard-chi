@@ -1,8 +1,11 @@
 import React from 'react';
-import Button from '../button';
-import Form from '../form';
-import Input from '../input';
-const SignUp = () => {
+import Button from '../../components/button';
+import Form from '../../components/form';
+import Input from '../../components/input';
+import { useNavigate } from 'react-router-dom';
+
+const SignUpPage = () => {
+  const navigate = useNavigate();
   return (
     <Form title={'Sign Up'} subtitle={'Create a new account'} onSubmit={() => {}}>
       <Input type="email" label={'email'} placeholder={'email address'} />
@@ -12,11 +15,11 @@ const SignUp = () => {
       <Input type="password" />
       <Button>Sign Up</Button>
       <span className="form__question">Already have an account? </span>
-      <span className="form__change" onClick={() => {}}>
+      <span className="form__change" onClick={() => navigate('/login')}>
         Log In
       </span>
     </Form>
   );
 };
 
-export default SignUp;
+export default SignUpPage;
