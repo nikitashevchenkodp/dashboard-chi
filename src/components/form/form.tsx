@@ -1,5 +1,5 @@
 import React from 'react';
-import './form.scss';
+import './Form.scss';
 import logo from '../../asset/logologo.svg';
 
 type FormProps = {

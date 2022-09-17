@@ -1,7 +1,6 @@
 import React from 'react';
-import Button from '../../components/button';
-import Form from '../../components/form';
-import Input from '../../components/input';
+import { Button, Input, Form } from '../../components';
+import './ForgotPasswordPage.scss';
 
 const ForgotPasswordPage = () => {
   return (

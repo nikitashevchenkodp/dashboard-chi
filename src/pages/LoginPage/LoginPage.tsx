@@ -1,10 +1,8 @@
 import React from 'react';
-import Button from '../../components/button';
-import Form from '../../components/form';
-import Input from '../../components/input';
+import { Form, Button, Input } from '../../components';
 import { useNavigate } from 'react-router-dom';
 
-import './login-page.scss';
+import './LoginPage.scss';
 
 const LoginPage = () => {
   const navigate = useNavigate();

@@ -1,7 +1,5 @@
 import React from 'react';
-import Button from '../../components/button';
-import Form from '../../components/form';
-import Input from '../../components/input';
+import { Form, Button, Input } from '../../components';
 import { useNavigate } from 'react-router-dom';
 
 const SignUpPage = () => {
@@ -15,9 +13,9 @@ const SignUpPage = () => {
       <Input type="password" />
       <Button>Sign Up</Button>
       <span className="form__question">Already have an account? </span>
-      <span className="form__change" onClick={() => navigate('/login')}>
+      <button className="form__change" onClick={() => navigate('/login')}>
         Log In
-      </span>
+      </button>
     </Form>
   );
 };

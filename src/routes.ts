@@ -1,25 +1,25 @@
-import LoginPage from './pages/login-page';
-import SignUpPage from './pages/signup-page';
-import ForgotPasswordPage from './pages/forgot-password-page';
-import ResetPasswordPage from './pages/reset-password-page';
+import LoginPage from './pages/LoginPage';
+import SignUpPage from './pages/SignupPage';
+import ForgotPasswordPage from './pages/ForgotPasswordPage';
+import ResetPasswordPage from './pages/ResetPasswordPage';
 
-import { LOGIN_PAGE, SIGNUP_PAGE, RESET_PASSWORD_PAGE, FORGOT_PASSWORD_PAGE } from './utils/consts';
+import { PATHS } from './utils/consts';
 
 export const routes = [
   {
-    path: LOGIN_PAGE,
+    path: PATHS.LOGIN_PAGE,
     Component: LoginPage,
   },
   {
-    path: SIGNUP_PAGE,
+    path: PATHS.SIGNUP_PAGE,
     Component: SignUpPage,
   },
   {
-    path: RESET_PASSWORD_PAGE,
+    path: PATHS.RESET_PASSWORD_PAGE,
     Component: ResetPasswordPage,
   },
   {
-    path: FORGOT_PASSWORD_PAGE,
+    path: PATHS.FORGOT_PASSWORD_PAGE,
     Component: ForgotPasswordPage,
   },
 ];

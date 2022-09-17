@@ -1,25 +1,26 @@
 import React, { useState } from 'react';
 import { FaEyeSlash } from 'react-icons/fa';
-import './input.scss';
+import './Input.scss';
 
 interface InputProp extends React.InputHTMLAttributes<HTMLInputElement> {
   type: string;
   label?: string;
 }
 
-const Input = (props: InputProp) => {
+const Input = ({ label, type, ...restProps }: InputProp) => {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
     <>
-      {props.type === 'password' ? (
+      {type === 'password' ? (
         <div className="input__block">
-          <label htmlFor="" className="input__label">
+          <label htmlFor="password" className="input__label">
             password
           </label>
           <div className="input__password__wrapper">
             <input
-              {...props}
+              {...restProps}
+              id="password"
               className="input__field"
               type={showPassword ? 'text' : 'password'}
               placeholder="Password"
@@ -33,10 +34,10 @@ const Input = (props: InputProp) => {
         </div>
       ) : (
         <div className="input__block">
-          <label className="input__label" htmlFor="">
-            {props.label}
+          <label className="input__label" htmlFor={label}>
+            {label}
           </label>
-          <input {...props} className="input__field" />
+          <input id="label" {...restProps} className="input__field" />
         </div>
       )}
     </>
