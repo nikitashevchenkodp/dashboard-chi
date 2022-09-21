@@ -1,16 +1,35 @@
 import React from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
-import { routes } from '../../routes';
+import { Routes, Route, Navigate, BrowserRouter } from 'react-router-dom';
+import { publickRoutes, privatRoutes } from '../../routes';
 import './AppRouter.scss';
 
 const AppRouter = () => {
+  const user = false;
+
+  const publick = publickRoutes.map(({ path, Component }) => {
+    return <Route key={path} path={path} element={<Component />} />;
+  });
+
+  const privat = privatRoutes.map(({ path, Component }) => {
+    return <Route key={path} path={path} element={<Component />} />;
+  });
+
   return (
-    <Routes>
-      {routes.map(({ path, Component }) => {
-        return <Route key={path} path={path} element={<Component />} />;
-      })}
-      <Route path="*" element={<Navigate to="/login" replace />} />
-    </Routes>
+    <div style={{ width: '100%' }}>
+      <BrowserRouter>
+        {user ? (
+          <Routes>
+            {privat}
+            <Route path="*" element={<Navigate to="/admin" replace />} />
+          </Routes>
+        ) : (
+          <Routes>
+            {publick}
+            <Route path="*" element={<Navigate to="/login" replace />} />
+          </Routes>
+        )}
+      </BrowserRouter>
+    </div>
   );
 };
 

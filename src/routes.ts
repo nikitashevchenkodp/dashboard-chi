@@ -4,8 +4,9 @@ import ForgotPasswordPage from './pages/ForgotPasswordPage';
 import ResetPasswordPage from './pages/ResetPasswordPage';
 
 import { PATHS } from './utils/consts';
+import AdminPage from './pages/AdminPage';
 
-export const routes = [
+export const publickRoutes = [
   {
     path: PATHS.LOGIN_PAGE,
     Component: LoginPage,
@@ -21,5 +22,12 @@ export const routes = [
   {
     path: PATHS.FORGOT_PASSWORD_PAGE,
     Component: ForgotPasswordPage,
+  },
+];
+
+export const privatRoutes = [
+  {
+    path: PATHS.ADMIN_PAGE,
+    Component: AdminPage,
   },
 ];

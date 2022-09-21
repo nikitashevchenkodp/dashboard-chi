@@ -1,6 +1,6 @@
 import React from 'react';
+import Logo from '../Logo';
 import './Form.scss';
-import logo from '../../asset/logologo.svg';
 
 type FormProps = {
   children: React.ReactNode;
@@ -12,10 +12,7 @@ type FormProps = {
 const Form = ({ children, title, subtitle, onSubmit }: FormProps) => {
   return (
     <form className="form" onSubmit={onSubmit}>
-      <div className="logo">
-        <img src={logo} alt="logo" className="logo__img" />
-        <p className="logo__text">Dashboard Kit</p>
-      </div>
+      <Logo />
       <div className="form__title">{title}</div>
       <p className="form__subtitle">{subtitle}</p>
       {children}
