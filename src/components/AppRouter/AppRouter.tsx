@@ -1,10 +1,11 @@
 import React from 'react';
 import { Routes, Route, Navigate, BrowserRouter } from 'react-router-dom';
+import { MainState } from '../../MainContext';
 import { publickRoutes, privatRoutes } from '../../routes';
 import './AppRouter.scss';
 
 const AppRouter = () => {
-  const user = false;
+  const { user } = MainState();
 
   const publick = publickRoutes.map(({ path, Component }) => {
     return <Route key={path} path={path} element={<Component />} />;

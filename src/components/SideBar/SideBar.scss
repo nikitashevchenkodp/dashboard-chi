@@ -3,4 +3,55 @@
   background-color: #363740;
   color: #fff;
   width: 20%;
+  padding-top: 30px;
+}
+
+.nav {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  &--with-border {
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(223, 224, 235, 0.3);
+  }
+  &__img {
+    width: 16px;
+    height: 16px;
+    margin-right: 12px;
+    // background-color: #9fa2b4;
+    // mask-image: url('../../asset/contacts.svg');
+  }
+  &__item {
+    color: #9fa2b4;
+    padding: 18px 32px;
+    text-decoration: none;
+    transition: 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    .svg {
+      margin-right: 12px;
+      transition: 0.3s;
+      fill: #9fa2b4;
+      width: 16px;
+      height: 16px;
+    }
+    img {
+      width: 16px;
+      height: 16px;
+      margin-right: 12px;
+    }
+
+    &--active {
+      background-color: #9fa2b4;
+      color: #dde2ff;
+      .svg {
+        margin-right: 12px;
+        transition: 0.3s;
+        fill: #dde2ff;
+        opacity: 1;
+      }
+    }
+  }
 }
