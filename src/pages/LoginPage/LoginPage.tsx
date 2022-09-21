@@ -9,8 +9,8 @@ const LoginPage = () => {
 
   return (
     <Form title={'Log In to Dashboard Kit'} subtitle={'Enter your email and password'} onSubmit={() => {}}>
-      <Input type="text" label={'email'} placeholder={'Email adress'} name="email" />
-      <Input type="password" name="password" />
+      <Input id="email" type="text" label={'email'} placeholder={'Email adress'} name="email" />
+      <Input id="password" type="password" name="password" label={'Password'} />
       <Button>Log In</Button>
       <span className="form__question">Don't have an account? </span>
       <span className="form__change" onClick={() => navigate('/signup')}>
