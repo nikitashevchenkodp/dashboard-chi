@@ -6,6 +6,7 @@ import './LoginPage.scss';
 
 const LoginPage = () => {
   const navigate = useNavigate();
+
   return (
     <Form title={'Log In to Dashboard Kit'} subtitle={'Enter your email and password'} onSubmit={() => {}}>
       <Input type="text" label={'email'} placeholder={'Email adress'} name="email" />

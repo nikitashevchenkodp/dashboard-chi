@@ -1,20 +1,18 @@
 import React from 'react';
+import classNames from 'classnames';
 import './Button.scss';
 
-type ButtonProp = React.ButtonHTMLAttributes<HTMLButtonElement> & { variant?: string; children: string };
+type ButtonProp = React.ButtonHTMLAttributes<HTMLButtonElement> & { variant?: string; size?: string; children: string };
 
-const Button = ({ variant, children, ...restProps }: ButtonProp) => {
-  function setClassName(variant: string | undefined) {
-    switch (variant) {
-      case 'outlined':
-        return 'button--outlined';
-      default:
-        return 'button';
-    }
-  }
+const Button = ({ variant, size, children, ...restProps }: ButtonProp) => {
+  const btnClasses = classNames({
+    btn: true,
+    'btn--outlined': variant === 'outlined',
+    'btn--medium': size === 'medium',
+  });
 
   return (
-    <button className={setClassName(variant)} {...restProps}>
+    <button className={btnClasses} {...restProps}>
       {children}
     </button>
   );
