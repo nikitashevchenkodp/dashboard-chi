@@ -7,7 +7,6 @@ import sort from '../../asset/sort.svg';
 const TicketPage = () => {
   return (
     <div>
-      <Header title="Tickets" />
       <div className="container">
         <div className="white-container">
           {/* controll panel start */}
@@ -23,17 +22,6 @@ const TicketPage = () => {
             <button className="controll-panel__add">+ Add ticker</button>
           </div>
           {/* controll panel end */}
-          <table>
-            <thead>
-              <tr>
-                <th>Ticket details</th>
-                <th>Customer name</th>
-                <th>Date</th>
-                <th>Priority</th>
-              </tr>
-            </thead>
-            <tbody></tbody>
-          </table>
         </div>
       </div>
     </div>

@@ -3,7 +3,7 @@ import user_photo from '../../asset/avatar_header.png';
 import './Header.scss';
 
 type HeaderProps = {
-  title: string;
+  title: string | null;
 };
 
 const Header = ({ title }: HeaderProps) => {

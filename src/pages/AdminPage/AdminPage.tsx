@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
+import Header from '../../components/Header';
 import SideBar from '../../components/SideBar';
 import CustomersPage from '../CustomersPage';
 import OverviewPage from '../OverviewPage';
@@ -8,10 +9,14 @@ import TicketPage from '../TicketsPage';
 import './AdminPage.scss';
 
 const AdminPage = () => {
+  const [headerTitle, setHeaderTitle] = useState<string | null>('Overview');
+  console.log('render');
+
   return (
     <div className="admin-page">
-      <SideBar />
+      <SideBar change={setHeaderTitle} />
       <div className="admin-page__container">
+        <Header title={headerTitle} />
         <Routes>
           <Route path="overview" element={<OverviewPage />} />
           <Route path="tickets" element={<TicketPage />} />

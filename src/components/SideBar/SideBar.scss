@@ -2,6 +2,7 @@
   height: 100vh;
   background-color: #363740;
   color: #fff;
+  min-width: 255px;
   width: 20%;
   padding-top: 30px;
 }
@@ -44,7 +45,8 @@
     }
 
     &--active {
-      background-color: #9fa2b4;
+      border-left: 2px solid #dde2ff;
+      background-color: rgba(159, 162, 180, 0.08);
       color: #dde2ff;
       .svg {
         margin-right: 12px;
