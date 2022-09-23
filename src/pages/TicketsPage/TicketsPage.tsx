@@ -11,15 +11,21 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Priority from '../../components/Priority';
 import { BsThreeDotsVertical } from 'react-icons/bs';
-import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
-import { cellTitles, getData, TickerItem } from '../../utils/consts';
+
+import { cellTitles, getData, paginationIndexes, TickerItem } from '../../utils/consts';
 import ModalWindow from '../../components/ModalWindow';
 import AddForm from '../../components/AddForm';
+import Pagination from '../../components/Pagination';
 
 const TicketPage = () => {
-  const [tickers, setTickers] = useState<TickerItem[] | undefined>();
+  const [tickers, setTickers] = useState<TickerItem[]>([]);
   const [active, setActive] = useState<boolean>(false);
   const [currentId, setCurrentId] = useState<number | null>(null);
+  const [perPage, setPerPage] = useState<number>(4);
+  const [page, setPage] = useState(1);
+
+  const paginationItems = Math.ceil(tickers?.length / perPage);
+  const [start, end] = paginationIndexes(page, perPage);
 
   const updateTicker = (ticker: TickerItem) => {
     const idx = tickers!.findIndex((item) => item.id === ticker.id);
@@ -79,7 +85,7 @@ const TicketPage = () => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {tickers?.map((row, i) => (
+                {tickers?.slice(start, end).map((row, i) => (
                   <TableRow
                     key={i}
                     sx={{
@@ -94,7 +100,7 @@ const TicketPage = () => {
                   >
                     <TableCell sx={tableStyles.mainCell}>
                       <div style={tableStyles.mainCellImg}>
-                        <img src={row.image} alt="user image" />
+                        <img src={row.image} alt="user_avatar" />
                       </div>
                       <div>
                         <p style={tableStyles.cellTitle}>{row.details_text}</p>
@@ -120,24 +126,15 @@ const TicketPage = () => {
               </TableBody>
             </Table>
           </TableContainer>
-
-          <div className="pagination">
-            <div className="pagination__block">
-              <p>Rows per page:</p>
-              <select defaultValue={10} onChange={(e) => console.log(e.target.value)} name="" id="">
-                <option value="8">8</option>
-                <option value="10">10</option>
-                <option value="12">12</option>
-              </select>
-            </div>
-            <div className="pagination__block">
-              <p>1-8 of 1240</p>
-              <div className="pagination__control">
-                <IoIosArrowBack />
-                <IoIosArrowForward />
-              </div>
-            </div>
-          </div>
+          <Pagination
+            setPerPage={setPerPage}
+            page={page}
+            setPage={setPage}
+            paginationItems={paginationItems}
+            startIndex={start}
+            endIndex={end}
+            count={tickers?.length}
+          />
         </div>
       </div>
       <ModalWindow active={active} setActive={setActive}>

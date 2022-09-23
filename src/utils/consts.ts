@@ -141,3 +141,7 @@ export function getItem(id: number) {
     resolve(item);
   });
 }
+
+export const paginationIndexes = (page: number, perPage: number) => {
+  return [(page - 1) * perPage, (page - 1) * perPage + perPage];
+};
