@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 const SignUpPage = () => {
   const navigate = useNavigate();
+
   return (
     <div className="auth-page">
       <Form title={'Sign Up'} subtitle={'Create a new account'} onSubmit={() => {}}>

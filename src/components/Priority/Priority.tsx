@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import React from 'react';
 import './Priority.scss';
 
-const Priority = ({ status }: { status: 'high' | 'normal' | 'low' }) => {
+const Priority = ({ status }: { status: string }) => {
   const priotityClasses = classNames({
     priority: true,
     'priority--high': status === 'high',

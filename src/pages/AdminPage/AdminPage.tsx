@@ -10,7 +10,6 @@ import './AdminPage.scss';
 
 const AdminPage = () => {
   const [headerTitle, setHeaderTitle] = useState<string | null>('Overview');
-  console.log('render');
 
   return (
     <div className="admin-page">

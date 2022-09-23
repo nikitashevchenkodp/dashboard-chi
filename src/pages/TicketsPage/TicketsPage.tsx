@@ -1,8 +1,7 @@
-import React from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import './TicketsPage.scss';
 import filter from '../../asset/filter.svg';
 import sort from '../../asset/sort.svg';
-import styled from 'styled-components';
 
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -10,147 +9,40 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import user1 from '../../asset/customers_avatarr/customer_1.svg';
-import user2 from '../../asset/customers_avatarr/customer_2.svg';
-import user3 from '../../asset/customers_avatarr/customer_3.svg';
-import user4 from '../../asset/customers_avatarr/customer_4.svg';
-import user5 from '../../asset/customers_avatarr/customer_5.svg';
-import user6 from '../../asset/customers_avatarr/customer_6.svg';
-import user7 from '../../asset/customers_avatarr/customer_7.svg';
-import user8 from '../../asset/customers_avatarr/customer_8.svg';
 import Priority from '../../components/Priority';
 import { BsThreeDotsVertical } from 'react-icons/bs';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
-
-type TickerItem = {
-  id: number;
-  image: any;
-  details_text: string;
-  name: string;
-  date: string;
-  status: 'high' | 'low' | 'normal';
-  update: {
-    date: string;
-    time: string;
-  };
-};
+import { cellTitles, getData, TickerItem } from '../../utils/consts';
+import ModalWindow from '../../components/ModalWindow';
+import AddForm from '../../components/AddForm';
 
 const TicketPage = () => {
-  function createData(name: string, calories: number, fat: number, carbs: number, protein: number) {
-    return { name, calories, fat, carbs, protein };
+  const [tickers, setTickers] = useState<TickerItem[] | undefined>();
+  const [active, setActive] = useState<boolean>(false);
+  const [currentId, setCurrentId] = useState<number | null>(null);
+
+  const updateTicker = (ticker: TickerItem) => {
+    const idx = tickers!.findIndex((item) => item.id === ticker.id);
+    if (idx < 0) {
+      setTickers((prevCustomers) => [...prevCustomers!, ticker]);
+    } else if (idx >= 0) {
+      setTickers((prevCustomers) => [...prevCustomers!.slice(0, idx), ticker, ...prevCustomers!.slice(idx + 1)]);
+    }
+  };
+
+  function getItem(id: number) {
+    const item = tickers?.filter((item) => item.id === id)[0]!;
+    return new Promise<TickerItem>((resolve) => {
+      resolve(item);
+    });
   }
 
-  const cellTitles = ['Ticket details', 'Customer name', 'Date', 'Priority'];
-
-  const bodyData: TickerItem[] = [
-    {
-      id: 1,
-      image: user1,
-      details_text: 'Contact Email not Linked',
-      name: 'Tom Cruise',
-      date: 'May 26, 2019',
-      status: 'high',
-      update: {
-        date: '24.05.2019',
-        time: '6:30PM',
-      },
-    },
-    {
-      id: 2,
-      image: user2,
-      details_text: 'Contact Email not Linked',
-      name: 'Tom Cruise',
-      date: 'May 26, 2019',
-      status: 'low',
-      update: {
-        date: '24.05.2019',
-        time: '6:30PM',
-      },
-    },
-    {
-      id: 3,
-      image: user3,
-      details_text: 'Contact Email not Linked',
-      name: 'Tom Cruise',
-      date: 'May 26, 2019',
-      status: 'normal',
-      update: {
-        date: '24.05.2019',
-        time: '6:30PM',
-      },
-    },
-    {
-      id: 4,
-      image: user4,
-      details_text: 'Contact Email not Linked',
-      name: 'Tom Cruise',
-      date: 'May 26, 2019',
-      status: 'high',
-      update: {
-        date: '24.05.2019',
-        time: '6:30PM',
-      },
-    },
-    {
-      id: 5,
-      image: user5,
-      details_text: 'Contact Email not Linked',
-      name: 'Tom Cruise',
-      date: 'May 26, 2019',
-      status: 'high',
-      update: {
-        date: '24.05.2019',
-        time: '6:30PM',
-      },
-    },
-    {
-      id: 6,
-      image: user6,
-      details_text: 'Contact Email not Linked',
-      name: 'Tom Cruise',
-      date: 'May 26, 2019',
-      status: 'high',
-      update: {
-        date: '24.05.2019',
-        time: '6:30PM',
-      },
-    },
-    {
-      id: 7,
-      image: user7,
-      details_text: 'Contact Email not Linked',
-      name: 'Tom Cruise',
-      date: 'May 26, 2019',
-      status: 'high',
-      update: {
-        date: '24.05.2019',
-        time: '6:30PM',
-      },
-    },
-    {
-      id: 8,
-      image: user8,
-      details_text: 'Contact Email not Linked',
-      name: 'Tom Cruise',
-      date: 'May 26, 2019',
-      status: 'high',
-      update: {
-        date: '24.05.2019',
-        time: '6:30PM',
-      },
-    },
-  ];
-
-  // const rows = [
-  //   createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  //   createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  //   createData('Eclair', 262, 16.0, 24, 6.0),
-  //   createData('Cupcake', 305, 3.7, 67, 4.3),
-  //   createData('Gingerbread', 356, 16.0, 49, 3.9),
-  // ];
+  useEffect(() => {
+    getData().then((res) => setTickers(res));
+  }, []);
 
   return (
-    <div>
+    <>
       <div className="container">
         <div className="white-container">
           {/* controll panel start */}
@@ -163,7 +55,15 @@ const TicketPage = () => {
               <img className="controll-panel__icon" src={filter} alt="" />
               <p className="controll-panel_text">Filter</p>
             </div>
-            <button className="controll-panel__add">+ Add ticker</button>
+            <button
+              className="controll-panel__add"
+              onClick={() => {
+                setActive(true);
+                setCurrentId(null);
+              }}
+            >
+              + Add ticker
+            </button>
           </div>
           {/* controll panel end */}
 
@@ -179,8 +79,19 @@ const TicketPage = () => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {bodyData.map((row) => (
-                  <TableRow key={row.name} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                {tickers?.map((row, i) => (
+                  <TableRow
+                    key={i}
+                    sx={{
+                      '&:last-child td, &:last-child th': { border: 0 },
+                      cursor: 'pointer',
+                      '&:hover': { background: 'rgba(55, 81, 255, 0.04)' },
+                    }}
+                    onClick={() => {
+                      setCurrentId(row.id);
+                      setActive(true);
+                    }}
+                  >
                     <TableCell sx={tableStyles.mainCell}>
                       <div style={tableStyles.mainCellImg}>
                         <img src={row.image} alt="user image" />
@@ -192,11 +103,11 @@ const TicketPage = () => {
                     </TableCell>
                     <TableCell sx={{ minWidth: '80px', width: '20%', overflowX: 'auto' }} align="left">
                       <p style={tableStyles.cellTitle}>{row.name}</p>
-                      <p style={tableStyles.cellText}>on {row.update.date}</p>
+                      <p style={tableStyles.cellText}>on {'24.05.2019'}</p>
                     </TableCell>
                     <TableCell sx={{ minWidth: '80px', width: '20%', overflowX: 'auto' }} align="left">
                       <p style={tableStyles.cellTitle}>{row.date}</p>
-                      <p style={tableStyles.cellText}>on {row.update.time}</p>
+                      <p style={tableStyles.cellText}>on {'6:30PM'}</p>
                     </TableCell>
                     <TableCell sx={{ minWidth: '80px', width: '10%', overflowX: 'auto' }} align="left">
                       <Priority status={row.status} />
@@ -209,10 +120,11 @@ const TicketPage = () => {
               </TableBody>
             </Table>
           </TableContainer>
+
           <div className="pagination">
             <div className="pagination__block">
               <p>Rows per page:</p>
-              <select name="" id="">
+              <select defaultValue={10} onChange={(e) => console.log(e.target.value)} name="" id="">
                 <option value="8">8</option>
                 <option value="10">10</option>
                 <option value="12">12</option>
@@ -228,7 +140,10 @@ const TicketPage = () => {
           </div>
         </div>
       </div>
-    </div>
+      <ModalWindow active={active} setActive={setActive}>
+        <AddForm updateFunction={updateTicker} id={currentId} setActive={setActive} getItem={getItem} />
+      </ModalWindow>
+    </>
   );
 };
 

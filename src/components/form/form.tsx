@@ -5,7 +5,7 @@ import './Form.scss';
 type FormProps = {
   children: React.ReactNode;
   title: string;
-  subtitle: string;
+  subtitle?: string;
   onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
 };
 

@@ -1,4 +1,5 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
+import { getData, TickerItem } from './utils/consts';
 
 type ContextValues = {
   user: boolean;
