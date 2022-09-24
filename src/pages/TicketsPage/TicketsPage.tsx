@@ -1,28 +1,26 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import './TicketsPage.scss';
-import filter from '../../asset/filter.svg';
-import sort from '../../asset/sort.svg';
 
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Priority from '../../components/Priority';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 import { BsThreeDotsVertical } from 'react-icons/bs';
 
-import { cellTitles, getData, paginationIndexes, TickerItem } from '../../utils/consts';
+import { tickerCellTitles, getTickerData, paginationIndexes, TickerItem } from '../../utils/consts';
 import ModalWindow from '../../components/ModalWindow';
-import AddForm from '../../components/AddForm';
 import Pagination from '../../components/Pagination';
+import Priority from '../../components/Priority';
+import ControlPanel from '../../components/ControlPanel';
+import AddTickerForm from '../../components/AddTickerForm';
+import { Button, Form } from '../../components';
+import { FormTitle } from '../../components/Form/Form';
 
 const TicketPage = () => {
   const [tickers, setTickers] = useState<TickerItem[]>([]);
   const [active, setActive] = useState<boolean>(false);
+  const [confirmActive, setConfirmActive] = useState<boolean>(false);
   const [currentId, setCurrentId] = useState<number | null>(null);
   const [perPage, setPerPage] = useState<number>(4);
   const [page, setPage] = useState(1);
+  const deleteFunc = useRef<any>();
 
   const paginationItems = Math.ceil(tickers?.length / perPage);
   const [start, end] = paginationIndexes(page, perPage);
@@ -43,8 +41,17 @@ const TicketPage = () => {
     });
   }
 
+  const deleteItem = (e: React.MouseEvent<SVGElement, MouseEvent>, id: number) => {
+    e.stopPropagation();
+    setConfirmActive(true);
+    deleteFunc.current = () => {
+      const idx = tickers!.findIndex((item) => item.id === id);
+      setTickers((prevTickers) => [...prevTickers.slice(0, idx), ...prevTickers.slice(idx + 1)]);
+    };
+  };
+
   useEffect(() => {
-    getData().then((res) => setTickers(res));
+    getTickerData().then((res) => setTickers(res));
   }, []);
 
   return (
@@ -52,32 +59,14 @@ const TicketPage = () => {
       <div className="container">
         <div className="white-container">
           {/* controll panel start */}
-          <div className="controll-panel">
-            <div className="controll-panel__item">
-              <img className="controll-panel__icon" src={sort} alt="" />
-              <p className="controll-panel_text">Sort</p>
-            </div>
-            <div className="controll-panel__item">
-              <img className="controll-panel__icon" src={filter} alt="" />
-              <p className="controll-panel_text">Filter</p>
-            </div>
-            <button
-              className="controll-panel__add"
-              onClick={() => {
-                setActive(true);
-                setCurrentId(null);
-              }}
-            >
-              + Add ticker
-            </button>
-          </div>
+          <ControlPanel setCurrentId={setCurrentId} setActive={setActive} />
           {/* controll panel end */}
 
           <TableContainer className="table__container">
             <Table sx={{ minWidth: '1000px' }} aria-label="simple table">
               <TableHead sx={tableStyles.tHead}>
                 <TableRow>
-                  {cellTitles.map((title) => (
+                  {tickerCellTitles.map((title) => (
                     <TableCell key={title} sx={tableStyles.headCell} align="left">
                       {title}
                     </TableCell>
@@ -119,7 +108,7 @@ const TicketPage = () => {
                       <Priority status={row.status} />
                     </TableCell>
                     <TableCell sx={{ minWidth: '30px', width: '5%', overflowX: 'auto' }} align="left">
-                      <BsThreeDotsVertical color="#C5C7CD" />
+                      <BsThreeDotsVertical color="#C5C7CD" onClick={(e) => deleteItem(e, row.id)} />
                     </TableCell>
                   </TableRow>
                 ))}
@@ -138,7 +127,26 @@ const TicketPage = () => {
         </div>
       </div>
       <ModalWindow active={active} setActive={setActive}>
-        <AddForm updateFunction={updateTicker} id={currentId} setActive={setActive} getItem={getItem} />
+        <AddTickerForm updateFunction={updateTicker} id={currentId} setActive={setActive} getItem={getItem} />
+      </ModalWindow>
+      <ModalWindow active={confirmActive} setActive={setConfirmActive}>
+        <Form>
+          <FormTitle title="Are you sure ?" />
+          <Button
+            type="button"
+            onClick={() => {
+              if (deleteFunc.current) {
+                deleteFunc.current();
+              }
+              setConfirmActive(false);
+            }}
+          >
+            Yes
+          </Button>
+          <button type="button" className="controll-panel__add" onClick={() => setConfirmActive(false)}>
+            No
+          </button>
+        </Form>
       </ModalWindow>
     </>
   );

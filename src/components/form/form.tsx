@@ -1,23 +1,26 @@
 import React from 'react';
-import Logo from '../Logo';
 import './Form.scss';
 
 type FormProps = {
   children: React.ReactNode;
-  title: string;
-  subtitle?: string;
-  onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
+  onSubmit?: (e: React.FormEvent<HTMLFormElement>) => void;
 };
 
-const Form = ({ children, title, subtitle, onSubmit }: FormProps) => {
+const Form = ({ children, onSubmit }: FormProps) => {
   return (
-    <form className="form" onSubmit={(e) => onSubmit(e)}>
-      <Logo />
-      <div className="form__title">{title}</div>
-      <p className="form__subtitle">{subtitle}</p>
+    <form className="form" onSubmit={(e) => onSubmit && onSubmit(e)}>
       {children}
       <div className="form__footer"></div>
     </form>
+  );
+};
+
+export const FormTitle = ({ title, subtitle }: { title: string; subtitle?: string }) => {
+  return (
+    <>
+      <div className="form__title">{title}</div>
+      <p className="form__subtitle">{subtitle}</p>
+    </>
   );
 };
 

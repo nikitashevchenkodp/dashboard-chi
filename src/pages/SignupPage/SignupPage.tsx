@@ -1,13 +1,17 @@
 import React from 'react';
 import { Form, Button, Input } from '../../components';
 import { useNavigate } from 'react-router-dom';
+import Logo from '../../components/Logo';
+import { FormTitle } from '../../components/Form/Form';
 
 const SignUpPage = () => {
   const navigate = useNavigate();
 
   return (
     <div className="auth-page">
-      <Form title={'Sign Up'} subtitle={'Create a new account'} onSubmit={() => {}}>
+      <Form onSubmit={() => {}}>
+        <Logo />
+        <FormTitle title={'Sign Up'} subtitle={'Create a new account'} />
         <Input id="email" type="email" label={'email'} placeholder={'email address'} />
         <Input id="first_name" type="text" label={'First name'} placeholder={'First name'} />
         <Input id="last_name" type="text" label={'Last name'} placeholder={'Last name'} />

@@ -3,10 +3,11 @@ import { useForm } from '../../hooks/useForm';
 import { TickerItem } from '../../utils/consts';
 import Button from '../Button';
 import Form from '../Form';
+import { FormTitle } from '../Form/Form';
 import Input from '../Input';
-import './AddForm.scss';
+import './AddTickerForm.scss';
 
-type AddFormProps = {
+type AddTickerFormProps = {
   updateFunction: (item: any) => void;
   id: number | null;
   setActive: (active: boolean) => void;
@@ -25,7 +26,7 @@ const randomId = () => {
   return Math.floor(Math.random() * 1000 + 33);
 };
 
-const AddForm = ({ updateFunction, id, setActive, getItem }: AddFormProps) => {
+const AddTickerForm = ({ updateFunction, id, setActive, getItem }: AddTickerFormProps) => {
   const [initialForm, setInitialForm] = useState<InitialState>({
     details_text: '',
     name: '',
@@ -64,7 +65,8 @@ const AddForm = ({ updateFunction, id, setActive, getItem }: AddFormProps) => {
   };
 
   return (
-    <Form title={id ? 'Edit ticker' : 'Add ticker'} onSubmit={submit}>
+    <Form onSubmit={submit}>
+      <FormTitle title={id ? 'Edit ticker' : 'Add ticker'} />
       <Input
         id="details"
         name="details_text"
@@ -101,7 +103,7 @@ const AddForm = ({ updateFunction, id, setActive, getItem }: AddFormProps) => {
         value={form.status}
         onChange={changeHandler}
       /> */}
-      <select style={{ width: '100%' }} name="status" onChange={changeHandler} defaultValue={''}>
+      <select style={{ width: '100%' }} name="status" onChange={changeHandler} value={form.status}>
         <option value="" disabled>
           choose value
         </option>
@@ -111,11 +113,18 @@ const AddForm = ({ updateFunction, id, setActive, getItem }: AddFormProps) => {
       </select>
 
       <Button type="submit">Save</Button>
-      <button className="controll-panel__add" onClick={() => setActive(false)}>
-        Cancel
-      </button>
+      <div style={{ display: 'flex' }}>
+        <button
+          type="button"
+          style={{ margin: '0 auto' }}
+          className="controll-panel__add"
+          onClick={() => setActive(false)}
+        >
+          Cancel
+        </button>
+      </div>
     </Form>
   );
 };
 
-export default AddForm;
+export default AddTickerForm;

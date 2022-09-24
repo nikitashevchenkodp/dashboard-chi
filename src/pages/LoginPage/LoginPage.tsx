@@ -5,7 +5,9 @@ import { useForm } from '../../hooks/useForm';
 import { MainState } from '../../MainContext';
 
 import './LoginPage.scss';
-type LoginFormProp = {
+import Logo from '../../components/Logo';
+import { FormTitle } from '../../components/Form/Form';
+type LoginForm = {
   email: string;
   password: string;
 };
@@ -13,7 +15,7 @@ type LoginFormProp = {
 const LoginPage = () => {
   const navigate = useNavigate();
   const { authUser } = MainState();
-  const [form, onChange] = useForm<LoginFormProp>({
+  const [form, onChange] = useForm<LoginForm>({
     email: '',
     password: '',
   });
@@ -25,7 +27,9 @@ const LoginPage = () => {
 
   return (
     <div className="auth-page">
-      <Form title={'Log In to Dashboard Kit'} subtitle={'Enter your email and password'} onSubmit={(e) => submit(e)}>
+      <Form onSubmit={(e) => submit(e)}>
+        <Logo />
+        <FormTitle title={'Log In to Dashboard Kit'} subtitle={'Enter your email and password'} />
         <Input
           id="email"
           type="text"

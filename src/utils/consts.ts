@@ -15,7 +15,8 @@ export const PATHS = {
   ADMIN_PAGE: '/admin/*',
 };
 
-export const cellTitles = ['Ticket details', 'Customer name', 'Date', 'Priority'];
+export const tickerCellTitles = ['Ticket details', 'Customer name', 'Date', 'Priority'];
+export const customersCellTitles = ['Name', 'Email', 'Address', 'Created at'];
 
 export type TickerItem = {
   id: number;
@@ -30,7 +31,101 @@ export type TickerItem = {
   // };
 };
 
-const bodyData: TickerItem[] = [
+export type CustomerItem = {
+  id: number;
+  image?: any;
+  first_name: string;
+  last_name: string;
+  email: string;
+  address: string;
+  date: string;
+};
+
+const customerBodyData: CustomerItem[] = [
+  {
+    id: 11,
+    image: user1,
+    first_name: 'Tom',
+    last_name: 'Cruise',
+    email: 'mandeep.walton@gmail.com',
+    address: 'Unit 1, Moons Park, Burnt Meadow Road, Moons Moat North Industrial Estate,B98 9PA',
+    date: new Date().toLocaleDateString(),
+  },
+  {
+    id: 12,
+    image: user2,
+    first_name: 'Elena',
+    last_name: 'Sheldon',
+    email: 'elena.sheldon@gmail.com',
+    address: 'South Lodge, Reddish Lane, Lymm,WA13 9PY',
+    date: new Date().toLocaleDateString(),
+  },
+  {
+    id: 13,
+    image: user3,
+    first_name: 'Kim',
+    last_name: 'Gould',
+    email: 'kim.gould@gmail.com',
+    address: 'Unit 1, Moons Park, Burnt Meadow Road, Moons Moat North Industrial Estate,B98 9PA',
+    date: new Date().toLocaleDateString(),
+  },
+  {
+    id: 14,
+    image: user4,
+    first_name: 'Tom',
+    last_name: 'Cruise',
+    email: 'mandeep.walton@gmail.com',
+    address: 'South Lodge, Reddish Lane, Lymm,WA13 9PY',
+    date: new Date().toLocaleDateString(),
+  },
+  {
+    id: 15,
+    image: user5,
+    first_name: 'Elena',
+    last_name: 'Sheldon',
+    email: 'elena.sheldon@gmail.com',
+    address: 'Unit 1, Moons Park, Burnt Meadow Road, Moons Moat North Industrial Estate,B98 9PA',
+    date: new Date().toLocaleDateString(),
+  },
+  {
+    id: 16,
+    image: user6,
+    first_name: 'Kim',
+    last_name: 'Gould',
+    email: 'kim.gould@gmail.com',
+    address: 'South Lodge, Reddish Lane, Lymm,WA13 9PY',
+    date: new Date().toLocaleDateString(),
+  },
+  {
+    id: 17,
+    image: user7,
+    first_name: 'Tom',
+    last_name: 'Cruise',
+    email: 'mandeep.walton@gmail.com',
+    address: 'Unit 1, Moons Park, Burnt Meadow Road, Moons Moat North Industrial Estate,B98 9PA',
+    date: new Date().toLocaleDateString(),
+  },
+  {
+    id: 18,
+    image: user8,
+    first_name: 'Elena',
+    last_name: 'Sheldon',
+    email: 'elena.sheldon@gmail.com',
+    address: 'South Lodge, Reddish Lane, Lymm,WA13 9PY',
+    date: new Date().toLocaleDateString(),
+  },
+  {
+    id: 19,
+    image: user1,
+    first_name: 'Kim',
+    last_name: 'Gould',
+    email: 'kim.gould@gmail.com',
+    address: 'Unit 1, Moons Park, Burnt Meadow Road, Moons Moat North Industrial Estate,B98 9PA',
+    date: new Date().toLocaleDateString(),
+  },
+];
+
+const tickerBodyData: TickerItem[] = [
   {
     id: 1,
     image: user1,
@@ -129,16 +224,14 @@ const bodyData: TickerItem[] = [
   },
 ];
 
-export function getData() {
+export function getTickerData() {
   return new Promise<TickerItem[]>((resolve) => {
-    resolve(bodyData);
+    resolve(tickerBodyData);
   });
 }
-
-export function getItem(id: number) {
-  const item = bodyData.filter((item) => item.id === id)[0];
-  return new Promise<TickerItem>((resolve) => {
-    resolve(item);
+export function getCustomerData() {
+  return new Promise<CustomerItem[]>((resolve) => {
+    resolve(customerBodyData);
   });
 }
 
