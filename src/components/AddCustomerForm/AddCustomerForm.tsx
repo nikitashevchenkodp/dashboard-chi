@@ -101,11 +101,10 @@ const AddCustomerForm = ({ updateFunction, id, setActive, getCustomerItem }: Add
         onChange={changeHandler}
       />
       <Button type="submit">Save</Button>
-      <div style={{ display: 'flex' }}>
-        <button style={{ margin: '0 auto' }} className="controll-panel__add" onClick={() => setActive(false)}>
-          Cancel
-        </button>
-      </div>
+
+      <Button type="button" variant="transparent" onClick={() => setActive(false)}>
+        Cancel
+      </Button>
     </Form>
   );
 };

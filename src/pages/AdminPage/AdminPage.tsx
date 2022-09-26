@@ -21,7 +21,7 @@ const AdminPage = () => {
           <Route path="tickets" element={<TicketPage />} />
           <Route path="contacts" element={<CustomersPage />} />
           <Route path="settings" element={<SettingsPage />} />
-          <Route path="*" element={<Navigate to="tickets" replace />} />
+          <Route path="*" element={<Navigate to="overview" replace />} />
         </Routes>
       </div>
     </div>

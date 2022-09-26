@@ -20,7 +20,7 @@ const TicketPage = () => {
   const [currentId, setCurrentId] = useState<number | null>(null);
   const [perPage, setPerPage] = useState<number>(4);
   const [page, setPage] = useState(1);
-  const deleteFunc = useRef<any>();
+  const deleteId = useRef<any>();
 
   const paginationItems = Math.ceil(tickers?.length / perPage);
   const [start, end] = paginationIndexes(page, perPage);
@@ -44,10 +44,7 @@ const TicketPage = () => {
   const deleteItem = (e: React.MouseEvent<SVGElement, MouseEvent>, id: number) => {
     e.stopPropagation();
     setConfirmActive(true);
-    deleteFunc.current = () => {
-      const idx = tickers!.findIndex((item) => item.id === id);
-      setTickers((prevTickers) => [...prevTickers.slice(0, idx), ...prevTickers.slice(idx + 1)]);
-    };
+    deleteId.current = id;
   };
 
   useEffect(() => {
@@ -58,10 +55,7 @@ const TicketPage = () => {
     <>
       <div className="container">
         <div className="white-container">
-          {/* controll panel start */}
           <ControlPanel setCurrentId={setCurrentId} setActive={setActive} />
-          {/* controll panel end */}
-
           <TableContainer className="table__container">
             <Table sx={{ minWidth: '1000px' }} aria-label="simple table">
               <TableHead sx={tableStyles.tHead}>
@@ -135,9 +129,7 @@ const TicketPage = () => {
           <Button
             type="button"
             onClick={() => {
-              if (deleteFunc.current) {
-                deleteFunc.current();
-              }
+              setTickers(tickers.filter((item) => item.id !== deleteId.current));
               setConfirmActive(false);
             }}
           >

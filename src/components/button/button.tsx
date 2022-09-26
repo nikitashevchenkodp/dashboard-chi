@@ -8,7 +8,7 @@ const Button = ({ variant, size, children, ...restProps }: ButtonProp) => {
   const btnClasses = classNames({
     btn: true,
     'btn--outlined': variant === 'outlined',
-    'btn--medium': size === 'medium',
+    'btn--transparent': variant === 'transparent',
   });
 
   return (

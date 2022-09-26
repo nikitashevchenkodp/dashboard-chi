@@ -1,4 +1,7 @@
 .btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background-color: #3751ff;
   color: #fff;
   padding: 15px 0;
@@ -11,5 +14,17 @@
   cursor: pointer;
   &:hover {
     transform: scale(1.02);
+  }
+  &--transparent {
+    border: none;
+    outline: none;
+    font-weight: 600;
+    line-height: 20px;
+    font-size: 14px;
+    color: #3751ff;
+    background-color: transparent;
+    box-shadow: none;
+    margin-left: auto;
+    cursor: pointer;
   }
 }
