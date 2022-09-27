@@ -12,43 +12,46 @@ const SideBar = ({ change }: SidebarProps) => {
   // const isActive = location.pathname === item.To;
   console.log(location);
 
-  const to = [
+  const pathTo = [
     { name: 'Overview', to: 'overview', Icon: OverviewIcon },
     { name: 'Tickets', to: 'tickets', Icon: TicketsIcon },
     { name: 'Contacts', to: 'contacts', Icon: ContactsIcon },
   ];
 
-  const links = to.map(({ to, name, Icon }) => {
+  const links = pathTo.map(({ to, name, Icon }) => {
     // if (location.pathname.includes(to)) {
     //   change(name);
     // }
     return (
-      <NavLink
-        onClick={() => change(name)}
-        key={to}
-        to={to}
-        className={({ isActive }) => (isActive ? 'nav__item nav__item--active' : 'nav__item')}
-      >
-        <Icon />
-        <p>{name}</p>
-      </NavLink>
+      <li key={to}>
+        <NavLink
+          onClick={() => change(name)}
+          to={to}
+          className={({ isActive }) => (isActive ? 'nav__item nav__item--active' : 'nav__item')}
+        >
+          <Icon />
+          <p>{name}</p>
+        </NavLink>
+      </li>
     );
   });
 
   return (
     <div className="side-bar">
       <Logo position="horizontal" />
-      <div className="nav nav--with-border">{links}</div>
-      <div className="nav">
-        <NavLink
-          onClick={() => change('Settings')}
-          to="settings"
-          className={({ isActive }) => (isActive ? 'nav__item nav__item--active' : 'nav__item')}
-        >
-          <SettingsIcon />
-          <p>Settings</p>
-        </NavLink>
-      </div>
+      <ul className="nav nav--with-border">{links}</ul>
+      <ul className="nav">
+        <li>
+          <NavLink
+            onClick={() => change('Settings')}
+            to="settings"
+            className={({ isActive }) => (isActive ? 'nav__item nav__item--active' : 'nav__item')}
+          >
+            <SettingsIcon />
+            <p>Settings</p>
+          </NavLink>
+        </li>
+      </ul>
     </div>
   );
 };

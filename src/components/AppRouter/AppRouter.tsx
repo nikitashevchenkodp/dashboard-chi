@@ -9,11 +9,11 @@ const AppRouter = () => {
 
   const { user } = MainState();
 
-  const publick = publickRoutes.map(({ path, Component }) => {
+  const publickRoute = publickRoutes.map(({ path, Component }) => {
     return <Route key={path} path={path} element={<Component />} />;
   });
 
-  const privat = privatRoutes.map(({ path, Component }) => {
+  const privatRoute = privatRoutes.map(({ path, Component }) => {
     return <Route key={path} path={path} element={<Component />} />;
   });
 
@@ -22,12 +22,12 @@ const AppRouter = () => {
       <BrowserRouter>
         {user ? (
           <Routes>
-            {privat}
+            {privatRoute}
             <Route path="*" element={<Navigate to="/admin" replace />} />
           </Routes>
         ) : (
           <Routes>
-            {publick}
+            {publickRoute}
             <Route path="*" element={<Navigate to="/login" replace />} />
           </Routes>
         )}

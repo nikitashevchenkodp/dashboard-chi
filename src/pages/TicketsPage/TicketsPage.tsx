@@ -5,13 +5,18 @@ import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from
 import { BsThreeDotsVertical } from 'react-icons/bs';
 
 import { tickerCellTitles, getTickerData, paginationIndexes, TickerItem } from '../../utils/consts';
-import ModalWindow from '../../components/ModalWindow';
-import Pagination from '../../components/Pagination';
-import Priority from '../../components/Priority';
-import ControlPanel from '../../components/ControlPanel';
-import AddTickerForm from '../../components/AddTickerForm';
-import { Button, Form } from '../../components';
-import { FormTitle } from '../../components/Form/Form';
+import {
+  Button,
+  Form,
+  FormTitle,
+  AddTickerForm,
+  ControlPanel,
+  Priority,
+  Pagination,
+  ModalWindow,
+} from '../../components';
+
+import { sortFunction } from '../../utils/sortFunction';
 
 const TicketPage = () => {
   const [tickers, setTickers] = useState<TickerItem[]>([]);
@@ -22,39 +27,6 @@ const TicketPage = () => {
   const [page, setPage] = useState(1);
   const [sort, setSort] = useState('');
   const deleteId = useRef<any>();
-  console.log(sort);
-
-  const changeToNumber = (priority: string) => {
-    switch (priority) {
-      case 'high':
-        return 0;
-      case 'normal':
-        return 1;
-      case 'low':
-        return 2;
-      default:
-        return 0;
-    }
-  };
-
-  const sortFunction = (items: TickerItem[], sortType: string) => {
-    switch (sortType) {
-      case 'name':
-        return items.sort((a, b) => {
-          if (a.name > b.name) {
-            return 1;
-          }
-          if (a.name < b.name) {
-            return -1;
-          }
-          return 0;
-        });
-      case 'priority':
-        return items.sort((a, b) => changeToNumber(a.status) - changeToNumber(b.status));
-      default:
-        return items;
-    }
-  };
 
   const paginationItems = Math.ceil(tickers?.length / perPage);
   const [start, end] = paginationIndexes(page, perPage);
@@ -108,11 +80,7 @@ const TicketPage = () => {
                   .map((row, i) => (
                     <TableRow
                       key={i}
-                      sx={{
-                        '&:last-child td, &:last-child th': { border: 0 },
-                        cursor: 'pointer',
-                        '&:hover': { background: 'rgba(55, 81, 255, 0.04)' },
-                      }}
+                      sx={tableStyles.tableRowBody}
                       onClick={() => {
                         setCurrentId(row.id);
                         setActive(true);
@@ -203,6 +171,11 @@ const tableStyles = {
       height: '100%',
       borderRadius: '50%',
     },
+  },
+  tableRowBody: {
+    '&:last-child td, &:last-child th': { border: 0 },
+    cursor: 'pointer',
+    '&:hover': { background: 'rgba(55, 81, 255, 0.04)' },
   },
   mainCellImg: { width: '44px', borderRadius: '50%', overflow: 'hidden' },
   cellTitle: { fontSize: '14px', fontWeight: '600', lineHeight: '20px', marginBottom: '4px' },

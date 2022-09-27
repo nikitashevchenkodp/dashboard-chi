@@ -1,11 +1,4 @@
-import user1 from '../asset/customers_avatarr/customer_1.svg';
-import user2 from '../asset/customers_avatarr/customer_2.svg';
-import user3 from '../asset/customers_avatarr/customer_3.svg';
-import user4 from '../asset/customers_avatarr/customer_4.svg';
-import user5 from '../asset/customers_avatarr/customer_5.svg';
-import user6 from '../asset/customers_avatarr/customer_6.svg';
-import user7 from '../asset/customers_avatarr/customer_7.svg';
-import user8 from '../asset/customers_avatarr/customer_8.svg';
+import { user1, user2, user3, user4, user5, user6, user7, user8 } from '../asset';
 
 export const PATHS = {
   LOGIN_PAGE: '/login',

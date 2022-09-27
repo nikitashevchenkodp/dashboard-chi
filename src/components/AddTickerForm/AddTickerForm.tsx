@@ -1,3 +1,4 @@
+import Select from '../Select';
 import React, { useEffect, useState } from 'react';
 import { useForm } from '../../hooks/useForm';
 import { TickerItem } from '../../utils/consts';
@@ -94,24 +95,13 @@ const AddTickerForm = ({ updateFunction, id, setActive, getItem }: AddTickerForm
         value={form.date}
         onChange={changeHandler}
       />
-      {/* <Input
-        id="status"
+      <Select
         name="status"
-        label="priority"
-        placeholder="Choose priority"
-        type="select"
         value={form.status}
+        placeholder="Choose value"
         onChange={changeHandler}
-      /> */}
-      <select style={{ width: '100%' }} name="status" onChange={changeHandler} value={form.status}>
-        <option value="" disabled>
-          choose value
-        </option>
-        <option value="high">high</option>
-        <option value="low">low</option>
-        <option value="normal">normal</option>
-      </select>
-
+        options={['high', 'normal', 'low']}
+      />
       <Button type="submit">Save</Button>
       <div style={{ display: 'flex' }}>
         <button

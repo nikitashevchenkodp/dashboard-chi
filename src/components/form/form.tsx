@@ -8,7 +8,7 @@ type FormProps = {
 
 const Form = ({ children, onSubmit }: FormProps) => {
   return (
-    <form className="form" onSubmit={(e) => onSubmit && onSubmit(e)}>
+    <form className="form" onSubmit={onSubmit}>
       {children}
       <div className="form__footer"></div>
     </form>
