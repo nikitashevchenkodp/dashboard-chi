@@ -11,6 +11,9 @@ import Pagination from '../../components/Pagination';
 import ControlPanel from '../../components/ControlPanel';
 import { Button, Form } from '../../components';
 import { FormTitle } from '../../components/Form/Form';
+import { sortFunctionCustomer } from '../../utils/sortFunction';
+import { filterCustomerFunction } from '../../utils/filterFunction';
+import { transformData } from '../../utils/transformData';
 
 const CustomersPage = () => {
   const [customers, setCustomers] = useState<CustomerItem[]>([]);
@@ -20,6 +23,7 @@ const CustomersPage = () => {
   const [perPage, setPerPage] = useState<number>(4);
   const [page, setPage] = useState(1);
   const [sort, setSort] = useState('');
+  const [filter, setFilter] = useState('');
   const deleteFunc = useRef<any>();
   const paginationItems = Math.ceil(customers?.length / perPage);
   const [start, end] = paginationIndexes(page, perPage);
@@ -57,7 +61,14 @@ const CustomersPage = () => {
     <>
       <div className="container">
         <div className="white-container">
-          <ControlPanel setSort={setSort} setCurrentId={setCurrentId} setActive={setActive} />
+          <ControlPanel
+            setSort={setSort}
+            setCurrentId={setCurrentId}
+            setActive={setActive}
+            sortCriterias={['name', 'date']}
+            setFilter={setFilter}
+            filter={filter}
+          />
           <TableContainer className="table__container">
             <Table stickyHeader sx={{ minWidth: '1000px' }} aria-label="simple table">
               <TableHead sx={tableStyles.tHead}>
@@ -71,48 +82,50 @@ const CustomersPage = () => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {customers?.slice(start, end).map((row, i) => (
-                  <TableRow
-                    key={i}
-                    sx={{
-                      '&:last-child td, &:last-child th': { border: 0 },
-                      cursor: 'pointer',
-                      '&:hover': { background: 'rgba(55, 81, 255, 0.04)' },
-                      height: 'auto',
-                      paddingLeft: '16px',
-                      paddingRight: '16px',
-                    }}
-                    onClick={() => {
-                      setCurrentId(row.id);
-                      setActive(true);
-                    }}
-                  >
-                    <TableCell>
-                      <div style={tableStyles.mainCell}>
-                        <div style={tableStyles.mainCellImg}>
-                          <img style={tableStyles.cellImg} src={row.image} alt="user_avatar" />
+                {filterCustomerFunction(sortFunctionCustomer(customers, sort), filter)
+                  ?.slice(start, end)
+                  .map((row, i) => (
+                    <TableRow
+                      key={i}
+                      sx={{
+                        '&:last-child td, &:last-child th': { border: 0 },
+                        cursor: 'pointer',
+                        '&:hover': { background: 'rgba(55, 81, 255, 0.04)' },
+                        height: 'auto',
+                        paddingLeft: '16px',
+                        paddingRight: '16px',
+                      }}
+                      onClick={() => {
+                        setCurrentId(row.id);
+                        setActive(true);
+                      }}
+                    >
+                      <TableCell>
+                        <div style={tableStyles.mainCell}>
+                          <div style={tableStyles.mainCellImg}>
+                            <img style={tableStyles.cellImg} src={row.image} alt="user_avatar" />
+                          </div>
+                          <div>
+                            <p style={tableStyles.cellTitle}>
+                              {row.first_name} {row.last_name}
+                            </p>
+                          </div>
                         </div>
-                        <div>
-                          <p style={tableStyles.cellTitle}>
-                            {row.first_name} {row.last_name}
-                          </p>
-                        </div>
-                      </div>
-                    </TableCell>
-                    <TableCell sx={{ minWidth: '80px', width: '20%', overflowX: 'auto' }} align="left">
-                      <p style={tableStyles.cellTitle}>{row.email}</p>
-                    </TableCell>
-                    <TableCell sx={{ minWidth: '80px', width: '30%', overflowX: 'auto' }} align="left">
-                      <p style={tableStyles.cellTitle}>{row.address}</p>
-                    </TableCell>
-                    <TableCell sx={{ minWidth: '80px', width: '10%', overflowX: 'auto' }} align="left">
-                      <p style={tableStyles.cellTitle}>{row.date}</p>
-                    </TableCell>
-                    <TableCell sx={{ minWidth: '30px', width: '5%', overflowX: 'auto' }} align="left">
-                      <BsThreeDotsVertical color="#C5C7CD" onClick={(e) => deleteItem(e, row.id)} />
-                    </TableCell>
-                  </TableRow>
-                ))}
+                      </TableCell>
+                      <TableCell sx={{ minWidth: '80px', width: '20%', overflowX: 'auto' }} align="left">
+                        <p style={tableStyles.cellTitle}>{row.email}</p>
+                      </TableCell>
+                      <TableCell sx={{ minWidth: '80px', width: '30%', overflowX: 'auto' }} align="left">
+                        <p style={tableStyles.cellTitle}>{row.address}</p>
+                      </TableCell>
+                      <TableCell sx={{ minWidth: '80px', width: '10%', overflowX: 'auto' }} align="left">
+                        <p style={tableStyles.cellTitle}>{transformData(row.date)}</p>
+                      </TableCell>
+                      <TableCell sx={{ minWidth: '30px', width: '5%', overflowX: 'auto' }} align="left">
+                        <BsThreeDotsVertical color="#C5C7CD" onClick={(e) => deleteItem(e, row.id)} />
+                      </TableCell>
+                    </TableRow>
+                  ))}
               </TableBody>
             </Table>
           </TableContainer>

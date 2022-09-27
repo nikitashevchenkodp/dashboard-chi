@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import './TicketsPage.scss';
 
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
-import { BsThreeDotsVertical } from 'react-icons/bs';
+import { BsFilter, BsThreeDotsVertical } from 'react-icons/bs';
 
 import { tickerCellTitles, getTickerData, paginationIndexes, TickerItem } from '../../utils/consts';
 import {
@@ -16,16 +16,27 @@ import {
   ModalWindow,
 } from '../../components';
 
-import { sortFunction } from '../../utils/sortFunction';
+import { sortFunctionTicker } from '../../utils/sortFunction';
+import { filterTickerFunction } from '../../utils/filterFunction';
+import { transformData } from '../../utils/transformData';
 
 const TicketPage = () => {
+  console.log('ticketPage');
+
   const [tickers, setTickers] = useState<TickerItem[]>([]);
+  //Modal with AddForm
   const [active, setActive] = useState<boolean>(false);
+  //Modal for confirm removal item
   const [confirmActive, setConfirmActive] = useState<boolean>(false);
+  //State for editing or adding new item
   const [currentId, setCurrentId] = useState<number | null>(null);
+  //Pagination state
   const [perPage, setPerPage] = useState<number>(4);
   const [page, setPage] = useState(1);
+  //Sort and filter state
   const [sort, setSort] = useState('');
+  const [filter, setFilter] = useState('');
+
   const deleteId = useRef<any>();
 
   const paginationItems = Math.ceil(tickers?.length / perPage);
@@ -61,7 +72,14 @@ const TicketPage = () => {
     <>
       <div className="container">
         <div className="white-container">
-          <ControlPanel setSort={setSort} setCurrentId={setCurrentId} setActive={setActive} />
+          <ControlPanel
+            setSort={setSort}
+            setCurrentId={setCurrentId}
+            setActive={setActive}
+            sortCriterias={['name', 'date', 'priority']}
+            setFilter={setFilter}
+            filter={filter}
+          />
           <TableContainer className="table__container">
             <Table stickyHeader sx={{ minWidth: '1000px' }} aria-label="simple table">
               <TableHead sx={tableStyles.tHead}>
@@ -75,7 +93,7 @@ const TicketPage = () => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {sortFunction(tickers, sort)
+                {filterTickerFunction(sortFunctionTicker(tickers, sort), filter)
                   ?.slice(start, end)
                   .map((row, i) => (
                     <TableRow
@@ -86,13 +104,15 @@ const TicketPage = () => {
                         setActive(true);
                       }}
                     >
-                      <TableCell sx={tableStyles.mainCell}>
-                        <div style={tableStyles.mainCellImg}>
-                          <img src={row.image} alt="user_avatar" />
-                        </div>
-                        <div>
-                          <p style={tableStyles.cellTitle}>{row.details_text}</p>
-                          <p style={tableStyles.cellText}>Updated 1 day ago</p>
+                      <TableCell>
+                        <div style={tableStyles.mainCell}>
+                          <div style={tableStyles.mainCellImg}>
+                            <img src={row.image} alt="user_avatar" />
+                          </div>
+                          <div>
+                            <p style={tableStyles.cellTitle}>{row.details_text}</p>
+                            <p style={tableStyles.cellText}>Updated 1 day ago</p>
+                          </div>
                         </div>
                       </TableCell>
                       <TableCell sx={{ minWidth: '80px', width: '20%', overflowX: 'auto' }} align="left">
@@ -100,7 +120,7 @@ const TicketPage = () => {
                         <p style={tableStyles.cellText}>on {'24.05.2019'}</p>
                       </TableCell>
                       <TableCell sx={{ minWidth: '80px', width: '20%', overflowX: 'auto' }} align="left">
-                        <p style={tableStyles.cellTitle}>{row.date}</p>
+                        <p style={tableStyles.cellTitle}>{transformData(row.date)}</p>
                         <p style={tableStyles.cellText}>on {'6:30PM'}</p>
                       </TableCell>
                       <TableCell sx={{ minWidth: '80px', width: '10%', overflowX: 'auto' }} align="left">
@@ -165,7 +185,6 @@ const tableStyles = {
     paddingBottm: '24px',
     alignItems: 'center',
     minWidth: '300px',
-    overflowX: 'auto',
     gap: '24px',
     img: {
       height: '100%',

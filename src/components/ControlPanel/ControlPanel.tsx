@@ -1,16 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import './ControlPanel.scss';
-import filter from '../../asset/filter.svg';
+import filterIcon from '../../asset/filter.svg';
 import sort from '../../asset/sort.svg';
 import Options from '../Options';
+import Sort from '../Sort';
+import Filter from '../Filter';
 
 type ControlPanelProps = {
   setActive: (active: boolean) => void;
   setCurrentId: (id: null) => void;
   setSort: (sort: string) => void;
+  sortCriterias: string[];
+  setFilter: (filter: string) => void;
+  filter: string;
 };
 
-const ControlPanel = ({ setActive, setCurrentId, setSort }: ControlPanelProps) => {
+const ControlPanel = ({ setActive, setCurrentId, setSort, sortCriterias, setFilter, filter }: ControlPanelProps) => {
   const [activeSort, setActiveSort] = useState<boolean>(false);
   const [activeFilter, setActiveFilter] = useState<boolean>(false);
 
@@ -36,27 +41,14 @@ const ControlPanel = ({ setActive, setCurrentId, setSort }: ControlPanelProps) =
         <img className="controll-panel__icon" src={sort} alt="" />
         <p className="controll-panel_text">Sort</p>
         <Options active={activeSort} setActive={setActiveSort}>
-          <div>
-            <input name="sort" type="radio" value="name" onChange={changeSort} />
-            <label htmlFor="">Name</label>
-          </div>
-          <div>
-            {' '}
-            <input name="sort" type="radio" value="date" onChange={changeSort} />
-            <label htmlFor="">Date</label>
-          </div>
-          <div>
-            {' '}
-            <input name="sort" type="radio" value="priority" onChange={changeSort} />
-            <label htmlFor="">Priority</label>
-          </div>
+          <Sort sortCriterias={sortCriterias} onChange={changeSort} />
         </Options>
       </div>
       <div className="controll-panel__item" onClick={openFilters}>
-        <img className="controll-panel__icon" src={filter} alt="" />
+        <img className="controll-panel__icon" src={filterIcon} alt="" />
         <p className="controll-panel_text">Filter</p>
         <Options active={activeFilter} setActive={setActiveFilter}>
-          Filter
+          <Filter filter={filter} setFilter={setFilter} />
         </Options>
       </div>
       <button

@@ -1,0 +1,52 @@
+.setting-page__inner {
+  display: flex;
+  gap: 40px;
+  align-items: flex-start;
+}
+
+.card {
+  background-color: #fff;
+  border-radius: 15px;
+  border: 1px solid #dfe0eb;
+  &__header {
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 26px;
+    border-bottom: 1px solid rgb(225, 229, 235);
+    padding: 15px;
+  }
+  &__body {
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  &__avatar {
+    width: 60%;
+    border-radius: 50%;
+    overflow: hidden;
+  }
+  &__text-m {
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 26px;
+  }
+  &__text-s {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 26px;
+  }
+}
+
+.w30perc {
+  width: 50%;
+}
+
+.w100perc {
+  width: 100%;
+}
+
+.align-items-center {
+  align-items: center;
+}
