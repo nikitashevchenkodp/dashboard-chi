@@ -16,6 +16,8 @@
     transform: scale(1.02);
   }
   &--transparent {
+    width: auto;
+    padding: 0;
     border: none;
     outline: none;
     font-weight: 600;

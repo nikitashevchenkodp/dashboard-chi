@@ -13,7 +13,7 @@ const SideBar = ({ change }: SidebarProps) => {
   console.log(location);
 
   const to = [
-    { name: 'Overviev', to: 'overview', Icon: OverviewIcon },
+    { name: 'Overview', to: 'overview', Icon: OverviewIcon },
     { name: 'Tickets', to: 'tickets', Icon: TicketsIcon },
     { name: 'Contacts', to: 'contacts', Icon: ContactsIcon },
   ];

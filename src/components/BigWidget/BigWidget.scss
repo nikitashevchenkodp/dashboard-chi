@@ -1,0 +1,15 @@
+.big-widget {
+  background-color: #fff;
+  display: flex;
+  border: 1px solid #dfe0eb;
+
+  &__chart {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 70%;
+  }
+  &__group {
+    width: 30%;
+  }
+}

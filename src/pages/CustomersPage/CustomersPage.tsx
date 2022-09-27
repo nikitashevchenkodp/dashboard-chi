@@ -19,6 +19,7 @@ const CustomersPage = () => {
   const [currentId, setCurrentId] = useState<number | null>(null);
   const [perPage, setPerPage] = useState<number>(4);
   const [page, setPage] = useState(1);
+  const [sort, setSort] = useState('');
   const deleteFunc = useRef<any>();
   const paginationItems = Math.ceil(customers?.length / perPage);
   const [start, end] = paginationIndexes(page, perPage);
@@ -56,9 +57,9 @@ const CustomersPage = () => {
     <>
       <div className="container">
         <div className="white-container">
-          <ControlPanel setCurrentId={setCurrentId} setActive={setActive} />
+          <ControlPanel setSort={setSort} setCurrentId={setCurrentId} setActive={setActive} />
           <TableContainer className="table__container">
-            <Table sx={{ minWidth: '1000px' }} aria-label="simple table">
+            <Table stickyHeader sx={{ minWidth: '1000px' }} aria-label="simple table">
               <TableHead sx={tableStyles.tHead}>
                 <TableRow>
                   {customersCellTitles.map((title) => (
@@ -66,6 +67,7 @@ const CustomersPage = () => {
                       {title}
                     </TableCell>
                   ))}
+                  <TableCell align="left"></TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>

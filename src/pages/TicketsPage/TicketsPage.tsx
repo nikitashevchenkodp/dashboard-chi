@@ -20,7 +20,41 @@ const TicketPage = () => {
   const [currentId, setCurrentId] = useState<number | null>(null);
   const [perPage, setPerPage] = useState<number>(4);
   const [page, setPage] = useState(1);
+  const [sort, setSort] = useState('');
   const deleteId = useRef<any>();
+  console.log(sort);
+
+  const changeToNumber = (priority: string) => {
+    switch (priority) {
+      case 'high':
+        return 0;
+      case 'normal':
+        return 1;
+      case 'low':
+        return 2;
+      default:
+        return 0;
+    }
+  };
+
+  const sortFunction = (items: TickerItem[], sortType: string) => {
+    switch (sortType) {
+      case 'name':
+        return items.sort((a, b) => {
+          if (a.name > b.name) {
+            return 1;
+          }
+          if (a.name < b.name) {
+            return -1;
+          }
+          return 0;
+        });
+      case 'priority':
+        return items.sort((a, b) => changeToNumber(a.status) - changeToNumber(b.status));
+      default:
+        return items;
+    }
+  };
 
   const paginationItems = Math.ceil(tickers?.length / perPage);
   const [start, end] = paginationIndexes(page, perPage);
@@ -55,9 +89,9 @@ const TicketPage = () => {
     <>
       <div className="container">
         <div className="white-container">
-          <ControlPanel setCurrentId={setCurrentId} setActive={setActive} />
+          <ControlPanel setSort={setSort} setCurrentId={setCurrentId} setActive={setActive} />
           <TableContainer className="table__container">
-            <Table sx={{ minWidth: '1000px' }} aria-label="simple table">
+            <Table stickyHeader sx={{ minWidth: '1000px' }} aria-label="simple table">
               <TableHead sx={tableStyles.tHead}>
                 <TableRow>
                   {tickerCellTitles.map((title) => (
@@ -65,47 +99,50 @@ const TicketPage = () => {
                       {title}
                     </TableCell>
                   ))}
+                  <TableCell align="left"></TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
-                {tickers?.slice(start, end).map((row, i) => (
-                  <TableRow
-                    key={i}
-                    sx={{
-                      '&:last-child td, &:last-child th': { border: 0 },
-                      cursor: 'pointer',
-                      '&:hover': { background: 'rgba(55, 81, 255, 0.04)' },
-                    }}
-                    onClick={() => {
-                      setCurrentId(row.id);
-                      setActive(true);
-                    }}
-                  >
-                    <TableCell sx={tableStyles.mainCell}>
-                      <div style={tableStyles.mainCellImg}>
-                        <img src={row.image} alt="user_avatar" />
-                      </div>
-                      <div>
-                        <p style={tableStyles.cellTitle}>{row.details_text}</p>
-                        <p style={tableStyles.cellText}>Updated 1 day ago</p>
-                      </div>
-                    </TableCell>
-                    <TableCell sx={{ minWidth: '80px', width: '20%', overflowX: 'auto' }} align="left">
-                      <p style={tableStyles.cellTitle}>{row.name}</p>
-                      <p style={tableStyles.cellText}>on {'24.05.2019'}</p>
-                    </TableCell>
-                    <TableCell sx={{ minWidth: '80px', width: '20%', overflowX: 'auto' }} align="left">
-                      <p style={tableStyles.cellTitle}>{row.date}</p>
-                      <p style={tableStyles.cellText}>on {'6:30PM'}</p>
-                    </TableCell>
-                    <TableCell sx={{ minWidth: '80px', width: '10%', overflowX: 'auto' }} align="left">
-                      <Priority status={row.status} />
-                    </TableCell>
-                    <TableCell sx={{ minWidth: '30px', width: '5%', overflowX: 'auto' }} align="left">
-                      <BsThreeDotsVertical color="#C5C7CD" onClick={(e) => deleteItem(e, row.id)} />
-                    </TableCell>
-                  </TableRow>
-                ))}
+                {sortFunction(tickers, sort)
+                  ?.slice(start, end)
+                  .map((row, i) => (
+                    <TableRow
+                      key={i}
+                      sx={{
+                        '&:last-child td, &:last-child th': { border: 0 },
+                        cursor: 'pointer',
+                        '&:hover': { background: 'rgba(55, 81, 255, 0.04)' },
+                      }}
+                      onClick={() => {
+                        setCurrentId(row.id);
+                        setActive(true);
+                      }}
+                    >
+                      <TableCell sx={tableStyles.mainCell}>
+                        <div style={tableStyles.mainCellImg}>
+                          <img src={row.image} alt="user_avatar" />
+                        </div>
+                        <div>
+                          <p style={tableStyles.cellTitle}>{row.details_text}</p>
+                          <p style={tableStyles.cellText}>Updated 1 day ago</p>
+                        </div>
+                      </TableCell>
+                      <TableCell sx={{ minWidth: '80px', width: '20%', overflowX: 'auto' }} align="left">
+                        <p style={tableStyles.cellTitle}>{row.name}</p>
+                        <p style={tableStyles.cellText}>on {'24.05.2019'}</p>
+                      </TableCell>
+                      <TableCell sx={{ minWidth: '80px', width: '20%', overflowX: 'auto' }} align="left">
+                        <p style={tableStyles.cellTitle}>{row.date}</p>
+                        <p style={tableStyles.cellText}>on {'6:30PM'}</p>
+                      </TableCell>
+                      <TableCell sx={{ minWidth: '80px', width: '10%', overflowX: 'auto' }} align="left">
+                        <Priority status={row.status} />
+                      </TableCell>
+                      <TableCell sx={{ minWidth: '30px', width: '5%', overflowX: 'auto' }} align="left">
+                        <BsThreeDotsVertical color="#C5C7CD" onClick={(e) => deleteItem(e, row.id)} />
+                      </TableCell>
+                    </TableRow>
+                  ))}
               </TableBody>
             </Table>
           </TableContainer>

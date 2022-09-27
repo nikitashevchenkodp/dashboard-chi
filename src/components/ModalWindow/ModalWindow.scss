@@ -11,6 +11,7 @@
   opacity: 0;
   pointer-events: none;
   transition: 0.5s;
+  z-index: 100;
 }
 
 .modal__window.active {
@@ -22,6 +23,7 @@
   max-width: 90%;
   margin: 0 auto;
   background-color: #fff;
+  z-index: 200;
 
   transform: scale(0.5);
   transition: 0.4s;

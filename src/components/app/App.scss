@@ -76,3 +76,12 @@ img {
   overflow-x: auto;
   max-height: 70vh;
 }
+
+.widgets__container {
+  display: flex;
+  gap: 30px;
+}
+
+.brs8 {
+  border-radius: 8px;
+}

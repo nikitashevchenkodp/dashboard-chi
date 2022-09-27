@@ -130,7 +130,7 @@ const tickerBodyData: TickerItem[] = [
     id: 1,
     image: user1,
     details_text: 'Contact Email not Linked',
-    name: 'Tom Cruise',
+    name: 'Elena Cruise',
     date: 'May 26, 2019',
     status: 'high',
     // update: {
@@ -142,7 +142,7 @@ const tickerBodyData: TickerItem[] = [
     id: 2,
     image: user2,
     details_text: 'Contact Email not Linked',
-    name: 'Tom Cruise',
+    name: 'MashaCruise',
     date: 'May 26, 2019',
     status: 'low',
     // update: {
@@ -154,7 +154,7 @@ const tickerBodyData: TickerItem[] = [
     id: 3,
     image: user3,
     details_text: 'Contact Email not Linked',
-    name: 'Tom Cruise',
+    name: 'Ivan Cruise',
     date: 'May 26, 2019',
     status: 'normal',
     // update: {
@@ -178,7 +178,7 @@ const tickerBodyData: TickerItem[] = [
     id: 5,
     image: user5,
     details_text: 'Contact Email not Linked',
-    name: 'Tom Cruise',
+    name: 'Ostap Cruise',
     date: 'May 26, 2019',
     status: 'high',
     // update: {
@@ -202,7 +202,7 @@ const tickerBodyData: TickerItem[] = [
     id: 7,
     image: user7,
     details_text: 'Contact Email not Linked',
-    name: 'Tom Cruise',
+    name: 'Alex Cruise',
     date: 'May 26, 2019',
     status: 'high',
     // update: {

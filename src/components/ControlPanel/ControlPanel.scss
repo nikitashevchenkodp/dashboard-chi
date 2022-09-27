@@ -5,6 +5,8 @@
     display: flex;
     align-items: center;
     margin-right: 32px;
+    position: relative;
+    cursor: pointer;
   }
   &__text {
     color: #4b506d;
@@ -27,5 +29,19 @@
     background-color: transparent;
     margin-left: auto;
     cursor: pointer;
+  }
+}
+
+.options {
+  display: none;
+  position: absolute;
+  background-color: #fff;
+  padding: 15px;
+  z-index: 3;
+  bottom: -95px;
+  width: 120px;
+  box-shadow: 0 0 20px 20px rgba($color: #000000, $alpha: 0.1);
+  &--open {
+    display: block;
   }
 }

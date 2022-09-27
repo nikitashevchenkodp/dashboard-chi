@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Navigate, Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
 import Header from '../../components/Header';
 import SideBar from '../../components/SideBar';
 import CustomersPage from '../CustomersPage';
@@ -10,6 +10,9 @@ import './AdminPage.scss';
 
 const AdminPage = () => {
   const [headerTitle, setHeaderTitle] = useState<string | null>('Overview');
+  const location = useLocation();
+  // const isActive = location.pathname === item.To;
+  console.log(location);
 
   return (
     <div className="admin-page">
