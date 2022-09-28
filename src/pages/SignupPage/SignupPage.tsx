@@ -1,6 +1,6 @@
 import React from 'react';
 import { Form, Button, Input } from '../../components';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Logo from '../../components/Logo';
 import { FormTitle } from '../../components/Form/Form';
 
@@ -19,9 +19,9 @@ const SignUpPage = () => {
         <Input id="confirm_password" type="password" label="Confirm password" />
         <Button>Sign Up</Button>
         <span className="form__question">Already have an account? </span>
-        <button className="form__change" onClick={() => navigate('/login')}>
+        <Link to="/login" className="form__change">
           Log In
-        </button>
+        </Link>
       </Form>
     </div>
   );

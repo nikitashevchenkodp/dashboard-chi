@@ -13,9 +13,11 @@
     "@types/node": "^18.7.18",
     "@types/react": "^18.0.20",
     "@types/react-dom": "^18.0.6",
+    "chart.js": "^3.9.1",
     "classnames": "^2.3.2",
     "dayjs": "^1.11.5",
     "react": "^18.2.0",
+    "react-chartjs-2": "^4.3.1",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.35.0",
     "react-icons": "^4.4.0",
@@ -51,6 +53,7 @@
     ]
   },
   "devDependencies": {
+    "@types/chart.js": "^2.9.37",
     "@types/styled-components": "^5.1.26"
   }
 }

@@ -1,10 +1,20 @@
 import { CustomerItem, TickerItem } from './consts';
 
 export const filterTickerFunction = (items: TickerItem[], filter: string) => {
-  const res = items.filter((item) => item.name.toLowerCase().indexOf(filter.toLowerCase()) >= 0);
-  return !res.length ? items : res;
+  console.log('work filter function');
+
+  return items.filter(
+    (item) =>
+      item.name.toLowerCase().includes(filter.toLowerCase()) ||
+      item.details_text.toLowerCase().includes(filter.toLowerCase())
+  );
 };
 export const filterCustomerFunction = (items: CustomerItem[], filter: string) => {
-  const res = items.filter((item) => item.first_name.toLowerCase().indexOf(filter.toLowerCase()) >= 0);
-  return !res.length ? items : res;
+  return items.filter(
+    (item) =>
+      item.first_name.toLowerCase().includes(filter.toLowerCase()) ||
+      item.last_name.toLowerCase().includes(filter.toLowerCase()) ||
+      item.email.toLowerCase().includes(filter.toLowerCase()) ||
+      item.address.toLowerCase().includes(filter.toLowerCase())
+  );
 };

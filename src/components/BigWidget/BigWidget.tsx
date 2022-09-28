@@ -1,13 +1,14 @@
 import React from 'react';
 import SmallWidget from '../SmallWidget';
-import chart from '../../asset/chart.png';
+// import chart from '../../asset/chart.png';
 import './BigWidget.scss';
+import ChartLine from '../ChartLine';
 
 const BigWidget = () => {
   return (
     <div className="big-widget">
       <div className="big-widget__chart">
-        <img src={chart} alt="" />
+        <ChartLine />
       </div>
       <div className="big-widget__group">
         <SmallWidget title="Resolved" value="449" border />

@@ -5,10 +5,16 @@ import { Button, Input } from '../../components';
 import { useForm } from '../../hooks/useForm';
 
 const SettingsPage = () => {
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [email, setEmail] = useState('');
-  const [address, setAddress] = useState('');
+  // const [firstName, setFirstName] = useState('');
+  // const [lastName, setLastName] = useState('');
+  // const [email, setEmail] = useState('');
+  // const [address, setAddress] = useState('');
+  const [form, handleChange] = useForm({
+    firstName: 'Nikita',
+    lastName: 'Shevchenko',
+    email: 'sdfgsfgf@gmail.com',
+    address: 'Dnipro Lipova st. b.234 f. 345345',
+  });
   const [data, setData] = useState({
     firstName: 'Nikita',
     lastName: 'Shevchenko',
@@ -17,12 +23,7 @@ const SettingsPage = () => {
   });
 
   const handleClick = () => {
-    setData({
-      firstName,
-      lastName,
-      email,
-      address,
-    });
+    setData(form);
   };
 
   return (
@@ -45,36 +46,29 @@ const SettingsPage = () => {
           <div className="card__header">Profile Settings</div>
           <div className="card__body">
             <Input
-              id="first_name"
-              name="first_name"
+              id="firstName"
+              name="firstName"
               type="text"
               label="First name"
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
+              value={form.firstName}
+              onChange={handleChange}
             />
             <Input
-              id="last_name"
-              name="lasT_name"
+              id="lastName"
+              name="lastName"
               type="text"
               label="Last name"
-              value={lastName}
-              onChange={(e) => setLastName(e.target.value)}
+              value={form.lastName}
+              onChange={handleChange}
             />
-            <Input
-              id="email"
-              name="email"
-              type="email"
-              label="Email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
+            <Input id="email" name="email" type="email" label="Email" value={form.email} onChange={handleChange} />
             <Input
               id="address"
               name="address"
               type="text"
               label="Adress"
-              value={address}
-              onChange={(e) => setAddress(e.target.value)}
+              value={form.address}
+              onChange={handleChange}
             />
             <Button onClick={handleClick}>Save changes</Button>
           </div>

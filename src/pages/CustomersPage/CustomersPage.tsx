@@ -1,19 +1,20 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import './CustomersPage.scss';
 
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 import { BsThreeDotsVertical } from 'react-icons/bs';
 
-import { CustomerItem, customersCellTitles, getCustomerData, paginationIndexes } from '../../utils/consts';
-import ModalWindow from '../../components/ModalWindow';
-import AddCustomerForm from '../../components/AddCustomerForm';
-import Pagination from '../../components/Pagination';
-import ControlPanel from '../../components/ControlPanel';
-import { Button, Form } from '../../components';
-import { FormTitle } from '../../components/Form/Form';
-import { sortFunctionCustomer } from '../../utils/sortFunction';
-import { filterCustomerFunction } from '../../utils/filterFunction';
-import { transformData } from '../../utils/transformData';
+import {
+  customersCellTitles,
+  getCustomerData,
+  paginationIndexes,
+  transformData,
+  filterCustomerFunction,
+  sortFunctionCustomer,
+} from '../../utils';
+import { Button, Form, FormTitle, ControlPanel, Pagination, ModalWindow, AddCustomerForm } from '../../components';
+import { CustomerItem } from '../../utils/consts';
+import { tableStyles } from './style';
 
 const CustomersPage = () => {
   const [customers, setCustomers] = useState<CustomerItem[]>([]);
@@ -57,6 +58,9 @@ const CustomersPage = () => {
     getCustomerData().then((res) => setCustomers(res));
   }, []);
 
+  const sortedItems = useMemo(() => sortFunctionCustomer(customers, sort), [sort, customers]);
+  const filteredItems = useMemo(() => filterCustomerFunction(sortedItems, filter), [filter, sortedItems]);
+
   return (
     <>
       <div className="container">
@@ -82,50 +86,48 @@ const CustomersPage = () => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {filterCustomerFunction(sortFunctionCustomer(customers, sort), filter)
-                  ?.slice(start, end)
-                  .map((row, i) => (
-                    <TableRow
-                      key={i}
-                      sx={{
-                        '&:last-child td, &:last-child th': { border: 0 },
-                        cursor: 'pointer',
-                        '&:hover': { background: 'rgba(55, 81, 255, 0.04)' },
-                        height: 'auto',
-                        paddingLeft: '16px',
-                        paddingRight: '16px',
-                      }}
-                      onClick={() => {
-                        setCurrentId(row.id);
-                        setActive(true);
-                      }}
-                    >
-                      <TableCell>
-                        <div style={tableStyles.mainCell}>
-                          <div style={tableStyles.mainCellImg}>
-                            <img style={tableStyles.cellImg} src={row.image} alt="user_avatar" />
-                          </div>
-                          <div>
-                            <p style={tableStyles.cellTitle}>
-                              {row.first_name} {row.last_name}
-                            </p>
-                          </div>
+                {filteredItems?.slice(start, end).map((row, i) => (
+                  <TableRow
+                    key={i}
+                    sx={{
+                      '&:last-child td, &:last-child th': { border: 0 },
+                      cursor: 'pointer',
+                      '&:hover': { background: 'rgba(55, 81, 255, 0.04)' },
+                      height: 'auto',
+                      paddingLeft: '16px',
+                      paddingRight: '16px',
+                    }}
+                    onClick={() => {
+                      setCurrentId(row.id);
+                      setActive(true);
+                    }}
+                  >
+                    <TableCell>
+                      <div style={tableStyles.mainCell}>
+                        <div style={tableStyles.mainCellImg}>
+                          <img style={tableStyles.cellImg} src={row.image} alt="user_avatar" />
                         </div>
-                      </TableCell>
-                      <TableCell sx={{ minWidth: '80px', width: '20%', overflowX: 'auto' }} align="left">
-                        <p style={tableStyles.cellTitle}>{row.email}</p>
-                      </TableCell>
-                      <TableCell sx={{ minWidth: '80px', width: '30%', overflowX: 'auto' }} align="left">
-                        <p style={tableStyles.cellTitle}>{row.address}</p>
-                      </TableCell>
-                      <TableCell sx={{ minWidth: '80px', width: '10%', overflowX: 'auto' }} align="left">
-                        <p style={tableStyles.cellTitle}>{transformData(row.date)}</p>
-                      </TableCell>
-                      <TableCell sx={{ minWidth: '30px', width: '5%', overflowX: 'auto' }} align="left">
-                        <BsThreeDotsVertical color="#C5C7CD" onClick={(e) => deleteItem(e, row.id)} />
-                      </TableCell>
-                    </TableRow>
-                  ))}
+                        <div>
+                          <p style={tableStyles.cellTitle}>
+                            {row.first_name} {row.last_name}
+                          </p>
+                        </div>
+                      </div>
+                    </TableCell>
+                    <TableCell sx={{ minWidth: '80px', width: '20%', overflowX: 'auto' }} align="left">
+                      <p style={tableStyles.cellTitle}>{row.email}</p>
+                    </TableCell>
+                    <TableCell sx={{ minWidth: '80px', width: '30%', overflowX: 'auto' }} align="left">
+                      <p style={tableStyles.cellTitle}>{row.address}</p>
+                    </TableCell>
+                    <TableCell sx={{ minWidth: '80px', width: '10%', overflowX: 'auto' }} align="left">
+                      <p style={tableStyles.cellTitle}>{transformData(row.date)}</p>
+                    </TableCell>
+                    <TableCell sx={{ minWidth: '30px', width: '5%', overflowX: 'auto' }} align="left">
+                      <BsThreeDotsVertical color="#C5C7CD" onClick={(e) => deleteItem(e, row.id)} />
+                    </TableCell>
+                  </TableRow>
+                ))}
               </TableBody>
             </Table>
           </TableContainer>
@@ -169,34 +171,6 @@ const CustomersPage = () => {
       </ModalWindow>
     </>
   );
-};
-
-const tableStyles = {
-  tHead: {
-    borderBottom: '1px solid rgba(224, 224, 224, 1)',
-  },
-  headCell: {
-    fontWeight: '700',
-    fontSize: '14px',
-    lineHeight: '18px',
-    color: '#9FA2B4',
-  },
-  mainCell: {
-    display: 'flex',
-    paddintTop: '24px',
-    paddingBottm: '24px',
-    alignItems: 'center',
-    minWidth: '200px',
-    // overflowX: 'auto',
-    gap: '24px',
-  },
-  cellImg: {
-    height: '100%',
-    borderRadius: '50%',
-  },
-  mainCellImg: { width: '44px', borderRadius: '50%', overflow: 'hidden' },
-  cellTitle: { fontSize: '14px', fontWeight: '600', lineHeight: '20px', marginBottom: '4px' },
-  cellText: { fontSize: '12px', fontWeight: '400', lineHeight: '16px', color: '#C5C7CD' },
 };
 
 export default CustomersPage;

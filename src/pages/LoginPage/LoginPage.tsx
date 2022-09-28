@@ -1,6 +1,6 @@
 import React from 'react';
 import { Form, Button, Input } from '../../components';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from '../../hooks/useForm';
 import { MainState } from '../../MainContext';
 
@@ -49,9 +49,9 @@ const LoginPage = () => {
         />
         <Button>Log In</Button>
         <span className="form__question">Don't have an account? </span>
-        <span className="form__change" onClick={() => navigate('/signup')}>
-          Sign Up
-        </span>
+        <Link to="/signup" className="form__change">
+          Log In
+        </Link>
       </Form>
     </div>
   );

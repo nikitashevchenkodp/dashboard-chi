@@ -14,6 +14,8 @@ const changeToNumber = (priority: string) => {
 };
 
 export const sortFunctionTicker = (items: TickerItem[], sortType: string) => {
+  console.log('work sort function');
+
   switch (sortType) {
     case 'name':
       return items.sort((a, b) => {
