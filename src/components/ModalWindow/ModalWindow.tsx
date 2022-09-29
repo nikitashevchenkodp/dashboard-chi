@@ -1,5 +1,4 @@
 import React from 'react';
-import { MainState } from '../../MainContext';
 import './ModalWindow.scss';
 
 type ModalWindowType = {

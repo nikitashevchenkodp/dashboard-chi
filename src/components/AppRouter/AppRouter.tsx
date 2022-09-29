@@ -5,8 +5,6 @@ import { publickRoutes, privatRoutes } from '../../routes';
 import './AppRouter.scss';
 
 const AppRouter = () => {
-  console.log('render Router');
-
   const { user } = MainState();
 
   const publickRoute = publickRoutes.map(({ path, Component }) => {

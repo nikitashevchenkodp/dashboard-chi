@@ -78,7 +78,7 @@ const customerBodyData: CustomerItem[] = [
     last_name: 'Sheldon',
     email: 'elena.sheldon@gmail.com',
     address: 'Unit 1, Moons Park, Burnt Meadow Road, Moons Moat North Industrial Estate,B98 9PA',
-    date: new Date(new Date().setDate(19)).toDateString(),
+    date: new Date().toUTCString(),
   },
   {
     id: 16,
@@ -105,7 +105,7 @@ const customerBodyData: CustomerItem[] = [
     last_name: 'Sheldon',
     email: 'elena.sheldon@gmail.com',
     address: 'South Lodge, Reddish Lane, Lymm,WA13 9PY',
-    date: new Date(new Date().setDate(5)).toDateString(),
+    date: new Date().toUTCString(),
   },
   {
     id: 19,
@@ -114,7 +114,7 @@ const customerBodyData: CustomerItem[] = [
     last_name: 'Gould',
     email: 'kim.gould@gmail.com',
     address: 'Unit 1, Moons Park, Burnt Meadow Road, Moons Moat North Industrial Estate,B98 9PA',
-    date: new Date(new Date().setDate(15)).toDateString(),
+    date: new Date().toUTCString(),
   },
 ];
 
@@ -124,7 +124,7 @@ const tickerBodyData: TickerItem[] = [
     image: user1,
     details_text: 'Contact Email not Linked',
     name: 'Elena Cruise',
-    date: new Date(new Date().setDate(29)).toDateString(),
+    date: new Date().toUTCString(),
     status: 'high',
     // update: {
     //   date: '24.05.2019',
@@ -136,7 +136,7 @@ const tickerBodyData: TickerItem[] = [
     image: user2,
     details_text: 'Contact Email not Linked',
     name: 'MashaCruise',
-    date: new Date(new Date().setDate(24)).toDateString(),
+    date: new Date().toUTCString(),
     status: 'low',
     // update: {
     //   date: '24.05.2019',
@@ -148,7 +148,7 @@ const tickerBodyData: TickerItem[] = [
     image: user3,
     details_text: 'Contact Email not Linked',
     name: 'Ivan Cruise',
-    date: new Date(new Date().setDate(19)).toDateString(),
+    date: new Date().toUTCString(),
     status: 'normal',
     // update: {
     //   date: '24.05.2019',
@@ -172,7 +172,7 @@ const tickerBodyData: TickerItem[] = [
     image: user5,
     details_text: 'Contact Email not Linked',
     name: 'Ostap Cruise',
-    date: new Date(new Date().setDate(30)).toDateString(),
+    date: new Date().toUTCString(),
     status: 'high',
     // update: {
     //   date: '24.05.2019',

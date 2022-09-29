@@ -1,12 +1,10 @@
 import React from 'react';
 import { Form, Button, Input } from '../../components';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Logo from '../../components/Logo';
 import { FormTitle } from '../../components/Form/Form';
 
 const SignUpPage = () => {
-  const navigate = useNavigate();
-
   return (
     <div className="auth-page">
       <Form onSubmit={() => {}}>

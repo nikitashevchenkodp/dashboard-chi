@@ -1,4 +1,3 @@
-import { log } from 'console';
 import React from 'react';
 import BigWidget from '../../components/BigWidget';
 import SmallWidget from '../../components/SmallWidget';

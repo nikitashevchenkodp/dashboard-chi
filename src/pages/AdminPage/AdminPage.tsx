@@ -12,8 +12,6 @@ const AdminPage = () => {
   const [headerTitle, setHeaderTitle] = useState<string | null>('Overview');
   const location = useLocation();
   // const isActive = location.pathname === item.To;
-  console.log(location);
-
   return (
     <div className="admin-page">
       <SideBar change={setHeaderTitle} />

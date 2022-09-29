@@ -27,8 +27,6 @@ import { TickerItem } from '../../utils/consts';
 import { tableStyles } from './styles';
 
 const TicketPage = () => {
-  console.log('ticketPage');
-
   const [tickers, setTickers] = useState<TickerItem[]>([]);
   const [active, setActive] = useState<boolean>(false);
   const [confirmActive, setConfirmActive] = useState<boolean>(false);
@@ -70,7 +68,7 @@ const TicketPage = () => {
   }, []);
 
   const sortedItems = useMemo(() => sortFunctionTicker(tickers, sort), [sort, tickers]);
-  const filteredItems = useMemo(() => filterTickerFunction(sortedItems, filter), [filter, sortedItems]);
+  const filteredItems = useMemo(() => filterTickerFunction(sortedItems, filter), [sortedItems, filter]);
 
   return (
     <>
@@ -97,7 +95,7 @@ const TicketPage = () => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {filteredItems?.slice(start, end).map((row, i) => (
+                {filteredItems.slice(start, end).map((row, i) => (
                   <TableRow
                     key={i}
                     sx={tableStyles.tableRowBody}

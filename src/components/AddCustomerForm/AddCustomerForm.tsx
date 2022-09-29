@@ -55,8 +55,10 @@ const AddCustomerForm = ({ updateFunction, id, setActive, getCustomerItem }: Add
     const newTicker = {
       ...form,
       id: id ? id : randomId(),
-      date: new Date().toLocaleString(),
+      date: new Date().toUTCString(),
     };
+    console.log(newTicker);
+
     updateFunction(newTicker);
     setActive(false);
   };
@@ -101,10 +103,11 @@ const AddCustomerForm = ({ updateFunction, id, setActive, getCustomerItem }: Add
         onChange={changeHandler}
       />
       <Button type="submit">Save</Button>
-
-      <Button type="button" variant="transparent" onClick={() => setActive(false)}>
-        Cancel
-      </Button>
+      <div style={{ display: 'flex' }}>
+        <Button variant="transparent" style={{ margin: '0 auto' }} type="button" onClick={() => setActive(false)}>
+          Cancel
+        </Button>
+      </div>
     </Form>
   );
 };

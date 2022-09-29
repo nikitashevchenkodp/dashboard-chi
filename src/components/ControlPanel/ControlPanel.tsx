@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import './ControlPanel.scss';
 import filterIcon from '../../asset/filter.svg';
 import sort from '../../asset/sort.svg';
@@ -32,8 +32,6 @@ const ControlPanel = ({ setActive, setCurrentId, setSort, sortCriterias, setFilt
     setSort(e.target.value);
     setActiveSort(false);
   };
-
-  console.log(activeSort);
 
   return (
     <div className="controll-panel">

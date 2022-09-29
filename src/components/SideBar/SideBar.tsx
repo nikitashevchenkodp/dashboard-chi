@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import Logo from '../Logo';
 import './SideBar.scss';
 import { OverviewIcon, TicketsIcon, SettingsIcon, ContactsIcon } from '../../icons/SvgIcons';
@@ -8,10 +8,6 @@ type SidebarProps = {
   change: (name: string) => void;
 };
 const SideBar = ({ change }: SidebarProps) => {
-  const location = useLocation();
-  // const isActive = location.pathname === item.To;
-  console.log(location);
-
   const pathTo = [
     { name: 'Overview', to: 'overview', Icon: OverviewIcon },
     { name: 'Tickets', to: 'tickets', Icon: TicketsIcon },
@@ -19,9 +15,6 @@ const SideBar = ({ change }: SidebarProps) => {
   ];
 
   const links = pathTo.map(({ to, name, Icon }) => {
-    // if (location.pathname.includes(to)) {
-    //   change(name);
-    // }
     return (
       <li key={to}>
         <NavLink

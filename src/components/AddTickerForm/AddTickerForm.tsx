@@ -1,12 +1,17 @@
 import Select from '../Select';
 import React, { useEffect, useState } from 'react';
-import { useForm } from '../../hooks/useForm';
 import { TickerItem } from '../../utils/consts';
-import Button from '../Button';
-import Form from '../Form';
 import { FormTitle } from '../Form/Form';
+import Form from '../Form/Form';
 import Input from '../Input';
 import './AddTickerForm.scss';
+import { DesktopDatePicker, LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { TextField } from '@mui/material';
+import { useFormik } from 'formik';
+import dayjs, { Dayjs } from 'dayjs';
+import * as Yup from 'yup';
+import Button from '../Button';
 
 type AddTickerFormProps = {
   updateFunction: (item: any) => void;
@@ -18,20 +23,16 @@ type AddTickerFormProps = {
 type InitialState = {
   details_text: string;
   name: string;
-  date: string;
+  date: Dayjs | string;
   status: string;
   image?: any;
-};
-
-const randomId = () => {
-  return Math.floor(Math.random() * 1000 + 33);
 };
 
 const AddTickerForm = ({ updateFunction, id, setActive, getItem }: AddTickerFormProps) => {
   const [initialForm, setInitialForm] = useState<InitialState>({
     details_text: '',
     name: '',
-    date: '',
+    date: dayjs(),
     status: '',
     image: '',
   });
@@ -39,34 +40,40 @@ const AddTickerForm = ({ updateFunction, id, setActive, getItem }: AddTickerForm
   useEffect(() => {
     if (id) {
       getItem(id).then((res) => {
-        setInitialForm(res);
+        setInitialForm({
+          ...res,
+          date: dayjs(res.date),
+        });
       });
     } else {
       setInitialForm({
         details_text: '',
         name: '',
-        date: '',
+        date: dayjs(),
         status: '',
         image: '',
       });
     }
   }, [id]);
 
-  const [form, changeHandler] = useForm(initialForm);
+  const schema = Yup.object().shape({
+    name: Yup.string().min(2, 'Too Short!').max(50, 'Too Long!').required('Required'),
+    details_text: Yup.string().min(2, 'Too Short!').max(50, 'Too Long!').required('Required'),
+  });
 
-  const submit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const newTicker = {
-      ...form,
-      id: id ? id : randomId(),
-      date: new Date().toLocaleString(),
-    };
-    updateFunction(newTicker);
-    setActive(false);
-  };
+  const formik = useFormik({
+    initialValues: initialForm,
+    enableReinitialize: true,
+    validationSchema: schema,
+    onSubmit: (values, { resetForm }) => {
+      updateFunction(values);
+      setActive(false);
+      resetForm();
+    },
+  });
 
   return (
-    <Form onSubmit={submit}>
+    <Form onSubmit={formik.handleSubmit}>
       <FormTitle title={id ? 'Edit ticker' : 'Add ticker'} />
       <Input
         id="details"
@@ -74,8 +81,8 @@ const AddTickerForm = ({ updateFunction, id, setActive, getItem }: AddTickerForm
         label="Ticket details"
         placeholder="Add description"
         type="text"
-        value={form.details_text}
-        onChange={changeHandler}
+        value={formik.values.details_text}
+        onChange={formik.handleChange}
       />
       <Input
         id="name"
@@ -83,35 +90,34 @@ const AddTickerForm = ({ updateFunction, id, setActive, getItem }: AddTickerForm
         label="Customer name"
         placeholder="Name"
         type="text"
-        value={form.name}
-        onChange={changeHandler}
+        value={formik.values.name}
+        onChange={formik.handleChange}
       />
-      <Input
-        id="date"
-        name="date"
-        label="Pick the date"
-        placeholder="Date"
-        type="date"
-        value={form.date}
-        onChange={changeHandler}
-      />
+      <div className="datepicker__wrapper">
+        <p className="datepicker__label">PICK THE DATE</p>
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <DesktopDatePicker
+            className="datepicker"
+            inputFormat="MM/DD/YYYY"
+            value={formik.values.date}
+            onChange={(val) => formik.setFieldValue('date', val)}
+            renderInput={(params) => <TextField {...params} />}
+          />
+        </LocalizationProvider>
+      </div>
+
       <Select
         name="status"
-        value={form.status}
         placeholder="Choose value"
-        onChange={changeHandler}
         options={['high', 'normal', 'low']}
+        value={formik.values.status}
+        onChange={formik.handleChange}
       />
       <Button type="submit">Save</Button>
       <div style={{ display: 'flex' }}>
-        <button
-          type="button"
-          style={{ margin: '0 auto' }}
-          className="controll-panel__add"
-          onClick={() => setActive(false)}
-        >
+        <Button variant="transparent" style={{ margin: '0 auto' }} type="button" onClick={() => setActive(false)}>
           Cancel
-        </button>
+        </Button>
       </div>
     </Form>
   );
