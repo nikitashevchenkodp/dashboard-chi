@@ -28,6 +28,10 @@ type InitialState = {
   image?: any;
 };
 
+const randomId = () => {
+  return Math.floor(Math.random() * 1000 + 33);
+};
+
 const AddTickerForm = ({ updateFunction, id, setActive, getItem }: AddTickerFormProps) => {
   const [initialForm, setInitialForm] = useState<InitialState>({
     details_text: '',
@@ -66,7 +70,10 @@ const AddTickerForm = ({ updateFunction, id, setActive, getItem }: AddTickerForm
     enableReinitialize: true,
     validationSchema: schema,
     onSubmit: (values, { resetForm }) => {
-      updateFunction(values);
+      updateFunction({
+        ...values,
+        id: id ? id : randomId(),
+      });
       setActive(false);
       resetForm();
     },

@@ -25,6 +25,7 @@ import {
 } from '../../utils';
 import { TickerItem } from '../../utils/consts';
 import { tableStyles } from './styles';
+import DeleteForm from '../../components/DeleteForm';
 
 const TicketPage = () => {
   const [tickers, setTickers] = useState<TickerItem[]>([]);
@@ -35,7 +36,6 @@ const TicketPage = () => {
   const [page, setPage] = useState(1);
   const [sort, setSort] = useState('');
   const [filter, setFilter] = useState('');
-
   const deleteId = useRef<any>();
 
   const paginationItems = Math.ceil(tickers?.length / perPage);
@@ -70,6 +70,86 @@ const TicketPage = () => {
   const sortedItems = useMemo(() => sortFunctionTicker(tickers, sort), [sort, tickers]);
   const filteredItems = useMemo(() => filterTickerFunction(sortedItems, filter), [sortedItems, filter]);
 
+  return (
+    <View
+      setSort={setSort}
+      setCurrentId={setCurrentId}
+      setActive={setActive}
+      setFilter={setFilter}
+      filter={filter}
+      setPerPage={setPerPage}
+      page={page}
+      setPage={setPage}
+      paginationItems={paginationItems}
+      start={start}
+      end={end}
+      count={tickers?.length}
+      active={active}
+      confirmActive={confirmActive}
+      currentId={currentId}
+      filteredItems={filteredItems}
+      getItem={getItem}
+      deleteItem={deleteItem}
+      updateTicker={updateTicker}
+      tickers={tickers}
+      setConfirmActive={setConfirmActive}
+      setTickers={setTickers}
+      deleteId={deleteId}
+    />
+  );
+};
+
+type ViewProps = {
+  setSort: (sort: string) => void;
+  setCurrentId: (id: number | null) => void;
+  setActive: (active: boolean) => void;
+  setFilter: (filter: string) => void;
+  filter: string;
+  filteredItems: TickerItem[];
+  start: number;
+  end: number;
+  deleteItem: (e: React.MouseEvent<SVGElement, MouseEvent>, id: number) => void;
+  setPerPage: (perPage: number) => void;
+  setPage: React.Dispatch<React.SetStateAction<number>>;
+  page: number;
+  paginationItems: number;
+  tickers: TickerItem[];
+  active: boolean;
+  updateTicker: (ticker: TickerItem) => void;
+  currentId: number | null;
+  getItem: (id: number) => Promise<TickerItem>;
+  confirmActive: boolean;
+  setConfirmActive: (active: boolean) => void;
+  setTickers: (tickers: TickerItem[]) => void;
+  deleteId: React.MutableRefObject<any>;
+  count: number;
+};
+
+const View = ({
+  setSort,
+  setCurrentId,
+  setActive,
+  setFilter,
+  filter,
+  filteredItems,
+  start,
+  end,
+  deleteItem,
+  setPerPage,
+  setPage,
+  page,
+  paginationItems,
+  tickers,
+  active,
+  updateTicker,
+  currentId,
+  getItem,
+  confirmActive,
+  setConfirmActive,
+  setTickers,
+  deleteId,
+  count,
+}: ViewProps) => {
   return (
     <>
       <div className="container">
@@ -107,7 +187,7 @@ const TicketPage = () => {
                     <TableCell>
                       <div style={tableStyles.mainCell}>
                         <div style={tableStyles.mainCellImg}>
-                          <img src={row.image} alt="user_avatar" />
+                          <img style={tableStyles.mainCellImgImg} src={row.image} alt="user_avatar" />
                         </div>
                         <div>
                           <p style={tableStyles.cellTitle}>{row.details_text}</p>
@@ -115,18 +195,18 @@ const TicketPage = () => {
                         </div>
                       </div>
                     </TableCell>
-                    <TableCell sx={{ minWidth: '80px', width: '20%', overflowX: 'auto' }} align="left">
+                    <TableCell sx={{ minWidth: '80px', width: '20%' }} align="left">
                       <p style={tableStyles.cellTitle}>{row.name}</p>
                       <p style={tableStyles.cellText}>on {'24.05.2019'}</p>
                     </TableCell>
-                    <TableCell sx={{ minWidth: '80px', width: '20%', overflowX: 'auto' }} align="left">
+                    <TableCell sx={{ minWidth: '80px', width: '20%' }} align="left">
                       <p style={tableStyles.cellTitle}>{transformData(row.date)}</p>
                       <p style={tableStyles.cellText}>on {'6:30PM'}</p>
                     </TableCell>
-                    <TableCell sx={{ minWidth: '80px', width: '10%', overflowX: 'auto' }} align="left">
+                    <TableCell sx={{ minWidth: '80px', width: '10%' }} align="left">
                       <Priority status={row.status} />
                     </TableCell>
-                    <TableCell sx={{ minWidth: '30px', width: '5%', overflowX: 'auto' }} align="left">
+                    <TableCell sx={{ minWidth: '30px', width: '5%' }} align="left">
                       <BsThreeDotsVertical color="#C5C7CD" onClick={(e) => deleteItem(e, row.id)} />
                     </TableCell>
                   </TableRow>
@@ -141,7 +221,7 @@ const TicketPage = () => {
             paginationItems={paginationItems}
             startIndex={start}
             endIndex={end}
-            count={tickers?.length}
+            count={count}
           />
         </div>
       </div>
@@ -149,21 +229,7 @@ const TicketPage = () => {
         <AddTickerForm updateFunction={updateTicker} id={currentId} setActive={setActive} getItem={getItem} />
       </ModalWindow>
       <ModalWindow active={confirmActive} setActive={setConfirmActive}>
-        <Form>
-          <FormTitle title="Are you sure ?" />
-          <Button
-            type="button"
-            onClick={() => {
-              setTickers(tickers.filter((item) => item.id !== deleteId.current));
-              setConfirmActive(false);
-            }}
-          >
-            Yes
-          </Button>
-          <button type="button" className="controll-panel__add" onClick={() => setConfirmActive(false)}>
-            No
-          </button>
-        </Form>
+        <DeleteForm tickers={tickers} setConfirmActive={setConfirmActive} setTickers={setTickers} deleteId={deleteId} />
       </ModalWindow>
     </>
   );

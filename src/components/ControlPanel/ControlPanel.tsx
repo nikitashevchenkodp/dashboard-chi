@@ -5,6 +5,7 @@ import sort from '../../asset/sort.svg';
 import Options from '../Options';
 import Sort from '../Sort';
 import Filter from '../Filter';
+import Button from '../Button';
 
 type ControlPanelProps = {
   setActive: (active: boolean) => void;
@@ -42,6 +43,7 @@ const ControlPanel = ({ setActive, setCurrentId, setSort, sortCriterias, setFilt
           <Sort sortCriterias={sortCriterias} onChange={changeSort} />
         </Options>
       </div>
+
       <div className="controll-panel__item" onClick={openFilters}>
         <img className="controll-panel__icon" src={filterIcon} alt="" />
         <p className="controll-panel_text">Filter</p>
@@ -49,15 +51,16 @@ const ControlPanel = ({ setActive, setCurrentId, setSort, sortCriterias, setFilt
           <Filter filter={filter} setFilter={setFilter} />
         </Options>
       </div>
-      <button
-        className="controll-panel__add"
+
+      <Button
+        variant="transparent"
         onClick={() => {
           setActive(true);
           setCurrentId(null);
         }}
       >
         + Add ticker
-      </button>
+      </Button>
     </div>
   );
 };

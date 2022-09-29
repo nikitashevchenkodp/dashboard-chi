@@ -5,10 +5,6 @@ import { Button, Input } from '../../components';
 import { useForm } from '../../hooks/useForm';
 
 const SettingsPage = () => {
-  // const [firstName, setFirstName] = useState('');
-  // const [lastName, setLastName] = useState('');
-  // const [email, setEmail] = useState('');
-  // const [address, setAddress] = useState('');
   const [form, handleChange] = useForm({
     firstName: 'Nikita',
     lastName: 'Shevchenko',

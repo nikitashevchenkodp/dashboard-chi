@@ -1,11 +1,11 @@
 .controll-panel {
   padding: 0 32px;
   display: flex;
+  position: relative;
   &__item {
     display: flex;
     align-items: center;
     margin-right: 32px;
-    position: relative;
     cursor: pointer;
   }
   &__text {

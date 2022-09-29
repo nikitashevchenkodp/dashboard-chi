@@ -15,13 +15,14 @@ export const tableStyles = {
     alignItems: 'center',
     minWidth: '300px',
     gap: '24px',
-    img: {
-      height: '100%',
-      borderRadius: '50%',
-    },
+  },
+  mainCellImgImg: {
+    display: 'block',
+    height: '100%',
+    borderRadius: '50%',
   },
   tableRowBody: {
-    '&:last-child td, &:last-child th': { border: 0 },
+    // '&:last-child td, &:last-child th': { border: 0 },
     cursor: 'pointer',
     '&:hover': { background: 'rgba(55, 81, 255, 0.04)' },
   },

@@ -14,7 +14,6 @@ export const tableStyles = {
     paddingBottm: '24px',
     alignItems: 'center',
     minWidth: '200px',
-    // overflowX: 'auto',
     gap: '24px',
   },
   cellImg: {
