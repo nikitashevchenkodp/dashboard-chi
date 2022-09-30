@@ -12,9 +12,11 @@ import {
   filterCustomerFunction,
   sortFunctionCustomer,
 } from '../../utils';
-import { Button, Form, FormTitle, ControlPanel, Pagination, ModalWindow, AddCustomerForm } from '../../components';
+import { ControlPanel, Pagination, ModalWindow, AddCustomerForm } from '../../components';
 import { CustomerItem } from '../../utils/consts';
 import { tableStyles } from './style';
+import DeleteForm from '../../components/DeleteForm';
+import ItemMenu from '../../components/ItemMenu';
 
 const CustomersPage = () => {
   const [customers, setCustomers] = useState<CustomerItem[]>([]);
@@ -25,7 +27,7 @@ const CustomersPage = () => {
   const [page, setPage] = useState(1);
   const [sort, setSort] = useState('');
   const [filter, setFilter] = useState('');
-  const deleteFunc = useRef<any>();
+  const deleteId = useRef<any>();
   const paginationItems = Math.ceil(customers?.length / perPage);
   const [start, end] = paginationIndexes(page, perPage);
 
@@ -38,13 +40,13 @@ const CustomersPage = () => {
     }
   };
 
-  const deleteItem = (e: React.MouseEvent<SVGElement, MouseEvent>, id: number) => {
-    e.stopPropagation();
+  const setDeleteItem = (id: number) => {
     setConfirmActive(true);
-    deleteFunc.current = () => {
-      const idx = customers!.findIndex((item) => item.id === id);
-      setCustomers((prevCustomers) => [...prevCustomers.slice(0, idx), ...prevCustomers.slice(idx + 1)]);
-    };
+    deleteId.current = id;
+  };
+
+  const deleteItem = () => {
+    setCustomers(customers.filter((item) => item.id !== deleteId.current));
   };
 
   function getCustomerItem(id: number) {
@@ -97,10 +99,6 @@ const CustomersPage = () => {
                       paddingLeft: '16px',
                       paddingRight: '16px',
                     }}
-                    onClick={() => {
-                      setCurrentId(row.id);
-                      setActive(true);
-                    }}
                   >
                     <TableCell>
                       <div style={tableStyles.mainCell}>
@@ -124,7 +122,11 @@ const CustomersPage = () => {
                       <p style={tableStyles.cellTitle}>{transformData(row.date)}</p>
                     </TableCell>
                     <TableCell sx={{ minWidth: '30px', width: '5%', overflowX: 'auto' }} align="left">
-                      <BsThreeDotsVertical color="#C5C7CD" onClick={(e) => deleteItem(e, row.id)} />
+                      <ItemMenu
+                        setActive={setActive}
+                        setCurrentId={() => setCurrentId(row.id)}
+                        deleteItem={() => setDeleteItem(row.id)}
+                      />
                     </TableCell>
                   </TableRow>
                 ))}
@@ -151,23 +153,7 @@ const CustomersPage = () => {
         />
       </ModalWindow>
       <ModalWindow active={confirmActive} setActive={setConfirmActive}>
-        <Form>
-          <FormTitle title="Are you sure ?" />
-          <Button
-            type="button"
-            onClick={() => {
-              if (deleteFunc.current) {
-                deleteFunc.current();
-              }
-              setConfirmActive(false);
-            }}
-          >
-            Yes
-          </Button>
-          <button type="button" className="controll-panel__add" onClick={() => setConfirmActive(false)}>
-            No
-          </button>
-        </Form>
+        <DeleteForm setConfirmActive={setConfirmActive} deleteItem={deleteItem} />
       </ModalWindow>
     </>
   );

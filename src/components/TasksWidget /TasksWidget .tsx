@@ -24,7 +24,7 @@ const TasksWidget = () => {
             <span className="medium-widget__group">Today</span>
           </div>
         </div>
-        <Button type="button" variant="transparent">
+        <Button className="ml-auto" type="button" variant="transparent">
           View all
         </Button>
       </div>

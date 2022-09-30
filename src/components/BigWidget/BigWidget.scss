@@ -1,15 +1,28 @@
 .big-widget {
   background-color: #fff;
-  display: flex;
+  display: grid;
+  grid-template-columns: 4fr 2fr;
   border: 1px solid #dfe0eb;
+  @media screen and (max-width: 1330px) {
+    grid-template-columns: 1fr;
+  }
 
   &__chart {
-    display: flex;
+    display: grid;
     align-items: center;
-    justify-content: center;
-    width: 70%;
   }
+
   &__group {
-    width: 30%;
+    display: grid;
+    @media screen and (max-width: 1330px) {
+      grid-template-columns: 1fr 1fr;
+    }
+    @media screen and (max-width: 1130px) {
+      grid-template-columns: 1fr;
+    }
   }
+}
+
+canvas {
+  max-width: 100%;
 }

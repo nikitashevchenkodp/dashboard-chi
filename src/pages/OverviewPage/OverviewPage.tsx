@@ -10,13 +10,13 @@ const OverviewPage = () => {
     <div className="container">
       <div className="overview__container">
         <div className="widgets__container">
-          <SmallWidget title={'Unresolved'} value={60} border />
-          <SmallWidget title={'Overdue'} value={16} border />
-          <SmallWidget title={'Open'} value={43} border />
-          <SmallWidget title={'On hold'} value={64} border />
+          <SmallWidget style={{ borderRadius: '8px' }} title={'Unresolved'} value={60} border />
+          <SmallWidget style={{ borderRadius: '8px' }} title={'Overdue'} value={16} border />
+          <SmallWidget style={{ borderRadius: '8px' }} title={'Open'} value={43} border />
+          <SmallWidget style={{ borderRadius: '8px' }} title={'On hold'} value={64} border />
         </div>
         <BigWidget />
-        <div style={{ display: 'flex', gap: '30px' }}>
+        <div className="widgets__container--md">
           <UnresolvedTicketsWidget />
           <TasksWidget />
         </div>

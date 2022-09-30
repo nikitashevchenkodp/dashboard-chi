@@ -2,18 +2,8 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 import './TicketsPage.scss';
 
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
-import { BsThreeDotsVertical } from 'react-icons/bs';
 
-import {
-  Button,
-  Form,
-  FormTitle,
-  AddTickerForm,
-  ControlPanel,
-  Priority,
-  Pagination,
-  ModalWindow,
-} from '../../components';
+import { AddTickerForm, ControlPanel, Priority, Pagination, ModalWindow } from '../../components';
 
 import {
   sortFunctionTicker,
@@ -26,6 +16,8 @@ import {
 import { TickerItem } from '../../utils/consts';
 import { tableStyles } from './styles';
 import DeleteForm from '../../components/DeleteForm';
+import Sort from '../../components/Sort';
+import ItemMenu from '../../components/ItemMenu';
 
 const TicketPage = () => {
   const [tickers, setTickers] = useState<TickerItem[]>([]);
@@ -57,10 +49,13 @@ const TicketPage = () => {
     });
   }
 
-  const deleteItem = (e: React.MouseEvent<SVGElement, MouseEvent>, id: number) => {
-    e.stopPropagation();
+  const setDeleteItem = (id: number) => {
     setConfirmActive(true);
     deleteId.current = id;
+  };
+
+  const deleteItem = () => {
+    setTickers(tickers.filter((item) => item.id !== deleteId.current));
   };
 
   useEffect(() => {
@@ -70,86 +65,6 @@ const TicketPage = () => {
   const sortedItems = useMemo(() => sortFunctionTicker(tickers, sort), [sort, tickers]);
   const filteredItems = useMemo(() => filterTickerFunction(sortedItems, filter), [sortedItems, filter]);
 
-  return (
-    <View
-      setSort={setSort}
-      setCurrentId={setCurrentId}
-      setActive={setActive}
-      setFilter={setFilter}
-      filter={filter}
-      setPerPage={setPerPage}
-      page={page}
-      setPage={setPage}
-      paginationItems={paginationItems}
-      start={start}
-      end={end}
-      count={tickers?.length}
-      active={active}
-      confirmActive={confirmActive}
-      currentId={currentId}
-      filteredItems={filteredItems}
-      getItem={getItem}
-      deleteItem={deleteItem}
-      updateTicker={updateTicker}
-      tickers={tickers}
-      setConfirmActive={setConfirmActive}
-      setTickers={setTickers}
-      deleteId={deleteId}
-    />
-  );
-};
-
-type ViewProps = {
-  setSort: (sort: string) => void;
-  setCurrentId: (id: number | null) => void;
-  setActive: (active: boolean) => void;
-  setFilter: (filter: string) => void;
-  filter: string;
-  filteredItems: TickerItem[];
-  start: number;
-  end: number;
-  deleteItem: (e: React.MouseEvent<SVGElement, MouseEvent>, id: number) => void;
-  setPerPage: (perPage: number) => void;
-  setPage: React.Dispatch<React.SetStateAction<number>>;
-  page: number;
-  paginationItems: number;
-  tickers: TickerItem[];
-  active: boolean;
-  updateTicker: (ticker: TickerItem) => void;
-  currentId: number | null;
-  getItem: (id: number) => Promise<TickerItem>;
-  confirmActive: boolean;
-  setConfirmActive: (active: boolean) => void;
-  setTickers: (tickers: TickerItem[]) => void;
-  deleteId: React.MutableRefObject<any>;
-  count: number;
-};
-
-const View = ({
-  setSort,
-  setCurrentId,
-  setActive,
-  setFilter,
-  filter,
-  filteredItems,
-  start,
-  end,
-  deleteItem,
-  setPerPage,
-  setPage,
-  page,
-  paginationItems,
-  tickers,
-  active,
-  updateTicker,
-  currentId,
-  getItem,
-  confirmActive,
-  setConfirmActive,
-  setTickers,
-  deleteId,
-  count,
-}: ViewProps) => {
   return (
     <>
       <div className="container">
@@ -176,14 +91,7 @@ const View = ({
               </TableHead>
               <TableBody>
                 {filteredItems.slice(start, end).map((row, i) => (
-                  <TableRow
-                    key={i}
-                    sx={tableStyles.tableRowBody}
-                    onClick={() => {
-                      setCurrentId(row.id);
-                      setActive(true);
-                    }}
-                  >
+                  <TableRow key={i} sx={tableStyles.tableRowBody}>
                     <TableCell>
                       <div style={tableStyles.mainCell}>
                         <div style={tableStyles.mainCellImg}>
@@ -207,7 +115,11 @@ const View = ({
                       <Priority status={row.status} />
                     </TableCell>
                     <TableCell sx={{ minWidth: '30px', width: '5%' }} align="left">
-                      <BsThreeDotsVertical color="#C5C7CD" onClick={(e) => deleteItem(e, row.id)} />
+                      <ItemMenu
+                        setActive={setActive}
+                        setCurrentId={() => setCurrentId(row.id)}
+                        deleteItem={() => setDeleteItem(row.id)}
+                      />
                     </TableCell>
                   </TableRow>
                 ))}
@@ -221,7 +133,7 @@ const View = ({
             paginationItems={paginationItems}
             startIndex={start}
             endIndex={end}
-            count={count}
+            count={tickers?.length}
           />
         </div>
       </div>
@@ -229,7 +141,7 @@ const View = ({
         <AddTickerForm updateFunction={updateTicker} id={currentId} setActive={setActive} getItem={getItem} />
       </ModalWindow>
       <ModalWindow active={confirmActive} setActive={setConfirmActive}>
-        <DeleteForm tickers={tickers} setConfirmActive={setConfirmActive} setTickers={setTickers} deleteId={deleteId} />
+        <DeleteForm setConfirmActive={setConfirmActive} deleteItem={deleteItem} />
       </ModalWindow>
     </>
   );

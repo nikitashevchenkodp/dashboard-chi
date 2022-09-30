@@ -6,9 +6,10 @@
   align-items: center;
   justify-content: center;
   transition: 0.3s;
-  min-width: 220px;
-  width: 100%;
   cursor: pointer;
+  @media screen and (max-width: 1050px) {
+    padding: 12px 12px;
+  }
   &--with_border {
     border: 1px solid #dfe0eb;
   }
@@ -17,16 +18,20 @@
     font-size: 19px;
     line-height: 24px;
     font-weight: 700;
-
     transition: 0.3s;
+    @media screen and (max-width: 1050px) {
+      font-size: 16px;
+    }
   }
   &__value {
     color: black;
     font-size: 40px;
     line-height: 50px;
     font-weight: 700;
-
     transition: 0.3s;
+    @media screen and (max-width: 1050px) {
+      font-size: 32px;
+    }
   }
   &:hover {
     border: 1px solid rgba(55, 81, 255, 1);

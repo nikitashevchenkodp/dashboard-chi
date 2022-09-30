@@ -1,23 +1,21 @@
 import React from 'react';
-import { TickerItem } from '../../utils/consts';
+import { CustomerItem, TickerItem } from '../../utils/consts';
 import Button from '../Button';
 import Form from '../Form';
 import { FormTitle } from '../Form/Form';
 type DeleteFormProps = {
-  setTickers: (tickers: TickerItem[]) => void;
+  deleteItem: () => void;
   setConfirmActive: (confirmActive: boolean) => void;
-  tickers: TickerItem[];
-  deleteId: React.MutableRefObject<any>;
 };
 
-const DeleteForm = ({ setTickers, setConfirmActive, tickers, deleteId }: DeleteFormProps) => {
+const DeleteForm = ({ setConfirmActive, deleteItem }: DeleteFormProps) => {
   return (
     <Form>
       <FormTitle title="Are you sure ?" />
       <Button
         type="button"
         onClick={() => {
-          setTickers(tickers.filter((item) => item.id !== deleteId.current));
+          deleteItem();
           setConfirmActive(false);
         }}
       >

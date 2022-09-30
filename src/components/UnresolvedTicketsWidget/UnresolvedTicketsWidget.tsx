@@ -18,7 +18,7 @@ const MediumWidget = () => {
             <span className="medium-widget__group">Group:</span> Support
           </div>
         </div>
-        <Button type="button" variant="transparent">
+        <Button className="ml-auto" type="button" variant="transparent">
           View details
         </Button>
       </div>

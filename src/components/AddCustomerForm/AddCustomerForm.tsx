@@ -102,7 +102,9 @@ const AddCustomerForm = ({ updateFunction, id, setActive, getCustomerItem }: Add
         value={form.address}
         onChange={changeHandler}
       />
-      <Button type="submit">Save</Button>
+      <Button className="mb-16" type="submit">
+        Save
+      </Button>
       <div style={{ display: 'flex' }}>
         <Button variant="transparent" style={{ margin: '0 auto' }} type="button" onClick={() => setActive(false)}>
           Cancel

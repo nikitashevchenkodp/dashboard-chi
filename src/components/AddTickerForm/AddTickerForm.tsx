@@ -120,7 +120,9 @@ const AddTickerForm = ({ updateFunction, id, setActive, getItem }: AddTickerForm
         value={formik.values.status}
         onChange={formik.handleChange}
       />
-      <Button type="submit">Save</Button>
+      <Button className="mb-16" type="submit">
+        Save
+      </Button>
       <div style={{ display: 'flex' }}>
         <Button variant="transparent" style={{ margin: '0 auto' }} type="button" onClick={() => setActive(false)}>
           Cancel

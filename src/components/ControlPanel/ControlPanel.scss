@@ -1,7 +1,9 @@
 .controll-panel {
   padding: 0 32px;
   display: flex;
+  align-items: center;
   position: relative;
+  gap: 32px;
   &__item {
     display: flex;
     align-items: center;
@@ -29,5 +31,9 @@
     background-color: transparent;
     margin-left: auto;
     cursor: pointer;
+  }
+  &__img {
+    width: 12px;
+    height: 12px;
   }
 }
