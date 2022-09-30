@@ -16,7 +16,6 @@ import {
 import { TickerItem } from '../../utils/consts';
 import { tableStyles } from './styles';
 import DeleteForm from '../../components/DeleteForm';
-import Sort from '../../components/Sort';
 import ItemMenu from '../../components/ItemMenu';
 
 const TicketPage = () => {
@@ -24,7 +23,7 @@ const TicketPage = () => {
   const [active, setActive] = useState<boolean>(false);
   const [confirmActive, setConfirmActive] = useState<boolean>(false);
   const [currentId, setCurrentId] = useState<number | null>(null);
-  const [perPage, setPerPage] = useState<number>(4);
+  const [perPage, setPerPage] = useState(4);
   const [page, setPage] = useState(1);
   const [sort, setSort] = useState('');
   const [filter, setFilter] = useState('');
@@ -36,9 +35,9 @@ const TicketPage = () => {
   const updateTicker = (ticker: TickerItem) => {
     const idx = tickers!.findIndex((item) => item.id === ticker.id);
     if (idx < 0) {
-      setTickers((prevCustomers) => [...prevCustomers!, ticker]);
+      setTickers([...tickers, ticker]);
     } else if (idx >= 0) {
-      setTickers((prevCustomers) => [...prevCustomers!.slice(0, idx), ticker, ...prevCustomers!.slice(idx + 1)]);
+      setTickers([...tickers.slice(0, idx), ticker, ...tickers.slice(idx + 1)]);
     }
   };
 

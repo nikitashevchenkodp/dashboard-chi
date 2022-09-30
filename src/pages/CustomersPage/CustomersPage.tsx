@@ -34,9 +34,9 @@ const CustomersPage = () => {
   const updateItem = (customer: CustomerItem) => {
     const idx = customers!.findIndex((item) => item.id === customer.id);
     if (idx < 0) {
-      setCustomers((prevCustomers) => [...prevCustomers!, customer]);
+      setCustomers([...customers, customer]);
     } else if (idx >= 0) {
-      setCustomers((prevCustomers) => [...prevCustomers!.slice(0, idx), customer, ...prevCustomers!.slice(idx + 1)]);
+      setCustomers([...customers.slice(0, idx), customer, ...customers.slice(idx + 1)]);
     }
   };
 
