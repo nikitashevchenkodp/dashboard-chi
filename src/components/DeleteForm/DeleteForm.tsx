@@ -6,11 +6,11 @@ import Button from '../Button';
 import Form from '../Form';
 import { FormTitle } from '../Form/Form';
 type DeleteFormProps = {
-  deleteId: number;
+  deleteItem: () => void;
   setConfirmActive: (confirmActive: boolean) => void;
 };
 
-const DeleteForm = ({ setConfirmActive, deleteId }: DeleteFormProps) => {
+const DeleteForm = ({ setConfirmActive, deleteItem }: DeleteFormProps) => {
   const dispatch = useDispatch();
   return (
     <Form>
@@ -18,7 +18,7 @@ const DeleteForm = ({ setConfirmActive, deleteId }: DeleteFormProps) => {
       <Button
         type="button"
         onClick={() => {
-          dispatch(deleteTicket(deleteId));
+          deleteItem();
           setConfirmActive(false);
         }}
       >
