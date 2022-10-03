@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './ControlPanel.scss';
 import Sort from '../Sort';
 import Filter from '../Filter';
