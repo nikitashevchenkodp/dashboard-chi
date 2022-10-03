@@ -1,4 +1,8 @@
 .btn {
+  font-family: 'Mulish', sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background-color: #3751ff;
   color: #fff;
   padding: 15px 0;
@@ -6,10 +10,32 @@
   border: none;
   border-radius: 8px;
   box-shadow: 0px 4px 12px rgba(55, 81, 255, 0.24);
-  margin-bottom: 32px;
+  // margin-bottom: 32px;
   transition: 0.3s;
   cursor: pointer;
   &:hover {
     transform: scale(1.02);
+  }
+  &--transparent {
+    width: auto;
+    padding: 0;
+    border: none;
+    outline: none;
+    font-weight: 600;
+    line-height: 20px;
+    font-size: 14px;
+    color: #3751ff;
+    background-color: transparent;
+    box-shadow: none;
+    // margin-left: auto;
+    cursor: pointer;
+  }
+  &--empty {
+    color: #4b506d;
+    font-size: 14px;
+    background-color: transparent;
+    box-shadow: none;
+    width: auto;
+    padding: 0;
   }
 }

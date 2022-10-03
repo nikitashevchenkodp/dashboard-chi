@@ -1,0 +1,12 @@
+.sort {
+  padding: 15px;
+  width: 150px;
+  &__title {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 16px;
+  }
+  &__item {
+    margin-bottom: 16px;
+  }
+}

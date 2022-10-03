@@ -1,0 +1,28 @@
+.big-widget {
+  background-color: #fff;
+  display: grid;
+  grid-template-columns: 4fr 2fr;
+  border: 1px solid #dfe0eb;
+  @media screen and (max-width: 1330px) {
+    grid-template-columns: 1fr;
+  }
+
+  &__chart {
+    display: grid;
+    align-items: center;
+  }
+
+  &__group {
+    display: grid;
+    @media screen and (max-width: 1330px) {
+      grid-template-columns: 1fr 1fr;
+    }
+    @media screen and (max-width: 1130px) {
+      grid-template-columns: 1fr;
+    }
+  }
+}
+
+canvas {
+  max-width: 100%;
+}

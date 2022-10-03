@@ -1,0 +1,21 @@
+.overview__container {
+  display: flex;
+  gap: 30px;
+  flex-direction: column;
+}
+.widgets__container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-gap: 30px;
+  @media screen and (max-width: 1300px) {
+    grid-template-columns: 1fr 1fr;
+  }
+  &--md {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 30px;
+    @media screen and (max-width: 1050px) {
+      grid-template-columns: 1fr;
+    }
+  }
+}

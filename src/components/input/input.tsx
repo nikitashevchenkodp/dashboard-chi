@@ -32,7 +32,7 @@ const Input = ({ id, label, type, placeholder, ...restProps }: InputProp) => {
           />
         </div>
       ) : (
-        <input id={id} {...restProps} className="input__field" />
+        <input id={id} type={type} {...restProps} className="input__field" />
       )}
     </div>
   );

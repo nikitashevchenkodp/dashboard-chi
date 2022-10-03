@@ -19,6 +19,11 @@
   background-color: #363740;
 }
 
+.container {
+  margin-right: 30px;
+  margin-left: 30px;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -52,4 +57,52 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+img {
+  width: 100%;
+}
+
+.white-container {
+  padding-top: 37px;
+  margin-top: 50px;
+  background-color: #fff;
+  border: 1px solid #dfe0eb;
+  border-radius: 8px;
+}
+
+.table__container {
+  overflow-x: auto;
+  max-height: 70vh;
+}
+
+.widgets__container {
+  display: flex;
+  gap: 30px;
+}
+
+.brs8 {
+  border-radius: 8px;
+}
+
+.flex-grow1 {
+  flex-grow: 1;
+}
+.m0-auto {
+  margin: 0 auto;
+}
+.ml-auto {
+  margin-left: auto;
+}
+
+.mb-32 {
+  margin-bottom: 32px;
+}
+
+.mb-24 {
+  margin-bottom: 24px;
+}
+
+.mb-16 {
+  margin-bottom: 16px;
 }
