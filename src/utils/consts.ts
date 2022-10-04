@@ -231,3 +231,17 @@ export function getCustomerData() {
 export const paginationIndexes = (page: number, perPage: number) => {
   return [(page - 1) * perPage, (page - 1) * perPage + perPage];
 };
+
+export function getCustomer(items: CustomerItem[], id: number) {
+  const item = items.filter((item) => item.id === id)[0]!;
+  return new Promise<CustomerItem>((resolve) => {
+    setTimeout(() => resolve(item), 1000);
+  });
+}
+
+export function getTicker(items: TickerItem[], id: number) {
+  const item = items.filter((item) => item.id === id)[0]!;
+  return new Promise<TickerItem>((resolve) => {
+    resolve(item);
+  });
+}

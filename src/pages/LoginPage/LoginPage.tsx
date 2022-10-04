@@ -1,28 +1,30 @@
 import React from 'react';
 import { Form, Button, Input } from '../../components';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useForm } from '../../hooks/useForm';
 import { MainState } from '../../MainContext';
 
 import './LoginPage.scss';
 import Logo from '../../components/Logo';
 import { FormTitle } from '../../components/Form/Form';
+import { useAppDispatch } from '../../hooks/typedDispatch';
+import { setUser } from '../../store/slices/userSlice';
 type LoginForm = {
   email: string;
   password: string;
 };
 
 const LoginPage = () => {
-  const navigate = useNavigate();
-  const { authUser } = MainState();
   const [form, onChange] = useForm<LoginForm>({
     email: '',
     password: '',
   });
 
+  const dispatch = useAppDispatch();
+
   const submit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    authUser(true);
+    dispatch(setUser());
   };
 
   return (

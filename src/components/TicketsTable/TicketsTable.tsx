@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { useActions } from '../../hooks/typedDispatch';
-import { RootState } from '../../store/reducers';
+import { useAppDispatch, useAppSelector } from '../../hooks/typedDispatch';
+import { deleteTicket, fetchTickets } from '../../store/slices/ticketsSlice';
 import { filterTickerFunction, sortFunctionTicker, tickerCellTitles } from '../../utils';
 import { TickerItem } from '../../utils/consts';
 import AddTickerForm from '../AddTickerForm';
@@ -17,8 +16,8 @@ const TicketsTable = () => {
   const [currentId, setCurrentId] = useState<number | null>(null);
   const deleteId = useRef<any>();
 
-  const { tickets, loading } = useSelector((state: RootState) => state.tickets);
-  const { fetchTickets, deleteTicket } = useActions();
+  const { tickets, loading } = useAppSelector((state) => state.tickets);
+  const dispatch = useAppDispatch();
 
   const setDeleteItem = (id: number) => {
     setConfirmActive(true);
@@ -26,7 +25,7 @@ const TicketsTable = () => {
   };
 
   const deleteItem = () => {
-    deleteTicket(deleteId.current);
+    dispatch(deleteTicket(deleteId.current));
     setConfirmActive(false);
   };
 
@@ -37,7 +36,7 @@ const TicketsTable = () => {
 
   useEffect(() => {
     console.log('work');
-    fetchTickets();
+    dispatch(fetchTickets());
   }, []);
 
   const renderItem = (item: TickerItem) => {
