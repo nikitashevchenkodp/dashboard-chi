@@ -7,12 +7,11 @@ import Priority from '../Priority';
 
 type TickerTableRowProps = {
   rowData: TickerItem;
-  setActive: React.Dispatch<React.SetStateAction<boolean>>;
-  setCurrentId: () => void;
   setDeleteItem: () => void;
+  onEdit: () => void;
 };
 
-const TicketTableRow = ({ rowData, setActive, setCurrentId, setDeleteItem }: TickerTableRowProps) => {
+const TicketTableRow = ({ rowData, onEdit, setDeleteItem }: TickerTableRowProps) => {
   return (
     <TableRow sx={tableStyles.tableRowBody}>
       <TableCell>
@@ -38,7 +37,7 @@ const TicketTableRow = ({ rowData, setActive, setCurrentId, setDeleteItem }: Tic
         <Priority status={rowData.status} />
       </TableCell>
       <TableCell sx={{ minWidth: '30px', width: '5%' }} align="left">
-        <ItemMenu setActive={setActive} setCurrentId={setCurrentId} deleteItem={setDeleteItem} />
+        <ItemMenu onEdit={onEdit} deleteItem={setDeleteItem} />
       </TableCell>
     </TableRow>
   );

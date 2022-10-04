@@ -1,5 +1,3 @@
-
-
 export enum TicketsActionTypes {
   FETCH_TICKETS_PENDING = 'FETCH_TICKETS_PENDING',
   FETCH_TICKETS_FULLFILED = 'FETCH_TICKETS_FULLFILED',
@@ -9,17 +7,17 @@ export enum TicketsActionTypes {
 }
 
 export type TicketsState = {
-    tickets: any[];
-    loading: boolean;
-    error: null | string;
-}
+  tickets: any[];
+  loading: boolean;
+  error: null | string;
+};
 
 type TicketsPendingAction = {
   type: TicketsActionTypes.FETCH_TICKETS_PENDING;
 };
 type TicketsFullfiledAction = {
   type: TicketsActionTypes.FETCH_TICKETS_FULLFILED;
-  payload: any[]; 
+  payload: any[];
 };
 type TicketsRejectedAction = {
   type: TicketsActionTypes.FETCH_TICKETS_REJECTED;
@@ -34,7 +32,6 @@ type DeleteTicketAction = {
   payload: number;
 };
 
-
 export type TicketsAction =
   | TicketsPendingAction
   | TicketsFullfiledAction
@@ -43,24 +40,24 @@ export type TicketsAction =
   | DeleteTicketAction;
 
 const initialState: TicketsState = {
-    tickets: [],
-    loading: false,
-    error: null,
-}
+  tickets: [],
+  loading: false,
+  error: null,
+};
 
-const updateTicker = (state: TicketsState,ticket: any) => {
+const updateTicker = (state: TicketsState, ticket: any) => {
   const idx = state.tickets.findIndex((item) => item.id === ticket.id);
   if (idx < 0) {
     return { ...state, tickets: [...state.tickets, ticket] };
   } else {
-    return {...state, tickets: [...state.tickets.slice(0, idx), ticket, ...state.tickets.slice(idx + 1)]}
+    return { ...state, tickets: [...state.tickets.slice(0, idx), ticket, ...state.tickets.slice(idx + 1)] };
   }
 };
 
- const deleteTicket = (state: TicketsState, id: number) => {
-   const idx = state.tickets.findIndex((item) => item.id === id);
-   return { ...state, tickets: [...state.tickets.slice(0, idx), ...state.tickets.slice(idx + 1)] };
- };
+const deleteTicket = (state: TicketsState, id: number) => {
+  const idx = state.tickets.findIndex((item) => item.id === id);
+  return { ...state, tickets: [...state.tickets.slice(0, idx), ...state.tickets.slice(idx + 1)] };
+};
 
 export const ticketsReducer = (state = initialState, action: TicketsAction): TicketsState => {
   switch (action.type) {
@@ -73,7 +70,7 @@ export const ticketsReducer = (state = initialState, action: TicketsAction): Tic
     case TicketsActionTypes.UPDATE_TICKET:
       return updateTicker(state, action.payload);
     case TicketsActionTypes.DELETE_TICKET:
-      return deleteTicket(state, action.payload)
+      return deleteTicket(state, action.payload);
     default:
       return state;
   }

@@ -6,12 +6,11 @@ import ItemMenu from '../ItemMenu';
 
 type TickerTableRowProps = {
   rowData: CustomerItem;
-  setActive: React.Dispatch<React.SetStateAction<boolean>>;
-  setCurrentId: () => void;
   setDeleteItem: () => void;
+  onEdit: () => void;
 };
 
-const CustomerTableRow = ({ rowData, setActive, setCurrentId, setDeleteItem }: TickerTableRowProps) => {
+const CustomerTableRow = ({ rowData, onEdit, setDeleteItem }: TickerTableRowProps) => {
   return (
     <TableRow
       sx={{
@@ -45,7 +44,7 @@ const CustomerTableRow = ({ rowData, setActive, setCurrentId, setDeleteItem }: T
         <p style={tableStyles.cellTitle}>{transformData(rowData.date)}</p>
       </TableCell>
       <TableCell sx={{ minWidth: '30px', width: '5%', overflowX: 'auto' }} align="left">
-        <ItemMenu setActive={setActive} setCurrentId={setCurrentId} deleteItem={setDeleteItem} />
+        <ItemMenu onEdit={onEdit} deleteItem={setDeleteItem} />
       </TableCell>
     </TableRow>
   );

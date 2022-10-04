@@ -1,61 +1,87 @@
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { paginationIndexes } from '../../utils';
+import ControlPanel from '../ControlPanel';
+import Loader from '../Loader';
 import Pagination from '../Pagination';
 
 type TableProps = {
   data: any[];
-  Component: React.FunctionComponent<any>;
+  loading: boolean;
   headerTitles: string[];
-  setCurrentId: (id: number) => void;
-  setDeleteItem: (id: number) => void;
-  setActive: React.Dispatch<React.SetStateAction<boolean>>;
+  renderItem: (item: any) => JSX.Element;
+  onEdit: (id: number | null) => void;
+  sortCriterias: string[];
+  sortFunction: (items: any[], filter: string) => any[];
+  filterFunction: (items: any[], filter: string) => any[];
 };
 
-const MainTable = ({ data, Component, headerTitles, setActive, setCurrentId, setDeleteItem }: TableProps) => {
+const MainTable = ({
+  data,
+  loading,
+  headerTitles,
+  sortCriterias,
+  sortFunction,
+  filterFunction,
+  onEdit,
+  renderItem,
+}: TableProps) => {
   const [perPage, setPerPage] = useState(4);
   const [page, setPage] = useState(1);
+  const [sort, setSort] = useState('');
+  const [filter, setFilter] = useState('');
 
   const paginationItems = Math.ceil(data?.length / perPage);
   const [start, end] = paginationIndexes(page, perPage);
+  const sortedItems = useMemo(() => sortFunction(data, sort), [sort, data]);
+  const filteredItems = useMemo(() => filterFunction(sortedItems, filter), [sortedItems, filter]);
 
   return (
-    <>
-      <TableContainer className="table__container">
-        <Table stickyHeader sx={{ minWidth: '1000px' }} aria-label="simple table">
-          <TableHead sx={tableStyles.tHead}>
-            <TableRow>
-              {headerTitles.map((title) => (
-                <TableCell key={title} sx={tableStyles.headCell} align="left">
-                  {title}
-                </TableCell>
-              ))}
-              <TableCell align="left"></TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {data.slice(start, end).map((row, i) => (
-              <Component
-                key={i}
-                rowData={row}
-                setActive={setActive}
-                setCurrentId={() => setCurrentId(row.id)}
-                setDeleteItem={() => setDeleteItem(row.id)}
-              />
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-      <Pagination
-        setPerPage={setPerPage}
-        page={page}
-        setPage={setPage}
-        paginationItems={paginationItems}
-        startIndex={start}
-        endIndex={end}
-        count={data?.length}
-      />
-    </>
+    <div className="container">
+      <div className="white-container">
+        {loading ? (
+          <Loader />
+        ) : (
+          <>
+            <ControlPanel
+              setSort={setSort}
+              onEdit={onEdit}
+              sortCriterias={sortCriterias}
+              setFilter={setFilter}
+              filter={filter}
+            />
+            <TableContainer className="table__container">
+              <Table stickyHeader sx={{ minWidth: '1000px' }} aria-label="simple table">
+                <TableHead sx={tableStyles.tHead}>
+                  <TableRow>
+                    {headerTitles.map((title) => (
+                      <TableCell key={title} sx={tableStyles.headCell} align="left">
+                        {title}
+                      </TableCell>
+                    ))}
+                    <TableCell align="left"></TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {filteredItems.slice(start, end).map((row, i) => {
+                    return renderItem(row);
+                  })}
+                </TableBody>
+              </Table>
+            </TableContainer>
+            <Pagination
+              setPerPage={setPerPage}
+              page={page}
+              setPage={setPage}
+              paginationItems={paginationItems}
+              startIndex={start}
+              endIndex={end}
+              count={data?.length}
+            />
+          </>
+        )}
+      </div>
+    </div>
   );
 };
 

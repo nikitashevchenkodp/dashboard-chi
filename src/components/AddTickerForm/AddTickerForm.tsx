@@ -35,8 +35,9 @@ const randomId = () => {
 };
 
 const AddTickerForm = ({ id, setActive }: AddTickerFormProps) => {
-  const {tickets} = useSelector((state: RootState) => state.tickets)
+  const { tickets } = useSelector((state: RootState) => state.tickets);
   const dispatch = useDispatch();
+
   const [initialForm, setInitialForm] = useState<InitialState>({
     details_text: '',
     name: '',
@@ -64,12 +65,12 @@ const AddTickerForm = ({ id, setActive }: AddTickerFormProps) => {
     }
   }, [id]);
 
-    function getItem(id: number) {
-      const item = tickets?.filter((item) => item.id === id)[0]!;
-      return new Promise<TickerItem>((resolve) => {
-        resolve(item);
-      });
-    }
+  function getItem(id: number) {
+    const item = tickets?.filter((item) => item.id === id)[0]!;
+    return new Promise<TickerItem>((resolve) => {
+      resolve(item);
+    });
+  }
 
   const schema = Yup.object().shape({
     name: Yup.string().min(2, 'Too Short!').max(50, 'Too Long!').required('Required'),

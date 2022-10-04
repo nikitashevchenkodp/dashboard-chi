@@ -1,10 +1,10 @@
-import { combineReducers } from "redux";
-import { oneTicketReducer } from "./oneTicketReducer";
-import { ticketsReducer } from "./tickertsReducer";
+import { combineReducers } from 'redux';
+import { customersReducer } from './customersReducer';
+import { ticketsReducer } from './tickertsReducer';
 
 export const rootReducer = combineReducers({
-    tickets: ticketsReducer,
-    oneTicket: oneTicketReducer
-})
+  tickets: ticketsReducer,
+  customers: customersReducer,
+});
 
-export type RootState = ReturnType<typeof rootReducer>
+export type RootState = ReturnType<typeof rootReducer>;
