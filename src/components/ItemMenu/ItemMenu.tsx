@@ -4,12 +4,11 @@ import { BsThreeDotsVertical } from 'react-icons/bs';
 import Button from '../Button';
 
 type ItemMenuProps = {
-  setActive: (active: boolean) => void;
-  setCurrentId: () => void;
+  onEdit: () => void;
   deleteItem: () => void;
 };
 
-const ItemMenu = ({ setActive, setCurrentId, deleteItem }: ItemMenuProps) => {
+const ItemMenu = ({ onEdit, deleteItem }: ItemMenuProps) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -36,8 +35,7 @@ const ItemMenu = ({ setActive, setCurrentId, deleteItem }: ItemMenuProps) => {
       >
         <MenuItem
           onClick={() => {
-            setActive(true);
-            setCurrentId();
+            onEdit();
             setAnchorEl(null);
           }}
         >

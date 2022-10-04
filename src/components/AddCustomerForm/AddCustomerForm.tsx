@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useForm } from '../../hooks/useForm';
+import { updateCustomers } from '../../store/action-creators/customers';
+import { RootState } from '../../store/reducers';
 import { CustomerItem } from '../../utils/consts';
 import Button from '../Button';
 import Form from '../Form';
@@ -8,10 +12,8 @@ import Input from '../Input';
 import './AddCustomerForm.scss';
 
 type AddCustomerFormProps = {
-  updateFunction: (item: any) => void;
   id: number | null;
   setActive: (active: boolean) => void;
-  getCustomerItem: (id: number) => Promise<CustomerItem>;
 };
 
 type InitialState = {
@@ -25,7 +27,7 @@ const randomId = () => {
   return Math.floor(Math.random() * 1000 + 33);
 };
 
-const AddCustomerForm = ({ updateFunction, id, setActive, getCustomerItem }: AddCustomerFormProps) => {
+const AddCustomerForm = ({ id, setActive }: AddCustomerFormProps) => {
   const [initialForm, setInitialForm] = useState<InitialState>({
     first_name: '',
     last_name: '',
@@ -33,9 +35,12 @@ const AddCustomerForm = ({ updateFunction, id, setActive, getCustomerItem }: Add
     address: '',
   });
 
+  const { customers } = useSelector((state: RootState) => state.customers);
+  const dispatch = useDispatch();
+
   useEffect(() => {
     if (id) {
-      getCustomerItem(id).then((res) => {
+      getCustomer(id).then((res) => {
         setInitialForm(res);
       });
     } else {
@@ -48,6 +53,13 @@ const AddCustomerForm = ({ updateFunction, id, setActive, getCustomerItem }: Add
     }
   }, [id]);
 
+  function getCustomer(id: number) {
+    const item = customers?.filter((item) => item.id === id)[0]!;
+    return new Promise<CustomerItem>((resolve) => {
+      resolve(item);
+    });
+  }
+
   const [form, changeHandler] = useForm(initialForm);
 
   const submit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -59,7 +71,7 @@ const AddCustomerForm = ({ updateFunction, id, setActive, getCustomerItem }: Add
     };
     console.log(newTicker);
 
-    updateFunction(newTicker);
+    dispatch(updateCustomers(newTicker));
     setActive(false);
   };
 

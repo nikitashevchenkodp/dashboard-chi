@@ -12,12 +12,14 @@ import { useFormik } from 'formik';
 import dayjs, { Dayjs } from 'dayjs';
 import * as Yup from 'yup';
 import Button from '../Button';
+import { RootState } from '../../store/reducers';
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { updateTickets } from '../../store/action-creators/tickets';
 
 type AddTickerFormProps = {
-  updateFunction: (item: any) => void;
   id: number | null;
   setActive: (active: boolean) => void;
-  getItem: (id: number) => Promise<TickerItem>;
 };
 
 type InitialState = {
@@ -32,7 +34,10 @@ const randomId = () => {
   return Math.floor(Math.random() * 1000 + 33);
 };
 
-const AddTickerForm = ({ updateFunction, id, setActive, getItem }: AddTickerFormProps) => {
+const AddTickerForm = ({ id, setActive }: AddTickerFormProps) => {
+  const { tickets } = useSelector((state: RootState) => state.tickets);
+  const dispatch = useDispatch();
+
   const [initialForm, setInitialForm] = useState<InitialState>({
     details_text: '',
     name: '',
@@ -60,6 +65,13 @@ const AddTickerForm = ({ updateFunction, id, setActive, getItem }: AddTickerForm
     }
   }, [id]);
 
+  function getItem(id: number) {
+    const item = tickets?.filter((item) => item.id === id)[0]!;
+    return new Promise<TickerItem>((resolve) => {
+      resolve(item);
+    });
+  }
+
   const schema = Yup.object().shape({
     name: Yup.string().min(2, 'Too Short!').max(50, 'Too Long!').required('Required'),
     details_text: Yup.string().min(2, 'Too Short!').max(50, 'Too Long!').required('Required'),
@@ -70,10 +82,12 @@ const AddTickerForm = ({ updateFunction, id, setActive, getItem }: AddTickerForm
     enableReinitialize: true,
     validationSchema: schema,
     onSubmit: (values, { resetForm }) => {
-      updateFunction({
-        ...values,
-        id: id ? id : randomId(),
-      });
+      dispatch(
+        updateTickets({
+          ...values,
+          id: id ? id : randomId(),
+        })
+      );
       setActive(false);
       resetForm();
     },

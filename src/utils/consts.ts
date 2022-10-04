@@ -219,7 +219,7 @@ const tickerBodyData: TickerItem[] = [
 
 export function getTickerData() {
   return new Promise<TickerItem[]>((resolve) => {
-    resolve(tickerBodyData);
+    setTimeout(() => resolve(tickerBodyData), 500);
   });
 }
 export function getCustomerData() {
