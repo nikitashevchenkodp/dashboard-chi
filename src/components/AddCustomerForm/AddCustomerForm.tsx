@@ -38,7 +38,7 @@ const AddCustomerForm = ({ id, setActive }: AddCustomerFormProps) => {
 
   useEffect(() => {
     if (id) {
-      getCustomer(customers, id).then((res) => {
+      getCustomer(id).then((res) => {
         setInitialForm(res);
       });
     } else {

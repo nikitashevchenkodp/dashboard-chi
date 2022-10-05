@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks/typedDispatch';
-import { deleteTicket, fetchTickets } from '../../store/slices/ticketsSlice';
+import { deleteTicket } from '../../store/slices/ticketsSlice';
 import { filterTickerFunction, sortFunctionTicker, tickerCellTitles } from '../../utils';
 import { TickerItem } from '../../utils/consts';
 import AddTickerForm from '../AddTickerForm';
@@ -10,6 +10,7 @@ import ModalWindow from '../ModalWindow';
 import TicketTableRow from '../TicketTableRow/TicketTableRow';
 import './TicketsTable.scss';
 import { ticketsSelector } from '../../store/selectors';
+import { sagaActions } from '../../store/saga/saga-actions';
 
 const TicketsTable = () => {
   const [active, setActive] = useState<boolean>(false);
@@ -26,7 +27,7 @@ const TicketsTable = () => {
   };
 
   const deleteItem = () => {
-    dispatch(deleteTicket(deleteId.current));
+    dispatch({ type: sagaActions.DELETE_TICKET_SAGA, payload: deleteId.current });
     setConfirmActive(false);
   };
 
@@ -37,7 +38,7 @@ const TicketsTable = () => {
 
   useEffect(() => {
     console.log('work');
-    dispatch(fetchTickets());
+    dispatch({ type: sagaActions.FETCH_TICKETS_SAGA });
   }, []);
 
   const renderItem = (item: TickerItem) => {

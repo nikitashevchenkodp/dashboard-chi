@@ -1,7 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { AppDispatch } from '..';
 import { CustomerItem } from '../../utils/consts';
-import { getCustomerData } from '../../utils';
 
 export type CustomersState = {
   customers: CustomerItem[];
@@ -13,15 +11,6 @@ const initialState: CustomersState = {
   customers: [],
   loading: false,
   error: '',
-};
-
-export const fetchCustomers = () => (dispatch: AppDispatch) => {
-  dispatch(fetchAllCustomers());
-  getCustomerData()
-    .then((res) => {
-      dispatch(loadAllCustomers(res));
-    })
-    .catch((e) => dispatch(rejectAllCustomers(e.message)));
 };
 
 const customersSlice = createSlice({
@@ -49,12 +38,27 @@ const customersSlice = createSlice({
         state.customers = [...state.customers.slice(0, idx), action.payload, ...state.customers.slice(idx + 1)];
       }
     },
+    startDeleteCustomer: (state) => {
+      state.loading = true;
+    },
     deleteCustomer: (state, action: PayloadAction<number>) => {
       state.customers = state.customers.filter((customer) => customer.id !== action.payload);
+      state.loading = false;
+    },
+    rejectDeleteCustomer: (state, action: PayloadAction<string>) => {
+      state.loading = false;
+      state.error = action.payload;
     },
   },
 });
 
-export const { fetchAllCustomers, loadAllCustomers, rejectAllCustomers, updateCustomer, deleteCustomer } =
-  customersSlice.actions;
+export const {
+  fetchAllCustomers,
+  loadAllCustomers,
+  rejectAllCustomers,
+  updateCustomer,
+  startDeleteCustomer,
+  deleteCustomer,
+  rejectDeleteCustomer,
+} = customersSlice.actions;
 export default customersSlice.reducer;

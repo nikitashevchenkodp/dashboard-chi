@@ -8,7 +8,7 @@ import './LoginPage.scss';
 import Logo from '../../components/Logo';
 import { FormTitle } from '../../components/Form/Form';
 import { useAppDispatch } from '../../hooks/typedDispatch';
-import { setUser } from '../../store/slices/userSlice';
+import { sagaActions } from '../../store/saga/saga-actions';
 type LoginForm = {
   email: string;
   password: string;
@@ -24,7 +24,7 @@ const LoginPage = () => {
 
   const submit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    dispatch(setUser());
+    dispatch({ type: sagaActions.LOGIN_USER_SAGA });
   };
 
   return (

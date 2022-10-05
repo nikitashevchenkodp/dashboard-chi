@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import './CustomersTable.scss';
 
-import { customersCellTitles, getCustomerData, filterCustomerFunction, sortFunctionCustomer } from '../../utils';
+import { customersCellTitles, filterCustomerFunction, sortFunctionCustomer } from '../../utils';
 import { ModalWindow, AddCustomerForm } from '../../components';
 import { CustomerItem } from '../../utils/consts';
 
@@ -9,8 +9,9 @@ import DeleteForm from '../../components/DeleteForm';
 import MainTable from '../../components/MainTable';
 import CustomerTableRow from '../../components/CustomerTableRow';
 import { useAppDispatch, useAppSelector } from '../../hooks/typedDispatch';
-import { deleteCustomer, fetchCustomers } from '../../store/slices/customersSlice';
+import { deleteCustomer } from '../../store/slices/customersSlice';
 import { customersSelector } from '../../store/selectors';
+import { sagaActions } from '../../store/saga/saga-actions';
 
 const CustomersTable = () => {
   const [active, setActive] = useState<boolean>(false);
@@ -27,7 +28,7 @@ const CustomersTable = () => {
   };
 
   const deleteItem = () => {
-    dispatch(deleteCustomer(deleteId.current));
+    dispatch({ type: sagaActions.DELETE_CUSTOMER_SAGA, payload: deleteId.current });
     setConfirmActive(false);
   };
 
@@ -37,7 +38,7 @@ const CustomersTable = () => {
   };
 
   useEffect(() => {
-    dispatch(fetchCustomers());
+    dispatch({ type: sagaActions.FETCH_CUSTOMERS_SAGA });
   }, [dispatch]);
 
   const renderItem = (item: CustomerItem) => {

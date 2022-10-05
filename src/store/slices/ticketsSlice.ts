@@ -1,7 +1,5 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { AppDispatch } from '..';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { TickerItem } from '../../utils/consts';
-import { getTickerData } from '../../utils';
 
 export type TicketsState = {
   tickets: TickerItem[];
@@ -13,15 +11,6 @@ const initialState: TicketsState = {
   tickets: [],
   loading: false,
   error: '',
-};
-
-export const fetchTickets = () => (dispatch: AppDispatch) => {
-  dispatch(fetchAllTickets());
-  getTickerData()
-    .then((res) => {
-      dispatch(loadAllTickets(res));
-    })
-    .catch((e) => dispatch(rejectAllTickets(e.message)));
 };
 
 const ticketsSlice = createSlice({
@@ -49,11 +38,27 @@ const ticketsSlice = createSlice({
         state.tickets = [...state.tickets.slice(0, idx), action.payload, ...state.tickets.slice(idx + 1)];
       }
     },
+    startDeleteTicket: (state) => {
+      state.loading = true;
+    },
     deleteTicket: (state, action: PayloadAction<number>) => {
       state.tickets = state.tickets.filter((ticket) => ticket.id !== action.payload);
+      state.loading = false;
+    },
+    rejectDeleteTicket: (state, action: PayloadAction<string>) => {
+      state.loading = false;
+      state.error = action.payload;
     },
   },
 });
 
-export const { fetchAllTickets, loadAllTickets, rejectAllTickets, updateTickets, deleteTicket } = ticketsSlice.actions;
+export const {
+  fetchAllTickets,
+  loadAllTickets,
+  rejectAllTickets,
+  updateTickets,
+  startDeleteTicket,
+  deleteTicket,
+  rejectDeleteTicket,
+} = ticketsSlice.actions;
 export default ticketsSlice.reducer;

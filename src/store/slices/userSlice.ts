@@ -1,7 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { TickerItem } from '../../utils/consts';
-
 const localStorageUser = JSON.parse(localStorage.getItem('user')!);
 
 export type User = {
@@ -13,17 +11,24 @@ export type User = {
 
 export type UserState = {
   user: User | null;
+  loading: boolean;
+  error: string;
 };
 
 const initialState: UserState = {
   user: localStorageUser ? localStorageUser : null,
+  loading: false,
+  error: '',
 };
 
 const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    setUser: (state) => {
+    startLoginUser: (state) => {
+      state.loading = true;
+    },
+    successLoginUser: (state) => {
       localStorage.setItem(
         'user',
         JSON.stringify({
@@ -40,6 +45,11 @@ const userSlice = createSlice({
         email: 'nrcsdfsdf@gmail.com',
       };
     },
+    rejectLoginUser: (state, action: PayloadAction<string>) => {
+      state.loading = false;
+      state.user = null;
+      state.error = action.payload;
+    },
     cleanUser: (state) => {
       state.user = null;
       localStorage.removeItem('user');
@@ -47,5 +57,5 @@ const userSlice = createSlice({
   },
 });
 
-export const { cleanUser, setUser } = userSlice.actions;
+export const { cleanUser, startLoginUser, successLoginUser, rejectLoginUser } = userSlice.actions;
 export default userSlice.reducer;

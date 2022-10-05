@@ -1,0 +1,118 @@
+{
+  "tickets": [
+    {
+      "id": 4,
+      "image": "/static/media/customer_4.2826c2f016981e97e61b43041223df1d.svg",
+      "details_text": "Contact Email not Linked",
+      "name": "Tom Cruise",
+      "date": "Wed, 05 Oct 2022 13:28:50 GMT",
+      "status": "high"
+    },
+    {
+      "id": 5,
+      "image": "/static/media/customer_5.7398abe37a130e8a6ee3c87b77f23198.svg",
+      "details_text": "Contact Email not Linked",
+      "name": "Ostap Cruise",
+      "date": "Wed, 05 Oct 2022 13:28:50 GMT",
+      "status": "high"
+    },
+    {
+      "id": 6,
+      "image": "/static/media/customer_6.3a080d779183c1e5b926da2ff35ddbdd.svg",
+      "details_text": "Contact Email not Linked",
+      "name": "Tom Cruise",
+      "date": "Wed, 05 Oct 2022 13:28:50 GMT",
+      "status": "high"
+    },
+    {
+      "id": 7,
+      "image": "/static/media/customer_7.2d21dfc46cdfb9dbb0972f965ef2e804.svg",
+      "details_text": "Contact Email not Linked",
+      "name": "Alex Cruise",
+      "date": "Wed, 05 Oct 2022 13:28:50 GMT",
+      "status": "high"
+    },
+    {
+      "id": 8,
+      "image": "/static/media/customer_8.6edab5dd31267bd716557ffefcadd6c7.svg",
+      "details_text": "Contact Email not Linked",
+      "name": "Tom Cruise",
+      "date": "Wed, 05 Oct 2022 13:28:50 GMT",
+      "status": "high"
+    }
+  ],
+  "customers": [
+    {
+      "id": 11,
+      "image": "/static/media/customer_1.97ad5e9a3d513816e217f8e17d8d3a2c.svg",
+      "first_name": "Tom",
+      "last_name": "Cruise",
+      "email": "mandeep.walton@gmail.com",
+      "address": "Unit 1, Moons Park, Burnt Meadow Road, Moons Moat North Industrial Estate,B98 9PA",
+      "date": "Sat Oct 29 2022"
+    },
+    {
+      "id": 12,
+      "image": "/static/media/customer_2.f39324ae838090f045d76730b7d8a35f.svg",
+      "first_name": "Elena",
+      "last_name": "Sheldon",
+      "email": "elena.sheldon@gmail.com",
+      "address": "South Lodge, Reddish Lane, Lymm,WA13 9PY",
+      "date": "Fri Oct 28 2022"
+    },
+    {
+      "id": 14,
+      "image": "/static/media/customer_4.2826c2f016981e97e61b43041223df1d.svg",
+      "first_name": "Tom",
+      "last_name": "Cruise",
+      "email": "mandeep.walton@gmail.com",
+      "address": "South Lodge, Reddish Lane, Lymm,WA13 9PY",
+      "date": "Wed, 05 Oct 2022 13:12:36 GMT"
+    },
+    {
+      "id": 15,
+      "image": "/static/media/customer_5.7398abe37a130e8a6ee3c87b77f23198.svg",
+      "first_name": "Elena",
+      "last_name": "Sheldon",
+      "email": "elena.sheldon@gmail.com",
+      "address": "Unit 1, Moons Park, Burnt Meadow Road, Moons Moat North Industrial Estate,B98 9PA",
+      "date": "Wed, 05 Oct 2022 13:12:36 GMT"
+    },
+    {
+      "id": 16,
+      "image": "/static/media/customer_6.3a080d779183c1e5b926da2ff35ddbdd.svg",
+      "first_name": "Kim",
+      "last_name": "Gould",
+      "email": "kim.gould@gmail.com",
+      "address": "South Lodge, Reddish Lane, Lymm,WA13 9PY",
+      "date": "Wed, 05 Oct 2022 13:12:36 GMT"
+    },
+    {
+      "id": 17,
+      "image": "/static/media/customer_7.2d21dfc46cdfb9dbb0972f965ef2e804.svg",
+      "first_name": "Tom",
+      "last_name": "Cruise",
+      "email": "mandeep.walton@gmail.com",
+      "address": "Unit 1, Moons Park, Burnt Meadow Road, Moons Moat North Industrial Estate,B98 9PA",
+      "date": "Wed, 05 Oct 2022 13:12:36 GMT"
+    },
+    {
+      "id": 18,
+      "image": "/static/media/customer_8.6edab5dd31267bd716557ffefcadd6c7.svg",
+      "first_name": "Elena",
+      "last_name": "Sheldon",
+      "email": "elena.sheldon@gmail.com",
+      "address": "South Lodge, Reddish Lane, Lymm,WA13 9PY",
+      "date": "Wed, 05 Oct 2022 13:12:36 GMT"
+    },
+    {
+      "id": 19,
+      "image": "/static/media/customer_1.97ad5e9a3d513816e217f8e17d8d3a2c.svg",
+      "first_name": "Kim",
+      "last_name": "Gould",
+      "email": "kim.gould@gmail.com",
+      "address": "Unit 1, Moons Park, Burnt Meadow Road, Moons Moat North Industrial Estate,B98 9PA",
+      "date": "Wed, 05 Oct 2022 13:12:36 GMT"
+    }
+  ]
+}

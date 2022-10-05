@@ -47,7 +47,7 @@ const AddTickerForm = ({ id, setActive }: AddTickerFormProps) => {
 
   useEffect(() => {
     if (id) {
-      getTicker(tickets, id).then((res) => {
+      getTicker(id).then((res) => {
         setInitialForm({
           ...res,
           date: dayjs(res.date).toString(),
