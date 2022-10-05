@@ -1,6 +1,6 @@
 import Select from '../Select';
 import React, { useEffect, useState } from 'react';
-import { TickerItem } from '../../utils/consts';
+import { getTicker, TickerItem } from '../../utils/consts';
 import { FormTitle } from '../Form/Form';
 import Form from '../Form/Form';
 import Input from '../Input';
@@ -12,10 +12,9 @@ import { useFormik } from 'formik';
 import dayjs, { Dayjs } from 'dayjs';
 import * as Yup from 'yup';
 import Button from '../Button';
-import { RootState } from '../../store/reducers';
-import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
-import { updateTickets } from '../../store/action-creators/tickets';
+import { useAppDispatch, useAppSelector } from '../../hooks/typedDispatch';
+import { updateTickets } from '../../store/slices/ticketsSlice';
+import { ticketsSelector } from '../../store/selectors';
 
 type AddTickerFormProps = {
   id: number | null;
@@ -25,7 +24,7 @@ type AddTickerFormProps = {
 type InitialState = {
   details_text: string;
   name: string;
-  date: Dayjs | string;
+  date: string;
   status: string;
   image?: any;
 };
@@ -35,30 +34,30 @@ const randomId = () => {
 };
 
 const AddTickerForm = ({ id, setActive }: AddTickerFormProps) => {
-  const { tickets } = useSelector((state: RootState) => state.tickets);
-  const dispatch = useDispatch();
+  const { tickets } = useAppSelector(ticketsSelector);
+  const dispatch = useAppDispatch();
 
   const [initialForm, setInitialForm] = useState<InitialState>({
     details_text: '',
     name: '',
-    date: dayjs(),
+    date: dayjs().toString(),
     status: '',
     image: '',
   });
 
   useEffect(() => {
     if (id) {
-      getItem(id).then((res) => {
+      getTicker(tickets, id).then((res) => {
         setInitialForm({
           ...res,
-          date: dayjs(res.date),
+          date: dayjs(res.date).toString(),
         });
       });
     } else {
       setInitialForm({
         details_text: '',
         name: '',
-        date: dayjs(),
+        date: dayjs().toString(),
         status: '',
         image: '',
       });

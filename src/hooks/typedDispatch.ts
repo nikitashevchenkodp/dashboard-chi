@@ -1,10 +1,8 @@
+import { TypedUseSelectorHook, useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import Actions from '../store/action-creators';
+import { AppDispatch, RootState } from '../store';
 
 // export const useAppDispatch: () => AppDispatch = useDispatch;
 
-export const useActions = () => {
-  const dispatch = useDispatch();
-  return bindActionCreators(Actions, dispatch);
-};
+export const useAppDispatch = () => useDispatch<AppDispatch>();
+export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;

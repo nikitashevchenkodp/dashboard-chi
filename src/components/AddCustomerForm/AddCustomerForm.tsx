@@ -1,16 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { useSelector } from 'react-redux';
 import { useForm } from '../../hooks/useForm';
-import { updateCustomers } from '../../store/action-creators/customers';
-import { RootState } from '../../store/reducers';
-import { CustomerItem } from '../../utils/consts';
+import { CustomerItem, getCustomer } from '../../utils/consts';
 import Button from '../Button';
 import Form from '../Form';
 import { FormTitle } from '../Form/Form';
 import Input from '../Input';
 import './AddCustomerForm.scss';
-
+import { useAppSelector, useAppDispatch } from '../../hooks/typedDispatch';
+import { updateCustomer } from '../../store/slices/customersSlice';
+import { customersSelector } from '../../store/selectors';
 type AddCustomerFormProps = {
   id: number | null;
   setActive: (active: boolean) => void;
@@ -35,12 +33,12 @@ const AddCustomerForm = ({ id, setActive }: AddCustomerFormProps) => {
     address: '',
   });
 
-  const { customers } = useSelector((state: RootState) => state.customers);
-  const dispatch = useDispatch();
+  const { customers } = useAppSelector(customersSelector);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (id) {
-      getCustomer(id).then((res) => {
+      getCustomer(customers, id).then((res) => {
         setInitialForm(res);
       });
     } else {
@@ -53,13 +51,6 @@ const AddCustomerForm = ({ id, setActive }: AddCustomerFormProps) => {
     }
   }, [id]);
 
-  function getCustomer(id: number) {
-    const item = customers?.filter((item) => item.id === id)[0]!;
-    return new Promise<CustomerItem>((resolve) => {
-      resolve(item);
-    });
-  }
-
   const [form, changeHandler] = useForm(initialForm);
 
   const submit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -71,7 +62,7 @@ const AddCustomerForm = ({ id, setActive }: AddCustomerFormProps) => {
     };
     console.log(newTicker);
 
-    dispatch(updateCustomers(newTicker));
+    dispatch(updateCustomer(newTicker));
     setActive(false);
   };
 

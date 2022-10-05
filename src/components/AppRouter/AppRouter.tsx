@@ -1,11 +1,12 @@
 import React from 'react';
 import { Routes, Route, Navigate, BrowserRouter } from 'react-router-dom';
-import { MainState } from '../../MainContext';
 import { publickRoutes, privatRoutes } from '../../routes';
 import './AppRouter.scss';
+import { useAppSelector } from '../../hooks/typedDispatch';
+import { userSelector } from '../../store/selectors';
 
 const AppRouter = () => {
-  const { user } = MainState();
+  const { user } = useAppSelector(userSelector);
 
   const publickRoute = publickRoutes.map(({ path, Component }) => {
     return <Route key={path} path={path} element={<Component />} />;

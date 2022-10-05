@@ -6,18 +6,11 @@ import { ModalWindow, AddCustomerForm } from '../../components';
 import { CustomerItem } from '../../utils/consts';
 
 import DeleteForm from '../../components/DeleteForm';
-
 import MainTable from '../../components/MainTable';
 import CustomerTableRow from '../../components/CustomerTableRow';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../store/reducers';
-import {
-  deleteCustomer,
-  fetchAllCustomers,
-  loadAllCustomers,
-  rejectAllCustomers,
-} from '../../store/action-creators/customers';
-import { useDispatch } from 'react-redux';
+import { useAppDispatch, useAppSelector } from '../../hooks/typedDispatch';
+import { deleteCustomer, fetchCustomers } from '../../store/slices/customersSlice';
+import { customersSelector } from '../../store/selectors';
 
 const CustomersTable = () => {
   const [active, setActive] = useState<boolean>(false);
@@ -25,8 +18,8 @@ const CustomersTable = () => {
   const [currentId, setCurrentId] = useState<number | null>(null);
   const deleteId = useRef<any>();
 
-  const { customers, loading } = useSelector((state: RootState) => state.customers);
-  const dispatch = useDispatch();
+  const { customers, loading } = useAppSelector(customersSelector);
+  const dispatch = useAppDispatch();
 
   const setDeleteItem = (id: number) => {
     setConfirmActive(true);
@@ -44,13 +37,7 @@ const CustomersTable = () => {
   };
 
   useEffect(() => {
-    dispatch(fetchAllCustomers());
-    getCustomerData()
-      .then((res) => {
-        console.log('get result');
-        dispatch(loadAllCustomers(res));
-      })
-      .catch((e) => dispatch(rejectAllCustomers(e.message)));
+    dispatch(fetchCustomers());
   }, [dispatch]);
 
   const renderItem = (item: CustomerItem) => {
@@ -76,7 +63,6 @@ const CustomersTable = () => {
         headerTitles={customersCellTitles}
         onEdit={onEdit}
       />
-
       <ModalWindow active={active} setActive={setActive}>
         <AddCustomerForm id={currentId} setActive={setActive} />
       </ModalWindow>
