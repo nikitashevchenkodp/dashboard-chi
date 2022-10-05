@@ -10,6 +10,7 @@ import MainTable from '../../components/MainTable';
 import CustomerTableRow from '../../components/CustomerTableRow';
 import { useAppDispatch, useAppSelector } from '../../hooks/typedDispatch';
 import { deleteCustomer, fetchCustomers } from '../../store/slices/customersSlice';
+import { customersSelector } from '../../store/selectors';
 
 const CustomersTable = () => {
   const [active, setActive] = useState<boolean>(false);
@@ -17,7 +18,7 @@ const CustomersTable = () => {
   const [currentId, setCurrentId] = useState<number | null>(null);
   const deleteId = useRef<any>();
 
-  const { customers, loading } = useAppSelector((state) => state.customers);
+  const { customers, loading } = useAppSelector(customersSelector);
   const dispatch = useAppDispatch();
 
   const setDeleteItem = (id: number) => {
@@ -62,7 +63,6 @@ const CustomersTable = () => {
         headerTitles={customersCellTitles}
         onEdit={onEdit}
       />
-
       <ModalWindow active={active} setActive={setActive}>
         <AddCustomerForm id={currentId} setActive={setActive} />
       </ModalWindow>

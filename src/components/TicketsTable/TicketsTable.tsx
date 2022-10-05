@@ -9,6 +9,7 @@ import MainTable from '../MainTable';
 import ModalWindow from '../ModalWindow';
 import TicketTableRow from '../TicketTableRow/TicketTableRow';
 import './TicketsTable.scss';
+import { ticketsSelector } from '../../store/selectors';
 
 const TicketsTable = () => {
   const [active, setActive] = useState<boolean>(false);
@@ -16,7 +17,7 @@ const TicketsTable = () => {
   const [currentId, setCurrentId] = useState<number | null>(null);
   const deleteId = useRef<any>();
 
-  const { tickets, loading } = useAppSelector((state) => state.tickets);
+  const { tickets, loading } = useAppSelector(ticketsSelector);
   const dispatch = useAppDispatch();
 
   const setDeleteItem = (id: number) => {

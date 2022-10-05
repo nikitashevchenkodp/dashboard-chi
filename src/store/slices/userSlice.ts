@@ -2,6 +2,8 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { TickerItem } from '../../utils/consts';
 
+const localStorageUser = JSON.parse(localStorage.getItem('user')!);
+
 export type User = {
   firstName: string;
   lastName: string;
@@ -14,7 +16,7 @@ export type UserState = {
 };
 
 const initialState: UserState = {
-  user: JSON.parse(localStorage.getItem('user')!) ? JSON.parse(localStorage.getItem('user')!) : null,
+  user: localStorageUser ? localStorageUser : null,
 };
 
 const userSlice = createSlice({
@@ -40,6 +42,7 @@ const userSlice = createSlice({
     },
     cleanUser: (state) => {
       state.user = null;
+      localStorage.removeItem('user');
     },
   },
 });

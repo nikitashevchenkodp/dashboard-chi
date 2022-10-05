@@ -3,9 +3,10 @@ import { Routes, Route, Navigate, BrowserRouter } from 'react-router-dom';
 import { publickRoutes, privatRoutes } from '../../routes';
 import './AppRouter.scss';
 import { useAppSelector } from '../../hooks/typedDispatch';
+import { userSelector } from '../../store/selectors';
 
 const AppRouter = () => {
-  const { user } = useAppSelector((state) => state.user);
+  const { user } = useAppSelector(userSelector);
 
   const publickRoute = publickRoutes.map(({ path, Component }) => {
     return <Route key={path} path={path} element={<Component />} />;

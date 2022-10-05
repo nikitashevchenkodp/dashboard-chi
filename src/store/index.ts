@@ -1,11 +1,11 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import ticketsReducer from './slices/ticketsSlice';
 import customersReducer from './slices/customersSlice';
-import userSlice from './slices/userSlice';
+import userReducer from './slices/userSlice';
 const rootReducer = combineReducers({
   tickets: ticketsReducer,
   customers: customersReducer,
-  user: userSlice,
+  user: userReducer,
 });
 
 export const setupStore = () => {

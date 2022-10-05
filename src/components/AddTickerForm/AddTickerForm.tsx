@@ -14,6 +14,7 @@ import * as Yup from 'yup';
 import Button from '../Button';
 import { useAppDispatch, useAppSelector } from '../../hooks/typedDispatch';
 import { updateTickets } from '../../store/slices/ticketsSlice';
+import { ticketsSelector } from '../../store/selectors';
 
 type AddTickerFormProps = {
   id: number | null;
@@ -33,7 +34,7 @@ const randomId = () => {
 };
 
 const AddTickerForm = ({ id, setActive }: AddTickerFormProps) => {
-  const { tickets } = useAppSelector((state) => state.tickets);
+  const { tickets } = useAppSelector(ticketsSelector);
   const dispatch = useAppDispatch();
 
   const [initialForm, setInitialForm] = useState<InitialState>({

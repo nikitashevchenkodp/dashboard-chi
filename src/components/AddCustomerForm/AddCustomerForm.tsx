@@ -8,6 +8,7 @@ import Input from '../Input';
 import './AddCustomerForm.scss';
 import { useAppSelector, useAppDispatch } from '../../hooks/typedDispatch';
 import { updateCustomer } from '../../store/slices/customersSlice';
+import { customersSelector } from '../../store/selectors';
 type AddCustomerFormProps = {
   id: number | null;
   setActive: (active: boolean) => void;
@@ -32,7 +33,7 @@ const AddCustomerForm = ({ id, setActive }: AddCustomerFormProps) => {
     address: '',
   });
 
-  const { customers } = useAppSelector((state) => state.customers);
+  const { customers } = useAppSelector(customersSelector);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
