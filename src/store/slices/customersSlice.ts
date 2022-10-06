@@ -30,13 +30,12 @@ const customersSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     },
-    updateCustomer: (state, action: PayloadAction<CustomerItem>) => {
+    addCustomer: (state, action: PayloadAction<CustomerItem>) => {
+      state.customers = [...state.customers, action.payload];
+    },
+    editCustomer: (state, action: PayloadAction<CustomerItem>) => {
       const idx = state.customers.findIndex((item) => item.id === action.payload.id);
-      if (idx < 0) {
-        state.customers = [...state.customers, action.payload];
-      } else {
-        state.customers = [...state.customers.slice(0, idx), action.payload, ...state.customers.slice(idx + 1)];
-      }
+      state.customers = [...state.customers.slice(0, idx), action.payload, ...state.customers.slice(idx + 1)];
     },
     startDeleteCustomer: (state) => {
       state.loading = true;
@@ -56,9 +55,10 @@ export const {
   fetchAllCustomers,
   loadAllCustomers,
   rejectAllCustomers,
-  updateCustomer,
   startDeleteCustomer,
   deleteCustomer,
   rejectDeleteCustomer,
+  editCustomer,
+  addCustomer,
 } = customersSlice.actions;
 export default customersSlice.reducer;

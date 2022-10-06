@@ -30,13 +30,12 @@ const ticketsSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     },
-    updateTickets: (state, action: PayloadAction<TickerItem>) => {
+    addTicket: (state, action: PayloadAction<TickerItem>) => {
+      state.tickets = [...state.tickets, action.payload];
+    },
+    editTicket: (state, action: PayloadAction<TickerItem>) => {
       const idx = state.tickets.findIndex((item) => item.id === action.payload.id);
-      if (idx < 0) {
-        state.tickets = [...state.tickets, action.payload];
-      } else {
-        state.tickets = [...state.tickets.slice(0, idx), action.payload, ...state.tickets.slice(idx + 1)];
-      }
+      state.tickets = [...state.tickets.slice(0, idx), action.payload, ...state.tickets.slice(idx + 1)];
     },
     startDeleteTicket: (state) => {
       state.loading = true;
@@ -56,7 +55,8 @@ export const {
   fetchAllTickets,
   loadAllTickets,
   rejectAllTickets,
-  updateTickets,
+  addTicket,
+  editTicket,
   startDeleteTicket,
   deleteTicket,
   rejectDeleteTicket,

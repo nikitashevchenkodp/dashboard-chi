@@ -29,21 +29,14 @@ const userSlice = createSlice({
       state.loading = true;
     },
     successLoginUser: (state) => {
-      localStorage.setItem(
-        'user',
-        JSON.stringify({
-          firstName: 'Nikita',
-          lastName: 'Shevchenko',
-          address: 'sdfsdf sdfsdf sdf sdf sdf sdf sdf sdfd f',
-          email: 'nrcsdfsdf@gmail.com',
-        })
-      );
       state.user = {
         firstName: 'Nikita',
         lastName: 'Shevchenko',
         address: 'sdfsdf sdfsdf sdf sdf sdf sdf sdf sdfd f',
         email: 'nrcsdfsdf@gmail.com',
       };
+      state.loading = false;
+      state.error = '';
     },
     rejectLoginUser: (state, action: PayloadAction<string>) => {
       state.loading = false;
@@ -54,8 +47,11 @@ const userSlice = createSlice({
       state.user = null;
       localStorage.removeItem('user');
     },
+    editUser: (state, action: PayloadAction<User>) => {
+      state.user = action.payload;
+    },
   },
 });
 
-export const { cleanUser, startLoginUser, successLoginUser, rejectLoginUser } = userSlice.actions;
+export const { cleanUser, startLoginUser, successLoginUser, rejectLoginUser, editUser } = userSlice.actions;
 export default userSlice.reducer;

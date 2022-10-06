@@ -1,27 +1,11 @@
 {
   "tickets": [
     {
-      "id": 4,
-      "image": "/static/media/customer_4.2826c2f016981e97e61b43041223df1d.svg",
-      "details_text": "Contact Email not Linked",
-      "name": "Tom Cruise",
-      "date": "Wed, 05 Oct 2022 13:28:50 GMT",
-      "status": "high"
-    },
-    {
-      "id": 5,
-      "image": "/static/media/customer_5.7398abe37a130e8a6ee3c87b77f23198.svg",
-      "details_text": "Contact Email not Linked",
-      "name": "Ostap Cruise",
-      "date": "Wed, 05 Oct 2022 13:28:50 GMT",
-      "status": "high"
-    },
-    {
       "id": 6,
       "image": "/static/media/customer_6.3a080d779183c1e5b926da2ff35ddbdd.svg",
       "details_text": "Contact Email not Linked",
       "name": "Tom Cruise",
-      "date": "Wed, 05 Oct 2022 13:28:50 GMT",
+      "date": "Wed, 08 Oct 2022 13:28:50 GMT",
       "status": "high"
     },
     {
@@ -39,23 +23,54 @@
       "name": "Tom Cruise",
       "date": "Wed, 05 Oct 2022 13:28:50 GMT",
       "status": "high"
+    },
+    {
+      "details_text": "Contact Email not Linked",
+      "name": "Никита Шевченко",
+      "date": "Sat, 15 Oct 2022 12:28:55 GMT",
+      "status": "low",
+      "image": "",
+      "id": 1008
+    },
+    {
+      "details_text": "sdf",
+      "name": "sdf",
+      "date": "2022-10-14T12:36:45.000Z",
+      "status": "low",
+      "image": "",
+      "id": 140
+    },
+    {
+      "details_text": "Contact Email not Linked",
+      "name": "ddd",
+      "date": "Sun, 16 Oct 2022 12:38:46 GMT",
+      "status": "normal",
+      "image": "",
+      "id": 146
+    },
+    {
+      "details_text": "Contact Email not ",
+      "name": "Tom Cruise",
+      "date": "Thu, 06 Oct 2022 12:40:45 GMT",
+      "status": "normal",
+      "image": "",
+      "id": 554
+    },
+    {
+      "details_text": "Contact Email not",
+      "name": "Никита Шевченко",
+      "date": "Sat, 15 Oct 2022 12:41:19 GMT",
+      "status": "high",
+      "image": "",
+      "id": 343
     }
   ],
   "customers": [
     {
-      "id": 11,
-      "image": "/static/media/customer_1.97ad5e9a3d513816e217f8e17d8d3a2c.svg",
-      "first_name": "Tom",
-      "last_name": "Cruise",
-      "email": "mandeep.walton@gmail.com",
-      "address": "Unit 1, Moons Park, Burnt Meadow Road, Moons Moat North Industrial Estate,B98 9PA",
-      "date": "Sat Oct 29 2022"
-    },
-    {
       "id": 12,
       "image": "/static/media/customer_2.f39324ae838090f045d76730b7d8a35f.svg",
-      "first_name": "Elena",
-      "last_name": "Sheldon",
+      "first_name": "Elen",
+      "last_name": "Sheon",
       "email": "elena.sheldon@gmail.com",
       "address": "South Lodge, Reddish Lane, Lymm,WA13 9PY",
       "date": "Fri Oct 28 2022"
@@ -67,15 +82,6 @@
       "last_name": "Cruise",
       "email": "mandeep.walton@gmail.com",
       "address": "South Lodge, Reddish Lane, Lymm,WA13 9PY",
-      "date": "Wed, 05 Oct 2022 13:12:36 GMT"
-    },
-    {
-      "id": 15,
-      "image": "/static/media/customer_5.7398abe37a130e8a6ee3c87b77f23198.svg",
-      "first_name": "Elena",
-      "last_name": "Sheldon",
-      "email": "elena.sheldon@gmail.com",
-      "address": "Unit 1, Moons Park, Burnt Meadow Road, Moons Moat North Industrial Estate,B98 9PA",
       "date": "Wed, 05 Oct 2022 13:12:36 GMT"
     },
     {
@@ -113,6 +119,22 @@
       "email": "kim.gould@gmail.com",
       "address": "Unit 1, Moons Park, Burnt Meadow Road, Moons Moat North Industrial Estate,B98 9PA",
       "date": "Wed, 05 Oct 2022 13:12:36 GMT"
+    },
+    {
+      "first_name": "Никита",
+      "last_name": "Шевченко",
+      "email": "nrcnekita9@gmail.com",
+      "address": "Ул. Ватутина 29, 11",
+      "id": 901,
+      "date": "Thu, 06 Oct 2022 11:20:27 GMT"
+    },
+    {
+      "first_name": "Никита",
+      "last_name": "Шевченко",
+      "email": "nrcnekita9@gmail.com",
+      "address": "Ул. Ватутина 29, 12",
+      "id": 688,
+      "date": "Thu, 06 Oct 2022 11:20:39 GMT"
     }
   ]
 }

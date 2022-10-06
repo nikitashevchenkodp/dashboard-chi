@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks/typedDispatch';
-import { deleteTicket } from '../../store/slices/ticketsSlice';
 import { filterTickerFunction, sortFunctionTicker, tickerCellTitles } from '../../utils';
 import { TickerItem } from '../../utils/consts';
 import AddTickerForm from '../AddTickerForm';

@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { useForm } from '../../hooks/useForm';
-import { CustomerItem, getCustomer } from '../../utils/consts';
 import Button from '../Button';
 import Form from '../Form';
 import { FormTitle } from '../Form/Form';
 import Input from '../Input';
 import './AddCustomerForm.scss';
-import { useAppSelector, useAppDispatch } from '../../hooks/typedDispatch';
-import { updateCustomer } from '../../store/slices/customersSlice';
-import { customersSelector } from '../../store/selectors';
+import { useAppDispatch } from '../../hooks/typedDispatch';
+import { editCustomer } from '../../store/slices/customersSlice';
+import DashboardApiService from '../../services/DashboardApiService';
+import { sagaActions } from '../../store/saga/saga-actions';
+
 type AddCustomerFormProps = {
   id: number | null;
   setActive: (active: boolean) => void;
@@ -26,6 +27,8 @@ const randomId = () => {
 };
 
 const AddCustomerForm = ({ id, setActive }: AddCustomerFormProps) => {
+  const dashboardApi = new DashboardApiService();
+
   const [initialForm, setInitialForm] = useState<InitialState>({
     first_name: '',
     last_name: '',
@@ -33,12 +36,11 @@ const AddCustomerForm = ({ id, setActive }: AddCustomerFormProps) => {
     address: '',
   });
 
-  const { customers } = useAppSelector(customersSelector);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (id) {
-      getCustomer(id).then((res) => {
+      dashboardApi.getCustomer(id).then((res) => {
         setInitialForm(res);
       });
     } else {
@@ -55,14 +57,25 @@ const AddCustomerForm = ({ id, setActive }: AddCustomerFormProps) => {
 
   const submit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const newTicker = {
-      ...form,
-      id: id ? id : randomId(),
-      date: new Date().toUTCString(),
-    };
-    console.log(newTicker);
 
-    dispatch(updateCustomer(newTicker));
+    if (id) {
+      dispatch({
+        type: sagaActions.EDIT_CUSTOMER_SAGA,
+        payload: {
+          ...form,
+          id,
+        },
+      });
+    } else {
+      dispatch({
+        type: sagaActions.ADD_CUSTOMER_SAGA,
+        payload: {
+          ...form,
+          id: id ? id : randomId(),
+          date: new Date().toUTCString(),
+        },
+      });
+    }
     setActive(false);
   };
 

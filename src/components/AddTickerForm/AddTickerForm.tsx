@@ -1,6 +1,5 @@
 import Select from '../Select';
 import React, { useEffect, useState } from 'react';
-import { getTicker, TickerItem } from '../../utils/consts';
 import { FormTitle } from '../Form/Form';
 import Form from '../Form/Form';
 import Input from '../Input';
@@ -12,9 +11,9 @@ import { useFormik } from 'formik';
 import dayjs, { Dayjs } from 'dayjs';
 import * as Yup from 'yup';
 import Button from '../Button';
-import { useAppDispatch, useAppSelector } from '../../hooks/typedDispatch';
-import { updateTickets } from '../../store/slices/ticketsSlice';
-import { ticketsSelector } from '../../store/selectors';
+import { useAppDispatch } from '../../hooks/typedDispatch';
+import DashboardApiService from '../../services/DashboardApiService';
+import { sagaActions } from '../../store/saga/saga-actions';
 
 type AddTickerFormProps = {
   id: number | null;
@@ -34,7 +33,8 @@ const randomId = () => {
 };
 
 const AddTickerForm = ({ id, setActive }: AddTickerFormProps) => {
-  const { tickets } = useAppSelector(ticketsSelector);
+  const dashboardApi = new DashboardApiService();
+
   const dispatch = useAppDispatch();
 
   const [initialForm, setInitialForm] = useState<InitialState>({
@@ -47,10 +47,10 @@ const AddTickerForm = ({ id, setActive }: AddTickerFormProps) => {
 
   useEffect(() => {
     if (id) {
-      getTicker(id).then((res) => {
+      dashboardApi.getTicker(id).then((res) => {
         setInitialForm({
           ...res,
-          date: dayjs(res.date).toString(),
+          date: dayjs(res.date),
         });
       });
     } else {
@@ -64,13 +64,6 @@ const AddTickerForm = ({ id, setActive }: AddTickerFormProps) => {
     }
   }, [id]);
 
-  function getItem(id: number) {
-    const item = tickets?.filter((item) => item.id === id)[0]!;
-    return new Promise<TickerItem>((resolve) => {
-      resolve(item);
-    });
-  }
-
   const schema = Yup.object().shape({
     name: Yup.string().min(2, 'Too Short!').max(50, 'Too Long!').required('Required'),
     details_text: Yup.string().min(2, 'Too Short!').max(50, 'Too Long!').required('Required'),
@@ -81,12 +74,26 @@ const AddTickerForm = ({ id, setActive }: AddTickerFormProps) => {
     enableReinitialize: true,
     validationSchema: schema,
     onSubmit: (values, { resetForm }) => {
-      dispatch(
-        updateTickets({
-          ...values,
-          id: id ? id : randomId(),
-        })
-      );
+      if (id) {
+        dispatch({
+          type: sagaActions.EDIT_TICKET_SAGA,
+          payload: {
+            ...values,
+            id,
+            date: dayjs(values.date).toString(),
+          },
+        });
+      } else {
+        dispatch({
+          type: sagaActions.ADD_TICKET_SAGA,
+          payload: {
+            ...values,
+            id: id ? id : randomId(),
+            date: dayjs(values.date).toString(),
+          },
+        });
+      }
+
       setActive(false);
       resetForm();
     },

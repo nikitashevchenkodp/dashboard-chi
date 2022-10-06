@@ -217,60 +217,9 @@ const tickerBodyData: TickerItem[] = [
   },
 ];
 
-const delay = (ms: number) => new Promise((res) => setTimeout(res, ms));
-
-export async function getTickerData(): Promise<TickerItem[]> {
-  await delay(1000);
-  const res = await fetch('http://localhost:3000/tickets');
-  return res.json();
-}
-export async function getCustomerData(): Promise<CustomerItem[]> {
-  await delay(1000);
-  const res = await fetch('http://localhost:3000/customers');
-  return res.json();
-}
-
 export const paginationIndexes = (page: number, perPage: number) => {
   return [(page - 1) * perPage, (page - 1) * perPage + perPage];
 };
-
-export async function getCustomer(id: number) {
-  await delay(500);
-  const res = await fetch(`http://localhost:3000/customers/${id}`);
-  return res.json();
-}
-
-export async function getTicker(id: number) {
-  await delay(500);
-  const res = await fetch(`http://localhost:3000/tickets/${id}`);
-  return res.json();
-}
-
-export async function delTicket(id: number) {
-  await delay(500);
-  const res = await fetch(`http://localhost:3000/tickets/${id}`, {
-    method: 'DELETE',
-  });
-  if (!res.ok) throw new Error('eroooororor');
-  return res.json();
-}
-export async function delCustomer(id: number) {
-  await delay(500);
-  const res = await fetch(`http://localhost:3000/customers/${id}`, {
-    method: 'DELETE',
-  });
-  if (!res.ok) throw new Error('eroooororor');
-  return res.json();
-}
-
-export async function addTicket(id: number) {
-  await delay(500);
-  const res = await fetch(`http://localhost:3000/tickets/${id}`, {
-    method: 'DELETE',
-  });
-  if (!res.ok) throw new Error('eroooororor');
-  return res.json();
-}
 
 // const convert = (items: any) => {
 //   let res = '';
