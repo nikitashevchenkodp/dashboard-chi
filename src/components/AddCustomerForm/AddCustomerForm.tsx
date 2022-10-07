@@ -6,7 +6,6 @@ import { FormTitle } from '../Form/Form';
 import Input from '../Input';
 import './AddCustomerForm.scss';
 import { useAppDispatch } from '../../hooks/typedDispatch';
-import { editCustomer } from '../../store/slices/customersSlice';
 import DashboardApiService from '../../services/DashboardApiService';
 import { sagaActions } from '../../store/saga/saga-actions';
 
@@ -36,6 +35,7 @@ const AddCustomerForm = ({ id, setActive }: AddCustomerFormProps) => {
     address: '',
   });
 
+  const [form, changeHandler] = useForm(initialForm);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -53,27 +53,18 @@ const AddCustomerForm = ({ id, setActive }: AddCustomerFormProps) => {
     }
   }, [id]);
 
-  const [form, changeHandler] = useForm(initialForm);
-
   const submit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (id) {
       dispatch({
         type: sagaActions.EDIT_CUSTOMER_SAGA,
-        payload: {
-          ...form,
-          id,
-        },
+        payload: { ...form, id },
       });
     } else {
       dispatch({
         type: sagaActions.ADD_CUSTOMER_SAGA,
-        payload: {
-          ...form,
-          id: id ? id : randomId(),
-          date: new Date().toUTCString(),
-        },
+        payload: { ...form, id: id ? id : randomId(), date: new Date().toUTCString() },
       });
     }
     setActive(false);

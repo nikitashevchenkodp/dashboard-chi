@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { forwardRef, useState } from 'react';
 import { FaEyeSlash } from 'react-icons/fa';
 import './Input.scss';
 
@@ -8,9 +8,9 @@ type InputProp = React.InputHTMLAttributes<HTMLInputElement> & {
   id: string;
 };
 
-const Input = ({ id, label, type, placeholder, ...restProps }: InputProp) => {
+const Input = forwardRef((props: InputProp, ref: any) => {
+  const { name, id, placeholder, label, type, ...restProps } = props;
   const [showPassword, setShowPassword] = useState(false);
-
   return (
     <div className="input__block">
       <label className="input__label" htmlFor={id}>
@@ -24,6 +24,7 @@ const Input = ({ id, label, type, placeholder, ...restProps }: InputProp) => {
             className="input__field"
             type={showPassword ? 'text' : 'password'}
             placeholder={placeholder}
+            ref={ref}
           />
           <FaEyeSlash
             className="input__password__show"
@@ -32,10 +33,10 @@ const Input = ({ id, label, type, placeholder, ...restProps }: InputProp) => {
           />
         </div>
       ) : (
-        <input id={id} type={type} {...restProps} className="input__field" />
+        <input id={id} type={type} {...restProps} ref={ref} className="input__field" />
       )}
     </div>
   );
-};
+});
 
 export default Input;
