@@ -25,7 +25,12 @@ export const schema = yup.object().shape({
   relatives: yup.object().shape({
     motherFullName: yup.string().min(3, errorMessages.min).max(30, errorMessages.min).required(),
     fatherFullName: yup.string().min(3, errorMessages.min).max(30, errorMessages.min).required(),
-    children: yup.array(yup.string().min(3, errorMessages.min).max(30, errorMessages.min)),
+    members: yup.array(
+      yup.object({
+        role: yup.string().oneOf(['son', 'daughter', 'sister', 'brother']),
+        fullName: yup.string().min(3, errorMessages.min).max(30, errorMessages.min).required(),
+      })
+    ),
   }),
   email: yup.string().email(errorMessages.email).required(),
   password: yup.string().min(8, errorMessages.min).max(16, errorMessages.max).required(),

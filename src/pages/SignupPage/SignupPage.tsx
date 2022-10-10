@@ -3,43 +3,37 @@ import { Form, Button, Input } from '../../components';
 import { Link } from 'react-router-dom';
 import Logo from '../../components/Logo';
 import { FormTitle } from '../../components/Form/Form';
-import { Controller, useForm } from 'react-hook-form';
+import { Controller, useFieldArray, useForm } from 'react-hook-form';
 import { Step, StepLabel, Stepper } from '@mui/material';
 import Select from '../../components/Select';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { schema } from '../../utils/schema';
-import { useAppDispatch } from '../../hooks/typedDispatch';
+import { useAppDispatch, useAppSelector } from '../../hooks/typedDispatch';
 import { sagaActions } from '../../store/saga/saga-actions';
 
-// type SignUp = {
-//   firstName: string;
-//   lastName: string;
-//   email: string;
-//   password: string;
-//   confirmPassword: string;
-// };
+const steps = ['Personal info', 'Address', 'Relatives info', 'Other info'];
+const maxSteps = steps.length;
 
 const SignUpPage = () => {
   const [step, setStep] = useState(1);
+  const { loading } = useAppSelector((state) => state.user);
 
   const {
     handleSubmit,
     control,
-    formState: { errors, isValid, isDirty },
+    formState: { errors },
   } = useForm({
     mode: 'all',
     resolver: yupResolver(schema),
   });
 
-  const dispatch = useAppDispatch();
+  console.log(control._fields);
 
+  const dispatch = useAppDispatch();
   const submit = (data: any) => {
     console.log(data);
     dispatch({ type: sagaActions.LOGIN_USER_SAGA });
   };
-
-  const steps = ['Personal info', 'Address', 'Relatives info', 'Other info'];
-  const maxSteps = 4;
 
   return (
     <div className="auth-page">
@@ -53,10 +47,12 @@ const SignUpPage = () => {
             </Step>
           ))}
         </Stepper>
-        {step === 1 && <PersonalInfoForm control={control} errors={errors} />}
-        {step === 2 && <AddressForm control={control} errors={errors} />}
-        {step === 3 && <RelativesForm control={control} errors={errors} />}
-        {step === 4 && <OtherForm control={control} errors={errors} />}
+        <fieldset disabled={loading}>
+          {step === 1 && <PersonalInfoForm control={control} errors={errors} />}
+          {step === 2 && <AddressForm control={control} errors={errors} />}
+          {step === 3 && <RelativesForm control={control} errors={errors} />}
+          {step === 4 && <OtherForm control={control} errors={errors} />}
+        </fieldset>
         {step + 1 <= maxSteps && (
           <Button
             className="mb-16"
@@ -78,7 +74,7 @@ const SignUpPage = () => {
           </Button>
         )}
         {step === maxSteps && (
-          <Button className="mb-16" onClick={() => console.log(errors)}>
+          <Button disabled={loading} className="mb-16" onClick={() => console.log(errors)}>
             Submit
           </Button>
         )}
@@ -92,20 +88,6 @@ const SignUpPage = () => {
 };
 
 export default SignUpPage;
-
-// const isValidFirstName = (v: string) => {
-//   return !(v === 'hello');
-// };
-
-// rules={{
-//   maxLength: 15,
-//   required: 'This field is required',
-//   minLength: 3,
-
-//   validate: {
-//     checkFirstName: (v) => isValidFirstName(v) || 'Not Allowed this name',
-//   },
-// }}
 
 const PersonalInfoForm = ({ control, errors }: { control: any; errors: any }) => {
   const maxDate = new Date();
@@ -245,23 +227,44 @@ const RelativesForm = ({ control, errors }: { control: any; errors: any }) => {
   const [fields, setFields] = useState(['child']);
   const [error, setError] = useState('');
 
+  // const { fields } = useFieldArray({
+  //   control,
+  //   name: 'familyMembers',
+  // });
+
   const childrenFields = fields?.map((field, i) => {
     return (
-      <Controller
-        key={`${field}${i}`}
-        name={`relatives.children[${i}]`}
-        defaultValue=""
-        control={control}
-        render={({ field }) => (
-          <Input
-            id={`${field}${1}`}
-            type="text"
-            label="Child"
-            {...field}
-            error={errors?.relatives?.children?.[i]?.message}
-          />
-        )}
-      />
+      <React.Fragment key={`${field}${i}`}>
+        <Controller
+          name={`relatives.members[${i}].role`}
+          control={control}
+          defaultValue=""
+          render={({ field }) => (
+            <Select
+              id="memberOfFamily"
+              label={'Member of family'}
+              placeholder={'choose variant'}
+              options={['son', 'daughter', 'sister', 'brother']}
+              {...field}
+              error={errors?.relatives?.members[i]?.role?.message}
+            />
+          )}
+        />
+        <Controller
+          name={`relatives.members[${i}].fullName`}
+          defaultValue=""
+          control={control}
+          render={({ field }) => (
+            <Input
+              id={`${field}${1}`}
+              type="text"
+              label="Full Name"
+              {...field}
+              error={errors?.relatives?.members[i]?.fullName?.message}
+            />
+          )}
+        />
+      </React.Fragment>
     );
   });
 
