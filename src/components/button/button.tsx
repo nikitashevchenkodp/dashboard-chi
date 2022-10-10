@@ -15,6 +15,7 @@ const Button = ({ variant, size, children, className, ...restProps }: ButtonProp
     'btn--outlined': variant === 'outlined',
     'btn--transparent': variant === 'transparent',
     'btn--empty': variant === 'empty',
+    'btn--circle': variant === 'circle',
   });
 
   return (

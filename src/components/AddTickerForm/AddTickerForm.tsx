@@ -134,6 +134,7 @@ const AddTickerForm = ({ id, setActive }: AddTickerFormProps) => {
       </div>
 
       <Select
+        id="status"
         name="status"
         placeholder="Choose value"
         options={['high', 'normal', 'low']}

@@ -1,75 +1,87 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Form, Button, Input } from '../../components';
 import { Link } from 'react-router-dom';
 import Logo from '../../components/Logo';
 import { FormTitle } from '../../components/Form/Form';
 import { Controller, useForm } from 'react-hook-form';
-import { valueToPercent } from '@mui/base';
+import { Step, StepLabel, Stepper } from '@mui/material';
+import Select from '../../components/Select';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { schema } from '../../utils/schema';
+import { useAppDispatch } from '../../hooks/typedDispatch';
+import { sagaActions } from '../../store/saga/saga-actions';
+
+// type SignUp = {
+//   firstName: string;
+//   lastName: string;
+//   email: string;
+//   password: string;
+//   confirmPassword: string;
+// };
 
 const SignUpPage = () => {
+  const [step, setStep] = useState(1);
+
   const {
     handleSubmit,
     control,
-    formState: { errors },
+    formState: { errors, isValid, isDirty },
   } = useForm({
-    mode: 'onSubmit',
+    mode: 'all',
+    resolver: yupResolver(schema),
   });
 
-  console.log(errors.firstName);
+  const dispatch = useAppDispatch();
 
-  const onSubmit = (data: any) => console.log(data);
+  const submit = (data: any) => {
+    console.log(data);
+    dispatch({ type: sagaActions.LOGIN_USER_SAGA });
+  };
 
-  // const isValidFirstName = (v: string) => {
-  //   return !(v === 'hello');
-  // };
+  const steps = ['Personal info', 'Address', 'Relatives info', 'Other info'];
+  const maxSteps = 4;
 
   return (
     <div className="auth-page">
-      <Form onSubmit={handleSubmit(onSubmit)}>
+      <Form onSubmit={handleSubmit(submit)}>
         <Logo />
         <FormTitle title={'Sign Up'} subtitle={'Create a new account'} />
-        <Controller
-          name="email"
-          control={control}
-          render={({ field }) => (
-            <Input id="email" type="email" label={'email'} placeholder={'email address'} {...field} />
-          )}
-        />
-        <Controller
-          name="firstName"
-          control={control}
-          // rules={{
-          //   maxLength: 15,
-          //   required: 'This field is required',
-          //   minLength: 3,
-
-          //   validate: {
-          //     checkFirstName: (v) => isValidFirstName(v) || 'Not Allowed this name',
-          //   },
-          // }}
-          render={({ field }) => (
-            <Input id="firstName" type="text" label={'First name'} placeholder={'First name'} {...field} />
-          )}
-        />
-        <Controller
-          name="lastName"
-          control={control}
-          render={({ field }) => (
-            <Input id="lastName" type="text" label={'Last name'} placeholder={'Last name'} {...field} />
-          )}
-        />
-        <Controller
-          name="password"
-          control={control}
-          render={({ field }) => <Input id="password" type="password" label="Password" {...field} />}
-        />
-        <Controller
-          name="confirmPassword"
-          control={control}
-          render={({ field }) => <Input id="confirmPassword" type="password" label="Confirm password" {...field} />}
-        />
-        <input id="confirmP" type="password" />
-        <Button>Sign Up</Button>
+        <Stepper sx={{ marginBottom: '20px' }} activeStep={step} alternativeLabel>
+          {steps.map((label) => (
+            <Step key={label}>
+              <StepLabel>{label}</StepLabel>
+            </Step>
+          ))}
+        </Stepper>
+        {step === 1 && <PersonalInfoForm control={control} errors={errors} />}
+        {step === 2 && <AddressForm control={control} errors={errors} />}
+        {step === 3 && <RelativesForm control={control} errors={errors} />}
+        {step === 4 && <OtherForm control={control} errors={errors} />}
+        {step + 1 <= maxSteps && (
+          <Button
+            className="mb-16"
+            type="button"
+            onClick={() => setStep((prevStep) => prevStep + 1)}
+            variant="outlined"
+          >
+            Next →
+          </Button>
+        )}
+        {step - 1 > 0 && (
+          <Button
+            className="mb-16"
+            variant="outlined"
+            type="button"
+            onClick={() => setStep((prevStep) => prevStep - 1)}
+          >
+            ← Back
+          </Button>
+        )}
+        {step === maxSteps && (
+          <Button className="mb-16" onClick={() => console.log(errors)}>
+            Submit
+          </Button>
+        )}
         <span className="form__question">Already have an account? </span>
         <Link to="/login" className="form__change">
           Log In
@@ -80,3 +92,272 @@ const SignUpPage = () => {
 };
 
 export default SignUpPage;
+
+// const isValidFirstName = (v: string) => {
+//   return !(v === 'hello');
+// };
+
+// rules={{
+//   maxLength: 15,
+//   required: 'This field is required',
+//   minLength: 3,
+
+//   validate: {
+//     checkFirstName: (v) => isValidFirstName(v) || 'Not Allowed this name',
+//   },
+// }}
+
+const PersonalInfoForm = ({ control, errors }: { control: any; errors: any }) => {
+  const maxDate = new Date();
+  maxDate.setFullYear(new Date().getFullYear() - 18);
+  const minDate = new Date();
+  minDate.setFullYear(new Date().getFullYear() - 70);
+
+  return (
+    <>
+      <Controller
+        name="firstName"
+        control={control}
+        defaultValue=""
+        render={({ field }) => (
+          <Input
+            id="firstName"
+            type="text"
+            label={'First name'}
+            placeholder={'First name'}
+            {...field}
+            error={errors?.firstName?.message}
+          />
+        )}
+      />
+      <Controller
+        name="lastName"
+        control={control}
+        defaultValue=""
+        render={({ field }) => (
+          <Input
+            id="lastName"
+            type="text"
+            label={'Last name'}
+            placeholder={'Last name'}
+            {...field}
+            error={errors?.lastName?.message}
+          />
+        )}
+      />
+
+      <Controller
+        name="dateOfBirth"
+        control={control}
+        defaultValue=""
+        render={({ field }) => (
+          <Input
+            id="dateOfBirth"
+            type="date"
+            min={minDate.toISOString().slice(0, 10)}
+            max={maxDate.toISOString().slice(0, 10)}
+            label={'Date of Birth'}
+            {...field}
+            error={errors?.dateOfBirth?.message}
+          />
+        )}
+      />
+      <Controller
+        name="sex"
+        control={control}
+        defaultValue=""
+        render={({ field }) => (
+          <Select
+            id="sex"
+            label={'Sex'}
+            placeholder={'choose variant'}
+            options={['male', 'female', 'other']}
+            {...field}
+            error={errors?.sex?.message}
+          />
+        )}
+      />
+    </>
+  );
+};
+
+const AddressForm = ({ control, errors }: { control: any; errors: any }) => {
+  return (
+    <>
+      <Controller
+        name="address.country"
+        control={control}
+        defaultValue=""
+        render={({ field }) => (
+          <Input
+            id="country"
+            type="text"
+            label={'Country'}
+            placeholder={'Type the Country'}
+            {...field}
+            error={errors?.address?.country?.message}
+          />
+        )}
+      />
+      <Controller
+        name="address.city"
+        control={control}
+        defaultValue=""
+        render={({ field }) => (
+          <Input id="city" type="text" label="City" {...field} error={errors?.address?.city?.message} />
+        )}
+      />
+      <Controller
+        name="address.street"
+        control={control}
+        defaultValue=""
+        render={({ field }) => (
+          <Input id="street" type="text" label="Street" {...field} error={errors?.address?.street?.message} />
+        )}
+      />
+      <Controller
+        name="address.build"
+        control={control}
+        defaultValue=""
+        render={({ field }) => (
+          <Input id="build" type="text" label="Build No." {...field} error={errors?.address?.build?.message} />
+        )}
+      />
+      <Controller
+        name="address.appartment"
+        control={control}
+        defaultValue=""
+        render={({ field }) => (
+          <Input
+            id="appartment"
+            type="text"
+            label="Appartment No."
+            {...field}
+            error={errors?.address?.appartment?.message}
+          />
+        )}
+      />
+    </>
+  );
+};
+
+const RelativesForm = ({ control, errors }: { control: any; errors: any }) => {
+  const [fields, setFields] = useState(['child']);
+  const [error, setError] = useState('');
+
+  const childrenFields = fields?.map((field, i) => {
+    return (
+      <Controller
+        key={`${field}${i}`}
+        name={`relatives.children[${i}]`}
+        defaultValue=""
+        control={control}
+        render={({ field }) => (
+          <Input
+            id={`${field}${1}`}
+            type="text"
+            label="Child"
+            {...field}
+            error={errors?.relatives?.children?.[i]?.message}
+          />
+        )}
+      />
+    );
+  });
+
+  const addChildField = () => {
+    if (fields.length < 5) {
+      setFields((fields) => [...fields, 'child']);
+    } else {
+      setError('You cannot add more than 4 children');
+      setTimeout(() => setError(''), 3000);
+    }
+  };
+
+  return (
+    <>
+      <Controller
+        name="relatives.fatherFullName"
+        control={control}
+        defaultValue=""
+        render={({ field }) => (
+          <Input
+            id="fatherFullName"
+            type="text"
+            label={'Father full name'}
+            placeholder={'Father full name'}
+            error={errors?.relatives?.fatherFullName?.message}
+            {...field}
+          />
+        )}
+      />
+      <Controller
+        name="relatives.motherFullName"
+        control={control}
+        defaultValue=""
+        render={({ field }) => (
+          <Input
+            id="motherFullName"
+            type="text"
+            label={'Mother full name'}
+            placeholder={'Mother full name'}
+            error={errors?.relatives?.motherFullName?.message}
+            {...field}
+          />
+        )}
+      />
+      {childrenFields}
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '16px' }}>
+        <p style={{ marginRight: '10px' }}>Add more children</p>
+        <Button variant="circle" type="button" style={{ width: '40px', height: '40px' }} onClick={addChildField}>
+          +
+        </Button>
+      </div>
+      {error && <p>{error}</p>}
+    </>
+  );
+};
+
+const OtherForm = ({ control, errors }: { control: any; errors: any }) => {
+  return (
+    <>
+      <Controller
+        name="email"
+        control={control}
+        defaultValue=""
+        render={({ field }) => (
+          <Input
+            id="email"
+            type="text"
+            label={'email'}
+            placeholder={'email address'}
+            {...field}
+            error={errors?.email?.message}
+          />
+        )}
+      />
+      <Controller
+        name="password"
+        control={control}
+        defaultValue=""
+        render={({ field }) => (
+          <Input id="password" type="password" label="Password" {...field} error={errors?.password?.message} />
+        )}
+      />
+      <Controller
+        name="confirmPassword"
+        control={control}
+        defaultValue=""
+        render={({ field }) => (
+          <Input
+            id="confirmPassword"
+            type="password"
+            label="Confirm password"
+            {...field}
+            error={errors?.confirmPassword?.message}
+          />
+        )}
+      />
+    </>
+  );
+};

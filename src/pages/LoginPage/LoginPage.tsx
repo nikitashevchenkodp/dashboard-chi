@@ -16,18 +16,7 @@ type LoginForm = {
 };
 
 const LoginPage = () => {
-  // const [form, onChange] = useForm<LoginForm>({
-  //   email: '',
-  //   password: '',
-  // });
-
-  useEffect(() => {
-    register('password');
-    register('email');
-  }, []);
-
   const {
-    register,
     handleSubmit,
     control,
     formState: {},
