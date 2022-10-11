@@ -55,6 +55,39 @@
       "status": "normal",
       "image": "",
       "id": 554
+    },
+    {
+      "details_text": "",
+      "name": "ddd234qweq",
+      "date": "Mon, 10 Oct 2022 13:34:01 GMT",
+      "status": "low",
+      "image": "",
+      "details": "e",
+      "id": 447
+    },
+    {
+      "details_text": "ffff",
+      "name": "fffff",
+      "date": "Thu, 06 Oct 2022 13:36:56 GMT",
+      "status": "low",
+      "image": "",
+      "id": 862
+    },
+    {
+      "details_text": "sdfsdf",
+      "name": "dsf",
+      "date": "Tue, 25 Oct 2022 13:43:05 GMT",
+      "status": "normal",
+      "image": "",
+      "id": 54
+    },
+    {
+      "details_text": "fddfdf",
+      "name": "fdfdf",
+      "date": "Wed, 19 Oct 2022 13:46:19 GMT",
+      "status": "low",
+      "image": "",
+      "id": 798
     }
   ],
   "customers": [
@@ -65,7 +98,8 @@
       "last_name": "Sheon",
       "email": "elena.sheldon@gmail.com",
       "address": "South Lodge, Reddish Lane, Lymm,WA13 9PY",
-      "date": "Fri Oct 28 2022"
+      "date": "Fri Oct 28 2022",
+      "": "South Lodge, Reddish Lane, Lymm,WA13 9PYf"
     },
     {
       "id": 14,
@@ -121,12 +155,20 @@
       "date": "Thu, 06 Oct 2022 11:20:27 GMT"
     },
     {
-      "first_name": "Никита",
-      "last_name": "Шевченко",
+      "first_name": "Mykyta",
+      "last_name": "Shevchenko",
       "email": "nrcnekita9@gmail.com",
-      "address": "Ул. Ватутина 29, 12",
-      "id": 688,
-      "date": "Thu, 06 Oct 2022 11:20:39 GMT"
+      "address": "Lipova street 20, 89",
+      "id": 522,
+      "date": "Mon, 10 Oct 2022 13:50:29 GMT"
+    },
+    {
+      "first_name": "Mykyta",
+      "last_name": "Shevchenko",
+      "email": "nrcnekita9@gmail.com",
+      "address": "Lipova street 20, 89",
+      "id": 153,
+      "date": "Mon, 10 Oct 2022 14:34:22 GMT"
     }
   ]
 }

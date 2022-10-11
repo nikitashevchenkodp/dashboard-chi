@@ -9,7 +9,6 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { TextField } from '@mui/material';
 import { useFormik } from 'formik';
 import dayjs, { Dayjs } from 'dayjs';
-import * as Yup from 'yup';
 import Button from '../Button';
 import { useAppDispatch } from '../../hooks/typedDispatch';
 import DashboardApiService from '../../services/DashboardApiService';
@@ -64,15 +63,9 @@ const AddTickerForm = ({ id, setActive }: AddTickerFormProps) => {
     }
   }, [id]);
 
-  const schema = Yup.object().shape({
-    name: Yup.string().min(2, 'Too Short!').max(50, 'Too Long!').required('Required'),
-    details_text: Yup.string().min(2, 'Too Short!').max(50, 'Too Long!').required('Required'),
-  });
-
   const formik = useFormik({
     initialValues: initialForm,
     enableReinitialize: true,
-    validationSchema: schema,
     onSubmit: (values, { resetForm }) => {
       if (id) {
         dispatch({
@@ -103,7 +96,7 @@ const AddTickerForm = ({ id, setActive }: AddTickerFormProps) => {
     <Form onSubmit={formik.handleSubmit}>
       <FormTitle title={id ? 'Edit ticker' : 'Add ticker'} />
       <Input
-        id="details"
+        id="details_text"
         name="details_text"
         label="Ticket details"
         placeholder="Add description"

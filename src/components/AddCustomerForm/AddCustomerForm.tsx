@@ -37,6 +37,7 @@ const AddCustomerForm = ({ id, setActive }: AddCustomerFormProps) => {
 
   const [form, changeHandler] = useForm(initialForm);
   const dispatch = useAppDispatch();
+  console.log(form);
 
   useEffect(() => {
     if (id) {
