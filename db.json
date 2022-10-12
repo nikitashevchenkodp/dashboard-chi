@@ -1,12 +1,12 @@
 {
   "tickets": [
     {
+      "details_text": "Contact Ema",
+      "name": "ЕTom Cruise",
+      "date": "Sun, 02 Oct 2022 13:28:50 GMT",
+      "status": "high",
       "id": 6,
-      "image": "/static/media/customer_6.3a080d779183c1e5b926da2ff35ddbdd.svg",
-      "details_text": "Contact Email not Linked",
-      "name": "Tom Cruise",
-      "date": "Wed, 08 Oct 2022 13:28:50 GMT",
-      "status": "high"
+      "image": ""
     },
     {
       "id": 7,
@@ -14,31 +14,15 @@
       "details_text": "Contact Email not Linked",
       "name": "Alex Cruise",
       "date": "Wed, 05 Oct 2022 13:28:50 GMT",
-      "status": "high"
+      "status": "normal"
     },
     {
       "id": 8,
-      "image": "/static/media/customer_8.6edab5dd31267bd716557ffefcadd6c7.svg",
+      "image": "",
       "details_text": "Contact Email not Linked",
       "name": "Tom Cruise",
       "date": "Wed, 05 Oct 2022 13:28:50 GMT",
       "status": "high"
-    },
-    {
-      "details_text": "Contact Email not Linked",
-      "name": "Никита Шевченко",
-      "date": "Sat, 15 Oct 2022 12:28:55 GMT",
-      "status": "low",
-      "image": "",
-      "id": 1008
-    },
-    {
-      "details_text": "sdf",
-      "name": "sdf",
-      "date": "2022-10-14T12:36:45.000Z",
-      "status": "low",
-      "image": "",
-      "id": 140
     },
     {
       "details_text": "Contact Email not Linked",
@@ -55,6 +39,199 @@
       "status": "normal",
       "image": "",
       "id": 554
+    },
+    {
+      "details_text": "Contact Email not Linked",
+      "name": "Никита Шев",
+      "date": "Thu, 13 Oct 2022 09:01:11 GMT",
+      "status": "high",
+      "image": "",
+      "id": 1019
+    },
+    {
+      "details_text": "Contact Email not Linked",
+      "name": "Никита Шевченко",
+      "date": "Thu, 13 Oct 2022 09:01:11 GMT",
+      "status": "low",
+      "image": "",
+      "id": 1015
+    },
+    {
+      "details_text": "Contact Email not Linked",
+      "name": "Никита Шевченко",
+      "date": "Wed, 12 Oct 2022 09:59:19 GMT",
+      "status": "high",
+      "image": "",
+      "id": 660
+    },
+    {
+      "details_text": "Contact Email not ",
+      "name": "Никита Шевченко",
+      "date": "Wed, 12 Oct 2022 10:08:37 GMT",
+      "status": "low",
+      "image": "C:\\fakepath\\Снимок экрана 2022-10-04 в 21.49.41.png",
+      "id": 349
+    },
+    {
+      "details_text": "Contact Email not Linked",
+      "name": "Никита Шевченко",
+      "date": "Mon, 10 Oct 2022 10:09:54 GMT",
+      "status": "normal",
+      "image": "C:\\fakepath\\Снимок экрана 2022-10-07 в 18.09.43.png",
+      "id": 406
+    },
+    {
+      "details_text": "Contact Email not Linked",
+      "name": "Никита Шевченко",
+      "date": "Tue, 11 Oct 2022 10:21:15 GMT",
+      "status": "low",
+      "image": {},
+      "id": 238
+    },
+    {
+      "details_text": "Contact Email not Linked",
+      "name": "Никита Шевченко",
+      "date": "Thu, 13 Oct 2022 10:26:24 GMT",
+      "status": "normal",
+      "image": "",
+      "id": 256
+    },
+    {
+      "details_text": "Contact Email not Linked",
+      "name": "Никита Шевченко",
+      "date": "Wed, 12 Oct 2022 10:28:47 GMT",
+      "status": "normal",
+      "image": "",
+      "id": 971
+    },
+    {
+      "details_text": "Contact Email not Linked",
+      "name": "Никита Шевченко",
+      "date": "Wed, 12 Oct 2022 10:28:47 GMT",
+      "status": "normal",
+      "image": {
+        "0": {}
+      },
+      "id": 817
+    },
+    {
+      "details_text": "Contact Email not Linked",
+      "name": "Никита Шевченко",
+      "date": "Fri, 14 Oct 2022 10:30:30 GMT",
+      "status": "normal",
+      "image": {},
+      "id": 508
+    },
+    {
+      "details_text": "Contact Email not Linked",
+      "name": "Никита Шевченко",
+      "date": "Sun, 09 Oct 2022 10:36:19 GMT",
+      "status": "low",
+      "image": "C",
+      "id": 217
+    },
+    {
+      "details_text": "Contact Email not Linked",
+      "name": "Никита Шевченко",
+      "date": "Sun, 09 Oct 2022 10:36:19 GMT",
+      "status": "low",
+      "image": "C",
+      "id": 188
+    },
+    {
+      "details_text": "Contact Email not Linked",
+      "name": "Никита Шевченко",
+      "date": "Wed, 19 Oct 2022 11:29:18 GMT",
+      "status": "normal",
+      "image": "C",
+      "id": 453
+    },
+    {
+      "details_text": "Contact Email not Linked",
+      "name": "Никита Шевченко",
+      "date": "Wed, 26 Oct 2022 11:30:28 GMT",
+      "status": "normal",
+      "image": "C",
+      "id": 556
+    },
+    {
+      "details_text": "Contact Email not Linked",
+      "name": "Никита Шевченко",
+      "date": "Tue, 11 Oct 2022 11:31:32 GMT",
+      "status": "normal",
+      "id": 790
+    },
+    {
+      "details_text": "Contact Email not Linked",
+      "name": "Никита Шевченко",
+      "date": "Tue, 11 Oct 2022 11:32:54 GMT",
+      "status": "normal",
+      "image": {},
+      "id": 857
+    },
+    {
+      "details_text": "Contact Email not Linked",
+      "name": "Никита Шевченко",
+      "date": "Tue, 11 Oct 2022 11:35:46 GMT",
+      "status": "normal",
+      "image": "{}",
+      "id": 772
+    },
+    {
+      "details_text": "Contact Email not Linked",
+      "name": "Никита Шевченко",
+      "date": "Tue, 11 Oct 2022 11:39:38 GMT",
+      "status": "normal",
+      "image": "{}",
+      "id": 1007
+    },
+    {
+      "details_text": "Contact Email not Linked",
+      "name": "Никита Шевченко",
+      "date": "Wed, 19 Oct 2022 13:18:49 GMT",
+      "status": "low",
+      "image": "C:\\fakepath\\customer_8.svg",
+      "id": 766
+    },
+    {
+      "details_text": "Contact Email not Linked",
+      "name": "Никита Шевченко",
+      "date": "Tue, 11 Oct 2022 13:29:37 GMT",
+      "status": "normal",
+      "image": "C:\\fakepath\\customer_7.2d21dfc46cdfb9dbb0972f965ef2e804.svg",
+      "id": 897
+    },
+    {
+      "details_text": "Contact Email not ",
+      "name": "Tom Cruise",
+      "date": "Tue, 11 Oct 2022 14:49:46 GMT",
+      "status": "high",
+      "image": "",
+      "id": 245
+    },
+    {
+      "details_text": "",
+      "name": "",
+      "date": "Mon, 10 Oct 2022 14:56:10 GMT",
+      "status": "",
+      "image": "",
+      "id": 821
+    },
+    {
+      "details_text": "sdfsdf",
+      "name": "вапвапffff",
+      "date": "Tue, 11 Oct 2022 16:06:33 GMT",
+      "status": "high",
+      "image": "",
+      "id": 341
+    },
+    {
+      "details_text": "Contact Email not ",
+      "name": "Никита Шевченко",
+      "date": "Tue, 11 Oct 2022 19:05:48 GMT",
+      "status": "normal",
+      "image": "C:\\fakepath\\customer_3.04b44acae3fd9cd77afe1485790e78f3.svg",
+      "id": 767
     }
   ],
   "customers": [
@@ -127,6 +304,22 @@
       "address": "Ул. Ватутина 29, 12",
       "id": 688,
       "date": "Thu, 06 Oct 2022 11:20:39 GMT"
+    },
+    {
+      "first_name": "Mykyta",
+      "last_name": "Shevchenko",
+      "email": "nrcnekita9@gmail.com",
+      "address": "Lipova street 20, 89",
+      "id": 906,
+      "date": "Wed, 12 Oct 2022 06:37:10 GMT"
+    },
+    {
+      "first_name": "Mykyta",
+      "last_name": "Shevchenko",
+      "email": "nrcnekita9@gmail.com",
+      "address": "Lipova street 20, 89",
+      "id": 86,
+      "date": "Wed, 12 Oct 2022 06:38:51 GMT"
     }
   ]
 }

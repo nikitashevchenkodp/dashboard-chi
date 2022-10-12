@@ -7,25 +7,16 @@ import './AddTickerForm.scss';
 import { DesktopDatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { TextField } from '@mui/material';
-import { useFormik } from 'formik';
 import dayjs, { Dayjs } from 'dayjs';
-import * as Yup from 'yup';
 import Button from '../Button';
-import { useAppDispatch } from '../../hooks/typedDispatch';
-import DashboardApiService from '../../services/DashboardApiService';
+import { useAppDispatch, useAppSelector } from '../../hooks/typedDispatch';
 import { sagaActions } from '../../store/saga/saga-actions';
+import FileInput from '../FileInput';
+import { Controller, useForm } from 'react-hook-form';
 
 type AddTickerFormProps = {
   id: number | null;
   setActive: (active: boolean) => void;
-};
-
-type InitialState = {
-  details_text: string;
-  name: string;
-  date: string;
-  status: string;
-  image?: any;
 };
 
 const randomId = () => {
@@ -33,114 +24,125 @@ const randomId = () => {
 };
 
 const AddTickerForm = ({ id, setActive }: AddTickerFormProps) => {
-  const dashboardApi = new DashboardApiService();
+  const [imgUrl, setImgUrl] = useState<any>('');
 
+  const tickets = useAppSelector((state) => state.tickets.tickets);
   const dispatch = useAppDispatch();
-
-  const [initialForm, setInitialForm] = useState<InitialState>({
-    details_text: '',
-    name: '',
-    date: dayjs().toString(),
-    status: '',
-    image: '',
-  });
 
   useEffect(() => {
     if (id) {
-      dashboardApi.getTicker(id).then((res) => {
-        setInitialForm({
-          ...res,
-          date: dayjs(res.date),
-        });
+      const ticket = tickets.filter((item) => item.id === id)[0];
+      reset({
+        ...ticket,
+        image: '',
+        date: dayjs(ticket.date),
       });
     } else {
-      setInitialForm({
+      reset({
         details_text: '',
         name: '',
-        date: dayjs().toString(),
+        date: dayjs(),
         status: '',
         image: '',
       });
     }
   }, [id]);
 
-  const schema = Yup.object().shape({
-    name: Yup.string().min(2, 'Too Short!').max(50, 'Too Long!').required('Required'),
-    details_text: Yup.string().min(2, 'Too Short!').max(50, 'Too Long!').required('Required'),
-  });
+  const { control, handleSubmit, reset } = useForm({});
 
-  const formik = useFormik({
-    initialValues: initialForm,
-    enableReinitialize: true,
-    validationSchema: schema,
-    onSubmit: (values, { resetForm }) => {
-      if (id) {
-        dispatch({
-          type: sagaActions.EDIT_TICKET_SAGA,
-          payload: {
-            ...values,
-            id,
-            date: dayjs(values.date).toString(),
-          },
-        });
-      } else {
-        dispatch({
-          type: sagaActions.ADD_TICKET_SAGA,
-          payload: {
-            ...values,
-            id: id ? id : randomId(),
-            date: dayjs(values.date).toString(),
-          },
-        });
-      }
+  const submit = (data: any) => {
+    if (id) {
+      dispatch({
+        type: sagaActions.EDIT_TICKET_SAGA,
+        payload: {
+          ...data,
+          id,
+          date: dayjs(data.date).toString(),
+        },
+      });
+    } else {
+      dispatch({
+        type: sagaActions.ADD_TICKET_SAGA,
+        payload: {
+          ...data,
+          id: randomId(),
+          date: dayjs(data.date).toString(),
+        },
+      });
+    }
+    setImgUrl('');
+    setActive(false);
+  };
 
-      setActive(false);
-      resetForm();
-    },
-  });
+  const previewImage = (file: any) => {
+    setImgUrl(URL.createObjectURL(file));
+  };
 
   return (
-    <Form onSubmit={formik.handleSubmit}>
+    <Form onSubmit={handleSubmit(submit)}>
       <FormTitle title={id ? 'Edit ticker' : 'Add ticker'} />
-      <Input
-        id="details"
-        name="details_text"
-        label="Ticket details"
-        placeholder="Add description"
-        type="text"
-        value={formik.values.details_text}
-        onChange={formik.handleChange}
-      />
-      <Input
-        id="name"
-        name="name"
-        label="Customer name"
-        placeholder="Name"
-        type="text"
-        value={formik.values.name}
-        onChange={formik.handleChange}
-      />
-      <div className="datepicker__wrapper">
-        <p className="datepicker__label">PICK THE DATE</p>
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <DesktopDatePicker
-            className="datepicker"
-            inputFormat="MM/DD/YYYY"
-            value={formik.values.date}
-            onChange={(val) => formik.setFieldValue('date', val)}
-            renderInput={(params) => <TextField {...params} />}
+      <Controller
+        name="image"
+        control={control}
+        defaultValue=""
+        render={({ field: { onChange, ...otherfields } }) => (
+          <FileInput
+            onChange={(e) => {
+              previewImage(e?.target?.files?.[0]);
+              onChange(e);
+            }}
+            {...otherfields}
           />
-        </LocalizationProvider>
-      </div>
-
-      <Select
-        id="status"
-        name="status"
-        placeholder="Choose value"
-        options={['high', 'normal', 'low']}
-        value={formik.values.status}
-        onChange={formik.handleChange}
+        )}
       />
+      {imgUrl && (
+        <div className="preview__img__container">
+          <img className="preview__img" src={imgUrl} alt="sdfsdf" />
+        </div>
+      )}
+      <Controller
+        name="details_text"
+        control={control}
+        defaultValue=""
+        render={({ field }) => (
+          <Input id="details" label="Ticket details" placeholder="Add description" type="text" {...field} />
+        )}
+      />
+      <Controller
+        name="name"
+        control={control}
+        defaultValue=""
+        render={({ field }) => <Input id="name" label="Customer name" placeholder="Name" type="text" {...field} />}
+      />
+      <Controller
+        name="date"
+        control={control}
+        defaultValue=""
+        render={({ field }) => (
+          <>
+            <div className="datepicker__wrapper">
+              <p className="datepicker__label">PICK THE DATE</p>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DesktopDatePicker
+                  className="datepicker"
+                  inputFormat="MM/DD/YYYY"
+                  renderInput={(params) => <TextField {...params} />}
+                  {...field}
+                />
+              </LocalizationProvider>
+            </div>{' '}
+          </>
+        )}
+      />
+      <Controller
+        name="status"
+        defaultValue=""
+        control={control}
+        render={({ field }) => (
+          <Select id="status" placeholder="Choose value" options={['high', 'normal', 'low']} {...field} />
+        )}
+      />
+
       <Button className="mb-16" type="submit">
         Save
       </Button>

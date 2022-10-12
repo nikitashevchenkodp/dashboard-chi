@@ -17,7 +17,7 @@ const dashboardApi = new DashbordApiService();
 
 function* fetchCustomersSaga() {
   try {
-    yield put(fetchAllCustomers);
+    yield put(fetchAllCustomers());
     const result: CustomerItem[] = yield call(dashboardApi.getCustomers);
     yield put(loadAllCustomers(result));
   } catch (e: any) {

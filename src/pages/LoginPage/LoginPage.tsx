@@ -53,7 +53,7 @@ const LoginPage = () => {
         <Button>Log In</Button>
         <span className="form__question">Don't have an account? </span>
         <Link to="/signup" className="form__change">
-          Log In
+          Sign Up
         </Link>
       </Form>
     </div>

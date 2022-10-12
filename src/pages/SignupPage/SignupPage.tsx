@@ -3,8 +3,8 @@ import { Form, Button, Input } from '../../components';
 import { Link } from 'react-router-dom';
 import Logo from '../../components/Logo';
 import { FormTitle } from '../../components/Form/Form';
-import { Controller, useFieldArray, useForm } from 'react-hook-form';
-import { Step, StepLabel, Stepper } from '@mui/material';
+import { Controller, useForm } from 'react-hook-form';
+import { Checkbox, Step, StepLabel, Stepper } from '@mui/material';
 import Select from '../../components/Select';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { schema } from '../../utils/schema';
@@ -26,8 +26,6 @@ const SignUpPage = () => {
     mode: 'all',
     resolver: yupResolver(schema),
   });
-
-  console.log(control._fields);
 
   const dispatch = useAppDispatch();
   const submit = (data: any) => {
@@ -227,11 +225,6 @@ const RelativesForm = ({ control, errors }: { control: any; errors: any }) => {
   const [fields, setFields] = useState(['child']);
   const [error, setError] = useState('');
 
-  // const { fields } = useFieldArray({
-  //   control,
-  //   name: 'familyMembers',
-  // });
-
   const childrenFields = fields?.map((field, i) => {
     return (
       <React.Fragment key={`${field}${i}`}>
@@ -270,7 +263,7 @@ const RelativesForm = ({ control, errors }: { control: any; errors: any }) => {
 
   const addChildField = () => {
     if (fields.length < 5) {
-      setFields((fields) => [...fields, 'child']);
+      setFields((fields) => [...fields, 'member']);
     } else {
       setError('You cannot add more than 4 children');
       setTimeout(() => setError(''), 3000);
@@ -361,6 +354,15 @@ const OtherForm = ({ control, errors }: { control: any; errors: any }) => {
           />
         )}
       />
+      <div style={{ display: 'flex', alignItems: 'center' }}>
+        <Controller
+          name="terms"
+          control={control}
+          defaultValue="false"
+          render={({ field }) => <Checkbox {...field} />}
+        />
+        <p>I agree with all terms</p>
+      </div>
     </>
   );
 };
