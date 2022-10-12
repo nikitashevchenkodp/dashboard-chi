@@ -12,8 +12,8 @@ import {
   addCustomer,
   addCustomerSuccess,
   addCustomerReject,
+  fetchAllCustomers,
 } from '../slices/customersSlice';
-import { sagaActions } from './saga-actions';
 import DashbordApiService from '../../services/DashboardApiService';
 
 const dashboardApi = new DashbordApiService();
@@ -29,7 +29,6 @@ function* fetchCustomersSaga() {
 
 function* deleteItemCSaga(action: any) {
   try {
-    yield put(deleteCustomer());
     yield call(dashboardApi.delCustomer, action.payload);
     yield put(deleteCustomerSuccess(action.payload));
   } catch (e: any) {
@@ -39,7 +38,6 @@ function* deleteItemCSaga(action: any) {
 
 function* addCustomerSaga(action: any) {
   try {
-    yield put(addCustomer());
     const res: CustomerItem = yield call(dashboardApi.addCustomer, action.payload);
     yield put(addCustomerSuccess(res));
   } catch (e: any) {
@@ -49,7 +47,6 @@ function* addCustomerSaga(action: any) {
 
 function* editCustomerSaga(action: any) {
   try {
-    yield put(editCustomer());
     const res: CustomerItem = yield call(dashboardApi.editCustomer, action.payload);
     yield put(editCustomerSuccess(res));
   } catch (e: any) {
@@ -58,8 +55,8 @@ function* editCustomerSaga(action: any) {
 }
 
 export function* customersWatcher() {
-  yield takeEvery('customers/fetchAllCustomers', fetchCustomersSaga);
-  yield takeEvery(sagaActions.DELETE_CUSTOMER_SAGA, deleteItemCSaga);
-  yield takeEvery(sagaActions.ADD_CUSTOMER_SAGA, addCustomerSaga);
-  yield takeEvery(sagaActions.EDIT_CUSTOMER_SAGA, editCustomerSaga);
+  yield takeEvery(fetchAllCustomers.type, fetchCustomersSaga);
+  yield takeEvery(deleteCustomer.type, deleteItemCSaga);
+  yield takeEvery(addCustomer.type, addCustomerSaga);
+  yield takeEvery(editCustomer.type, editCustomerSaga);
 }

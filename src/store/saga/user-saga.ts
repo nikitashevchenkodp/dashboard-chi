@@ -1,6 +1,5 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
-import { startLoginUser, successLoginUser, rejectLoginUser } from '../slices/userSlice';
-import { sagaActions } from './saga-actions';
+import { loginUser, loginUserSuccess, loginUserReject } from '../slices/userSlice';
 
 const delay = (ms: number) => new Promise((res) => setTimeout(res, ms));
 
@@ -18,15 +17,14 @@ const setUserToLocalStorage = () => {
 
 function* loginUserSaga() {
   try {
-    yield put(startLoginUser());
     yield delay(1000);
     yield call(setUserToLocalStorage);
-    yield put(successLoginUser());
+    yield put(loginUserSuccess());
   } catch (e: any) {
-    yield put(rejectLoginUser(e.message));
+    yield put(loginUserReject(e.message));
   }
 }
 
 export function* userWatcher() {
-  yield takeEvery(sagaActions.LOGIN_USER_SAGA, loginUserSaga);
+  yield takeEvery(loginUser.type, loginUserSaga);
 }

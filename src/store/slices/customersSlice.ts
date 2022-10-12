@@ -34,8 +34,8 @@ const customersSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     },
-    ////////////////////////////////////////
-    addCustomer: (state) => {
+
+    addCustomer: (state, action: PayloadAction<CustomerItem>) => {
       state.customerLoading = true;
     },
     addCustomerSuccess: (state, action: PayloadAction<CustomerItem>) => {
@@ -46,8 +46,8 @@ const customersSlice = createSlice({
       state.customerLoading = false;
       state.customerError = action.payload;
     },
-    //////////////////////////////////////////
-    editCustomer: (state) => {
+
+    editCustomer: (state, action: PayloadAction<CustomerItem>) => {
       state.customerLoading = true;
     },
     editCustomerSuccess: (state, action: PayloadAction<CustomerItem>) => {
@@ -59,7 +59,7 @@ const customersSlice = createSlice({
       state.customerLoading = true;
       state.customerError = action.payload;
     },
-    deleteCustomer: (state) => {
+    deleteCustomer: (state, action: PayloadAction<number>) => {
       state.customerLoading = true;
     },
     deleteCustomerSuccess: (state, action: PayloadAction<number>) => {
