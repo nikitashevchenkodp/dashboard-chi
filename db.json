@@ -242,7 +242,8 @@
       "last_name": "Sheon",
       "email": "elena.sheldon@gmail.com",
       "address": "South Lodge, Reddish Lane, Lymm,WA13 9PY",
-      "date": "Fri Oct 28 2022"
+      "date": "Fri Oct 28 2022",
+      "": "South Lodge, Reddish Lane, Lymm,WA13 9PYf"
     },
     {
       "id": 14,
@@ -298,18 +299,25 @@
       "date": "Thu, 06 Oct 2022 11:20:27 GMT"
     },
     {
-      "first_name": "Никита",
-      "last_name": "Шевченко",
+      "first_name": "Mykyta",
+      "last_name": "Shevchenko",
       "email": "nrcnekita9@gmail.com",
+<<<<<<< HEAD
       "address": "Ул. Ватутина 29, 12",
       "id": 688,
       "date": "Thu, 06 Oct 2022 11:20:39 GMT"
+=======
+      "address": "Lipova street 20, 89",
+      "id": 522,
+      "date": "Mon, 10 Oct 2022 13:50:29 GMT"
+>>>>>>> redux-saga
     },
     {
       "first_name": "Mykyta",
       "last_name": "Shevchenko",
       "email": "nrcnekita9@gmail.com",
       "address": "Lipova street 20, 89",
+<<<<<<< HEAD
       "id": 906,
       "date": "Wed, 12 Oct 2022 06:37:10 GMT"
     },
@@ -320,6 +328,10 @@
       "address": "Lipova street 20, 89",
       "id": 86,
       "date": "Wed, 12 Oct 2022 06:38:51 GMT"
+=======
+      "id": 153,
+      "date": "Mon, 10 Oct 2022 14:34:22 GMT"
+>>>>>>> redux-saga
     }
   ]
 }

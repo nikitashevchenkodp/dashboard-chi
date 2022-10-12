@@ -27,7 +27,7 @@ export function useForm<T>(
     const name = e.target.name;
     let value = e.target.value;
     const type = e.target.type;
-    console.log(e);
+    console.log(name);
 
     if (type === 'number') {
       value = parseInt(value) as any;

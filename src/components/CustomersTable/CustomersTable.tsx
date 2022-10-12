@@ -9,9 +9,9 @@ import DeleteForm from '../../components/DeleteForm';
 import MainTable from '../../components/MainTable';
 import CustomerTableRow from '../../components/CustomerTableRow';
 import { useAppDispatch, useAppSelector } from '../../hooks/typedDispatch';
-import { deleteCustomer } from '../../store/slices/customersSlice';
 import { customersSelector } from '../../store/selectors';
 import { sagaActions } from '../../store/saga/saga-actions';
+import { deleteCustomer, fetchAllCustomers } from '../../store/slices/customersSlice';
 
 const CustomersTable = () => {
   const [active, setActive] = useState<boolean>(false);
@@ -28,7 +28,7 @@ const CustomersTable = () => {
   };
 
   const deleteItem = () => {
-    dispatch({ type: sagaActions.DELETE_CUSTOMER_SAGA, payload: deleteId.current });
+    dispatch(deleteCustomer());
     setConfirmActive(false);
   };
 
@@ -38,7 +38,7 @@ const CustomersTable = () => {
   };
 
   useEffect(() => {
-    dispatch({ type: sagaActions.FETCH_CUSTOMERS_SAGA });
+    dispatch(fetchAllCustomers());
   }, [dispatch]);
 
   const renderItem = (item: CustomerItem) => {
