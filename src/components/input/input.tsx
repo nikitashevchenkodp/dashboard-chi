@@ -7,7 +7,7 @@ type InputProp = React.InputHTMLAttributes<HTMLInputElement> & {
   type: string;
   label?: string;
   id: string;
-  error?: string;
+  error?: string | undefined;
 };
 
 const Input = forwardRef((props: InputProp, ref: any) => {

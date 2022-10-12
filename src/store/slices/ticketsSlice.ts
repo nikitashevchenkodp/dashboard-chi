@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { FieldValues } from 'react-hook-form';
 import { TickerItem } from '../../utils/consts';
 
 export type TicketsState = {
@@ -34,7 +35,7 @@ const ticketsSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     },
-    addTicket: (state, action: PayloadAction<TickerItem>) => {
+    addTicket: (state, action: PayloadAction<TickerItem | FieldValues>) => {
       state.ticketLoading = true;
     },
     addTicketSuccess: (state, action: PayloadAction<TickerItem>) => {
@@ -45,7 +46,7 @@ const ticketsSlice = createSlice({
       state.ticketError = action.payload;
       state.ticketLoading = false;
     },
-    editTicket: (state, action: PayloadAction<TickerItem>) => {
+    editTicket: (state, action: PayloadAction<TickerItem | FieldValues>) => {
       state.ticketLoading = true;
     },
     editTicketSuccess: (state, action: PayloadAction<TickerItem>) => {

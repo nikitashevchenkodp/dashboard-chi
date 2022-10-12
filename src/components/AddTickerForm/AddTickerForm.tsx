@@ -7,31 +7,41 @@ import './AddTickerForm.scss';
 import { DesktopDatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { TextField } from '@mui/material';
-import dayjs, { Dayjs } from 'dayjs';
+import dayjs from 'dayjs';
 import Button from '../Button';
 import { useAppDispatch, useAppSelector } from '../../hooks/typedDispatch';
-import { sagaActions } from '../../store/saga/saga-actions';
 import FileInput from '../FileInput';
-import { Controller, useForm } from 'react-hook-form';
+import { Controller, FieldValues, useForm } from 'react-hook-form';
+import { addTicket, editTicket } from '../../store/slices/ticketsSlice';
+import { yupResolver } from '@hookform/resolvers/yup';
+import PreviewImage from '../PreviewImage/PreviewImage';
+import { addTicketSchema } from '../../utils/addticketSchema';
+import { randomId } from '../../utils/randomId';
 
 type AddTickerFormProps = {
   id: number | null;
-  setActive: (active: boolean) => void;
+  onClose: () => void;
 };
 
-const randomId = () => {
-  return Math.floor(Math.random() * 1000 + 33);
-};
-
-const AddTickerForm = ({ id, setActive }: AddTickerFormProps) => {
-  const [imgUrl, setImgUrl] = useState<any>('');
-
+const AddTickerForm = ({ id, onClose }: AddTickerFormProps) => {
+  const [imgUrl, setImgUrl] = useState('');
   const tickets = useAppSelector((state) => state.tickets.tickets);
+  const ticket = tickets.filter((item) => item.id === id)[0];
   const dispatch = useAppDispatch();
+
+  const {
+    control,
+    handleSubmit,
+    reset,
+    register,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(addTicketSchema),
+  });
 
   useEffect(() => {
     if (id) {
-      const ticket = tickets.filter((item) => item.id === id)[0];
+      setImgUrl(ticket.image);
       reset({
         ...ticket,
         image: '',
@@ -48,71 +58,54 @@ const AddTickerForm = ({ id, setActive }: AddTickerFormProps) => {
     }
   }, [id]);
 
-  const { control, handleSubmit, reset } = useForm({});
-
-  const submit = (data: any) => {
-    if (id) {
-      dispatch({
-        type: sagaActions.EDIT_TICKET_SAGA,
-        payload: {
-          ...data,
-          id,
-          date: dayjs(data.date).toString(),
-        },
-      });
-    } else {
-      dispatch({
-        type: sagaActions.ADD_TICKET_SAGA,
-        payload: {
-          ...data,
-          id: randomId(),
-          date: dayjs(data.date).toString(),
-        },
-      });
-    }
-    setImgUrl('');
-    setActive(false);
-  };
-
-  const previewImage = (file: any) => {
+  const previewImage = (file: File) => {
     setImgUrl(URL.createObjectURL(file));
   };
 
+  const onSubmit = (data: FieldValues) => {
+    const image = data.image[0];
+    const item = {
+      ...data,
+      image: image ? image : ticket.image,
+      id: id ? id : randomId(),
+      date: dayjs(data.date).toString(),
+    };
+    dispatch(id ? editTicket(item) : addTicket(item));
+    setImgUrl('');
+    onClose();
+  };
+
   return (
-    <Form onSubmit={handleSubmit(submit)}>
+    <Form onSubmit={handleSubmit(onSubmit)}>
       <FormTitle title={id ? 'Edit ticker' : 'Add ticker'} />
-      <Controller
-        name="image"
-        control={control}
-        defaultValue=""
-        render={({ field: { onChange, ...otherfields } }) => (
-          <FileInput
-            onChange={(e) => {
-              previewImage(e?.target?.files?.[0]);
-              onChange(e);
-            }}
-            {...otherfields}
-          />
-        )}
+      <FileInput
+        {...register('image', { onChange: (e) => previewImage(e.target.files[0]) })}
+        error={errors?.image?.message as string}
       />
-      {imgUrl && (
-        <div className="preview__img__container">
-          <img className="preview__img" src={imgUrl} alt="sdfsdf" />
-        </div>
-      )}
-      <Controller
-        name="details_text"
-        control={control}
-        defaultValue=""
-        render={({ field }) => (
-          <Input id="details" label="Ticket details" placeholder="Add description" type="text" {...field} />
-        )}
+      <PreviewImage imgUrl={imgUrl} />
+      <Input
+        id="details"
+        label="Ticket details"
+        placeholder="Add description"
+        type="text"
+        error={errors?.details_text?.message as string}
+        {...register('details_text')}
       />
+
       <Controller
         name="name"
         control={control}
         defaultValue=""
-        render={({ field }) => <Input id="name" label="Customer name" placeholder="Name" type="text" {...field} />}
+        render={({ field }) => (
+          <Input
+            id="name"
+            label="Customer name"
+            placeholder="Name"
+            type="text"
+            {...field}
+            error={errors?.name?.message as string}
+          />
+        )}
       />
       <Controller
         name="date"
@@ -139,7 +132,13 @@ const AddTickerForm = ({ id, setActive }: AddTickerFormProps) => {
         defaultValue=""
         control={control}
         render={({ field }) => (
-          <Select id="status" placeholder="Choose value" options={['high', 'normal', 'low']} {...field} />
+          <Select
+            id="status"
+            placeholder="Choose value"
+            options={['high', 'normal', 'low']}
+            {...field}
+            error={errors?.status?.message as string}
+          />
         )}
       />
 
@@ -147,7 +146,7 @@ const AddTickerForm = ({ id, setActive }: AddTickerFormProps) => {
         Save
       </Button>
       <div style={{ display: 'flex' }}>
-        <Button variant="transparent" style={{ margin: '0 auto' }} type="button" onClick={() => setActive(false)}>
+        <Button variant="transparent" style={{ margin: '0 auto' }} type="button" onClick={onClose}>
           Cancel
         </Button>
       </div>

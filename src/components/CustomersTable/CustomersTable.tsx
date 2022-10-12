@@ -10,7 +10,6 @@ import MainTable from '../../components/MainTable';
 import CustomerTableRow from '../../components/CustomerTableRow';
 import { useAppDispatch, useAppSelector } from '../../hooks/typedDispatch';
 import { customersSelector } from '../../store/selectors';
-import { sagaActions } from '../../store/saga/saga-actions';
 import { deleteCustomer, fetchAllCustomers } from '../../store/slices/customersSlice';
 
 const CustomersTable = () => {
@@ -28,13 +27,18 @@ const CustomersTable = () => {
   };
 
   const deleteItem = () => {
-    dispatch(deleteCustomer());
+    dispatch(deleteCustomer(deleteId.current));
     setConfirmActive(false);
   };
 
   const onEdit = (id: number | null) => {
     setActive(true);
     setCurrentId(id);
+  };
+
+  const onClose = () => {
+    setActive(false);
+    setCurrentId(null);
   };
 
   useEffect(() => {
@@ -65,7 +69,7 @@ const CustomersTable = () => {
         onEdit={onEdit}
       />
       <ModalWindow active={active} setActive={setActive}>
-        <AddCustomerForm id={currentId} setActive={setActive} />
+        <AddCustomerForm id={currentId} onClose={onClose} />
       </ModalWindow>
       <ModalWindow active={confirmActive} setActive={setConfirmActive}>
         <DeleteForm setConfirmActive={setConfirmActive} deleteItem={deleteItem} />

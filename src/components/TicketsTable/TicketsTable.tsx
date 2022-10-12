@@ -9,7 +9,8 @@ import ModalWindow from '../ModalWindow';
 import TicketTableRow from '../TicketTableRow/TicketTableRow';
 import './TicketsTable.scss';
 import { ticketsSelector } from '../../store/selectors';
-import { sagaActions } from '../../store/saga/saga-actions';
+import { deleteCustomer } from '../../store/slices/customersSlice';
+import { fetchAllTickets } from '../../store/slices/ticketsSlice';
 
 const TicketsTable = () => {
   const [active, setActive] = useState<boolean>(false);
@@ -26,7 +27,7 @@ const TicketsTable = () => {
   };
 
   const deleteItem = () => {
-    dispatch({ type: sagaActions.DELETE_TICKET_SAGA, payload: deleteId.current });
+    dispatch(deleteCustomer(deleteId.current));
     setConfirmActive(false);
   };
 
@@ -35,9 +36,13 @@ const TicketsTable = () => {
     setCurrentId(id);
   };
 
+  const onClose = () => {
+    setActive(false);
+    setCurrentId(null);
+  };
+
   useEffect(() => {
-    console.log('work');
-    dispatch({ type: sagaActions.FETCH_TICKETS_SAGA });
+    dispatch(fetchAllTickets());
   }, []);
 
   const renderItem = (item: TickerItem) => {
@@ -64,7 +69,7 @@ const TicketsTable = () => {
         onEdit={onEdit}
       />
       <ModalWindow active={active} setActive={setActive}>
-        <AddTickerForm id={currentId} setActive={setActive} />
+        <AddTickerForm id={currentId} onClose={onClose} />
       </ModalWindow>
       <ModalWindow active={confirmActive} setActive={setConfirmActive}>
         <DeleteForm setConfirmActive={setConfirmActive} deleteItem={deleteItem} />

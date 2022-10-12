@@ -1,35 +1,34 @@
 {
   "tickets": [
     {
-      "details_text": "Contact Ema",
-      "name": "ЕTom Cruise",
+      "image": "http://res.cloudinary.com/dmd6ckoob/image/upload/v1665572910/customer_8.6edab5dd31267bd716557ffefcadd6c7_cncn75.svg",
+      "status": "low",
       "date": "Sun, 02 Oct 2022 13:28:50 GMT",
-      "status": "high",
-      "id": 6,
-      "image": ""
+      "name": "ЕTom Cruise",
+      "details_text": "Contact Email not Linked 444444",
+      "id": 6
     },
     {
-      "id": 7,
-      "image": "/static/media/customer_7.2d21dfc46cdfb9dbb0972f965ef2e804.svg",
-      "details_text": "Contact Email not Linked",
+      "image": "http://res.cloudinary.com/dmd6ckoob/image/upload/v1665574038/customer_8.6edab5dd31267bd716557ffefcadd6c7_e0sle6.svg",
+      "status": "normal",
+      "date": "Wed, 05 Oct 2022 13:28:50 GMT",
       "name": "Alex Cruise",
-      "date": "Wed, 05 Oct 2022 13:28:50 GMT",
-      "status": "normal"
+      "details_text": "Contact Email not Linked",
+      "id": 7
     },
     {
-      "id": 8,
-      "image": "",
-      "details_text": "Contact Email not Linked",
-      "name": "Tom Cruise",
+      "image": "http://res.cloudinary.com/dmd6ckoob/image/upload/v1665580629/%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA_%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0_2022-07-05_%D0%B2_10.16.51_qd2zkk.png",
+      "status": "high",
       "date": "Wed, 05 Oct 2022 13:28:50 GMT",
-      "status": "high"
+      "name": "Tom Cruise",
+      "details_text": "Contact Email not Linked",
+      "id": 8
     },
     {
       "details_text": "Contact Email not Linked",
       "name": "ddd",
       "date": "Sun, 16 Oct 2022 12:38:46 GMT",
       "status": "normal",
-      "image": "",
       "id": 146
     },
     {
@@ -37,7 +36,6 @@
       "name": "Tom Cruise",
       "date": "Thu, 06 Oct 2022 12:40:45 GMT",
       "status": "normal",
-      "image": "",
       "id": 554
     },
     {
@@ -232,6 +230,139 @@
       "status": "normal",
       "image": "C:\\fakepath\\customer_3.04b44acae3fd9cd77afe1485790e78f3.svg",
       "id": 767
+    },
+    {
+      "details_text": "Contact Email not ",
+      "name": "Никита Шевченко",
+      "date": "Sat, 29 Oct 2022 08:02:10 GMT",
+      "status": "low",
+      "image": "",
+      "id": 713
+    },
+    {
+      "details_text": "sdsdddd",
+      "name": "sdddddd",
+      "date": "Sun, 09 Oct 2022 08:27:57 GMT",
+      "status": "high",
+      "image": "",
+      "id": 324
+    },
+    {
+      "details_text": "sdfsdf",
+      "name": "Никита Шевченко",
+      "date": "Thu, 27 Oct 2022 08:59:56 GMT",
+      "status": "normal",
+      "image": "C:\\fakepath\\customer_5.7398abe37a130e8a6ee3c87b77f23198.svg",
+      "id": 564
+    },
+    {
+      "details_text": "",
+      "name": "",
+      "date": "Wed, 12 Oct 2022 09:02:46 GMT",
+      "status": "",
+      "id": 606
+    },
+    {
+      "details_text": "",
+      "name": "",
+      "date": "Wed, 12 Oct 2022 09:03:54 GMT",
+      "status": "",
+      "image": {},
+      "id": 101
+    },
+    {
+      "details_text": "",
+      "name": "",
+      "date": "Wed, 12 Oct 2022 09:09:42 GMT",
+      "status": "",
+      "image": {},
+      "id": 507
+    },
+    {
+      "details_text": "",
+      "name": "",
+      "date": "Wed, 12 Oct 2022 09:10:24 GMT",
+      "status": "",
+      "image": {},
+      "id": 291
+    },
+    {
+      "details_text": "",
+      "name": "",
+      "date": "Wed, 12 Oct 2022 09:11:30 GMT",
+      "status": "",
+      "image": {},
+      "id": 392
+    },
+    {
+      "details_text": "",
+      "name": "",
+      "date": "Wed, 12 Oct 2022 09:14:11 GMT",
+      "status": "",
+      "image": {},
+      "id": 68
+    },
+    {
+      "details_text": "",
+      "name": "",
+      "date": "Wed, 12 Oct 2022 09:28:56 GMT",
+      "status": "",
+      "image": {},
+      "id": 952
+    },
+    {
+      "details_text": "Contact Email not ",
+      "name": "Никита Шевченко",
+      "date": "Sat, 29 Oct 2022 09:35:58 GMT",
+      "status": "high",
+      "image": "http://res.cloudinary.com/dmd6ckoob/image/upload/v1665567378/customer_6.3a080d779183c1e5b926da2ff35ddbdd_jtrsu4.svg",
+      "id": 168
+    },
+    {
+      "details_text": "Contact Email not Li",
+      "name": "Elena Cruise",
+      "date": "Thu, 27 Oct 2022 10:23:33 GMT",
+      "status": "low",
+      "id": 820
+    },
+    {
+      "details_text": "Contact Email not Linke",
+      "name": "Tom Cruise",
+      "date": "Wed, 12 Oct 2022 10:32:29 GMT",
+      "status": "low",
+      "image": "http://res.cloudinary.com/dmd6ckoob/image/upload/v1665573357/customer_6.3a080d779183c1e5b926da2ff35ddbdd_kz60b8.svg",
+      "id": 163
+    },
+    {
+      "details_text": "sddd",
+      "name": "111112",
+      "date": "Thu, 13 Oct 2022 11:10:41 GMT",
+      "status": "normal",
+      "image": "http://res.cloudinary.com/dmd6ckoob/image/upload/v1665573700/customer_3.04b44acae3fd9cd77afe1485790e78f3_ww1gpx.svg",
+      "id": 174
+    },
+    {
+      "status": "normal",
+      "date": "Sun, 09 Oct 2022 11:54:10 GMT",
+      "name": "Никита Шевченко",
+      "details_text": "Contact Email not Linked",
+      "image": "http://res.cloudinary.com/dmd6ckoob/image/upload/v1665575673/customer_7.2d21dfc46cdfb9dbb0972f965ef2e804_q8akch.svg",
+      "id": 347
+    },
+    {
+      "status": "normal",
+      "date": "Wed, 12 Oct 2022 12:15:46 GMT",
+      "name": "sdfsdfsd",
+      "details_text": "sdfsdf",
+      "id": 906
+    },
+    {
+      "image": "http://res.cloudinary.com/dmd6ckoob/image/upload/v1665578749/%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA_%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0_2022-07-05_%D0%B2_10.16.51_memyxz.png",
+      "status": "normal",
+      "date": "Wed, 12 Oct 2022 12:45:33 GMT",
+      "name": "Никита Шевченко",
+      "details_text": "Contact Email not Linked",
+      "id": 727
     }
   ],
   "customers": [
@@ -246,19 +377,10 @@
       "": "South Lodge, Reddish Lane, Lymm,WA13 9PYf"
     },
     {
-      "id": 14,
-      "image": "/static/media/customer_4.2826c2f016981e97e61b43041223df1d.svg",
-      "first_name": "Tom",
-      "last_name": "Cruise",
-      "email": "mandeep.walton@gmail.com",
-      "address": "South Lodge, Reddish Lane, Lymm,WA13 9PY",
-      "date": "Wed, 05 Oct 2022 13:12:36 GMT"
-    },
-    {
       "id": 16,
       "image": "/static/media/customer_6.3a080d779183c1e5b926da2ff35ddbdd.svg",
       "first_name": "Kim",
-      "last_name": "Gould",
+      "last_name": "Goul",
       "email": "kim.gould@gmail.com",
       "address": "South Lodge, Reddish Lane, Lymm,WA13 9PY",
       "date": "Wed, 05 Oct 2022 13:12:36 GMT"
@@ -302,36 +424,33 @@
       "first_name": "Mykyta",
       "last_name": "Shevchenko",
       "email": "nrcnekita9@gmail.com",
-<<<<<<< HEAD
       "address": "Ул. Ватутина 29, 12",
       "id": 688,
       "date": "Thu, 06 Oct 2022 11:20:39 GMT"
-=======
-      "address": "Lipova street 20, 89",
-      "id": 522,
-      "date": "Mon, 10 Oct 2022 13:50:29 GMT"
->>>>>>> redux-saga
     },
     {
       "first_name": "Mykyta",
       "last_name": "Shevchenko",
       "email": "nrcnekita9@gmail.com",
       "address": "Lipova street 20, 89",
-<<<<<<< HEAD
-      "id": 906,
-      "date": "Wed, 12 Oct 2022 06:37:10 GMT"
+      "image": "http://res.cloudinary.com/dmd6ckoob/image/upload/v1665583573/%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA_%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0_2022-07-11_%D0%B2_11.33.02_fgqliq.png",
+      "id": 639
     },
     {
       "first_name": "Mykyta",
       "last_name": "Shevchenko",
       "email": "nrcnekita9@gmail.com",
       "address": "Lipova street 20, 89",
-      "id": 86,
-      "date": "Wed, 12 Oct 2022 06:38:51 GMT"
-=======
-      "id": 153,
-      "date": "Mon, 10 Oct 2022 14:34:22 GMT"
->>>>>>> redux-saga
+      "image": "http://res.cloudinary.com/dmd6ckoob/image/upload/v1665583480/%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA_%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0_2022-07-05_%D0%B2_10.16.51_gvfrgk.png",
+      "id": 125
+    },
+    {
+      "first_name": "Mykyta",
+      "last_name": "Shevchenko",
+      "email": "nrcnekita9@gmail.com",
+      "address": "Lipova street 20, 89",
+      "image": "http://res.cloudinary.com/dmd6ckoob/image/upload/v1665583608/%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA_%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0_2022-07-28_%D0%B2_16.42.48_qamuhc.png",
+      "id": 299
     }
   ]
 }

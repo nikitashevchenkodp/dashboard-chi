@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { FieldValues } from 'react-hook-form';
 import { CustomerItem } from '../../utils/consts';
 
 export type CustomersState = {
@@ -35,7 +36,7 @@ const customersSlice = createSlice({
       state.error = action.payload;
     },
 
-    addCustomer: (state, action: PayloadAction<CustomerItem>) => {
+    addCustomer: (state, action: PayloadAction<CustomerItem | FieldValues>) => {
       state.customerLoading = true;
     },
     addCustomerSuccess: (state, action: PayloadAction<CustomerItem>) => {
@@ -47,7 +48,7 @@ const customersSlice = createSlice({
       state.customerError = action.payload;
     },
 
-    editCustomer: (state, action: PayloadAction<CustomerItem>) => {
+    editCustomer: (state, action: PayloadAction<CustomerItem | FieldValues>) => {
       state.customerLoading = true;
     },
     editCustomerSuccess: (state, action: PayloadAction<CustomerItem>) => {

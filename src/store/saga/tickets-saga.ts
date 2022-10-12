@@ -15,8 +15,22 @@ import {
   deleteTicketReject,
 } from '../slices/ticketsSlice';
 import DashbordApiService from '../../services/DashboardApiService';
+import { sendPhoto } from '../../services/cloudinary';
 
 const dashboardApi = new DashbordApiService();
+
+function* transformImageData(data: any): Generator<any, any, any> {
+  if (typeof data.image !== 'string') {
+    const response = yield call(sendPhoto, data.image);
+    console.log(response);
+
+    data = {
+      ...data,
+      image: response.url,
+    };
+  }
+  return data;
+}
 
 function* fetchTicketsSaga() {
   try {
@@ -36,18 +50,20 @@ function* deleteItemSaga(action: any) {
   }
 }
 
-function* addTicketSaga(action: any) {
+function* addTicketSaga(action: any): Generator<any, any, any> {
   try {
-    const res: TickerItem = yield call(dashboardApi.addTicker, action.payload);
+    const data = yield call(transformImageData, action.payload);
+    const res: TickerItem = yield call(dashboardApi.addTicker, data);
     yield put(addTicketSuccess(res));
   } catch (e: any) {
     yield put(addTicketReject(e.message));
   }
 }
 
-function* editTicketSaga(action: any) {
+function* editTicketSaga(action: any): Generator<any, any, any> {
   try {
-    const res: TickerItem = yield call(dashboardApi.editTicker, action.payload);
+    const data = yield call(transformImageData, action.payload);
+    const res: TickerItem = yield call(dashboardApi.editTicker, data);
     console.log(res);
     yield put(editTicketSuccess(res));
   } catch (e: any) {

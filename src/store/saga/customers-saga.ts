@@ -15,8 +15,22 @@ import {
   fetchAllCustomers,
 } from '../slices/customersSlice';
 import DashbordApiService from '../../services/DashboardApiService';
+import { sendPhoto } from '../../services/cloudinary';
 
 const dashboardApi = new DashbordApiService();
+
+function* transformImageData(data: any): Generator<any, any, any> {
+  if (typeof data.image !== 'string') {
+    const response = yield call(sendPhoto, data.image);
+    console.log(response);
+
+    data = {
+      ...data,
+      image: response.url,
+    };
+  }
+  return data;
+}
 
 function* fetchCustomersSaga() {
   try {
@@ -36,18 +50,20 @@ function* deleteItemCSaga(action: any) {
   }
 }
 
-function* addCustomerSaga(action: any) {
+function* addCustomerSaga(action: any): Generator<any, any, any> {
   try {
-    const res: CustomerItem = yield call(dashboardApi.addCustomer, action.payload);
+    const data = yield call(transformImageData, action.payload);
+    const res: CustomerItem = yield call(dashboardApi.addCustomer, data);
     yield put(addCustomerSuccess(res));
   } catch (e: any) {
     yield put(addCustomerReject(e.message));
   }
 }
 
-function* editCustomerSaga(action: any) {
+function* editCustomerSaga(action: any): Generator<any, any, any> {
   try {
-    const res: CustomerItem = yield call(dashboardApi.editCustomer, action.payload);
+    const data = yield call(transformImageData, action.payload);
+    const res: CustomerItem = yield call(dashboardApi.editCustomer, data);
     yield put(editCustomerSuccess(res));
   } catch (e: any) {
     yield put(editCustomerReject(e.message));

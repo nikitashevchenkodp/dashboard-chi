@@ -32,18 +32,21 @@ const FileInput = forwardRef((props: FileInputProps, ref: any) => {
 
   return (
     <div className="file-input__container">
-      <input ref={ref} {...restProps} type="file" className="file-input__field" id="file-input" />
-      <label
-        htmlFor="file-input"
-        className={classes}
-        onDragStart={dragStartHandler}
-        onDragLeave={dragLeavetHandler}
-        onDragOver={dragStartHandler}
-        onDrop={dropHandler}
-      >
-        <BsPlusLg color="white" fontSize={25} />
-      </label>
-      <p className="file-input__title">Add photo</p>
+      <div>
+        <input ref={ref} {...restProps} type="file" className="file-input__field" id="file-input" />
+        <label
+          htmlFor="file-input"
+          className={classes}
+          onDragStart={dragStartHandler}
+          onDragLeave={dragLeavetHandler}
+          onDragOver={dragStartHandler}
+          onDrop={dropHandler}
+        >
+          <BsPlusLg color="white" fontSize={25} />
+        </label>
+        <p className="file-input__title">Add photo</p>
+      </div>
+      <p>{error}</p>
     </div>
   );
 });

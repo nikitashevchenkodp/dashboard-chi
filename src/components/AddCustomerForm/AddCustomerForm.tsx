@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import { useForm } from '../../hooks/useForm';
 import Button from '../Button';
 import Form from '../Form';
 import { FormTitle } from '../Form/Form';
 import Input from '../Input';
 import './AddCustomerForm.scss';
-import { useAppDispatch } from '../../hooks/typedDispatch';
-import DashboardApiService from '../../services/DashboardApiService';
-import { sagaActions } from '../../store/saga/saga-actions';
+import { useAppDispatch, useAppSelector } from '../../hooks/typedDispatch';
+import { FieldValues, useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { addCustomer, editCustomer } from '../../store/slices/customersSlice';
+import FileInput from '../FileInput';
+import PreviewImage from '../PreviewImage/PreviewImage';
 
 type AddCustomerFormProps = {
   id: number | null;
-  setActive: (active: boolean) => void;
+  onClose: () => void;
 };
 
 type InitialState = {
@@ -25,96 +27,101 @@ const randomId = () => {
   return Math.floor(Math.random() * 1000 + 33);
 };
 
-const AddCustomerForm = ({ id, setActive }: AddCustomerFormProps) => {
-  const dashboardApi = new DashboardApiService();
+const AddCustomerForm = ({ id, onClose }: AddCustomerFormProps) => {
+  const [imgUrl, setImgUrl] = useState('');
 
-  const [initialForm, setInitialForm] = useState<InitialState>({
-    first_name: '',
-    last_name: '',
-    email: '',
-    address: '',
-  });
-
-  const [form, changeHandler] = useForm(initialForm);
   const dispatch = useAppDispatch();
-  console.log(form);
+  const customers = useAppSelector((state) => state.customers.customers);
+  const customer = customers.filter((item) => item.id === id)[0];
+
+  const {
+    handleSubmit,
+    reset,
+    register,
+    formState: { errors },
+  } = useForm({
+    // resolver: yupResolver(),
+  });
 
   useEffect(() => {
     if (id) {
-      dashboardApi.getCustomer(id).then((res) => {
-        setInitialForm(res);
+      setImgUrl(customer.image);
+      reset({
+        ...customer,
+        image: '',
       });
     } else {
-      setInitialForm({
+      reset({
         first_name: '',
         last_name: '',
         email: '',
         address: '',
+        image: '',
       });
     }
   }, [id]);
 
-  const submit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const previewImage = (file: File) => {
+    setImgUrl(URL.createObjectURL(file));
+  };
 
-    if (id) {
-      dispatch({
-        type: sagaActions.EDIT_CUSTOMER_SAGA,
-        payload: { ...form, id },
-      });
-    } else {
-      dispatch({
-        type: sagaActions.ADD_CUSTOMER_SAGA,
-        payload: { ...form, id: id ? id : randomId(), date: new Date().toUTCString() },
-      });
-    }
-    setActive(false);
+  const onSubmit = (data: FieldValues) => {
+    const image = data.image[0];
+    const item = {
+      ...data,
+      image: image ? image : customer.image,
+      id: id ? id : randomId(),
+    };
+    dispatch(id ? editCustomer(item) : addCustomer(item));
+    setImgUrl('');
+    onClose();
   };
 
   return (
-    <Form onSubmit={submit}>
+    <Form onSubmit={handleSubmit(onSubmit)}>
       <FormTitle title={id ? 'Edit customer' : 'Add customer'} />
+      <FileInput
+        {...register('image', { onChange: (e) => previewImage(e.target.files[0]) })}
+        error={errors?.image?.message as string}
+      />
+      <PreviewImage imgUrl={imgUrl} />
       <Input
         id="first_name"
-        name="first_name"
         label="First name"
         placeholder="First name"
         type="text"
-        value={form.first_name}
-        onChange={changeHandler}
+        {...register('first_name')}
+        error={errors?.first_name?.message as string}
       />
       <Input
         id="last_name"
-        name="last_name"
         label="Last Name"
         placeholder="Last name"
         type="text"
-        value={form.last_name}
-        onChange={changeHandler}
+        {...register('last_name')}
+        error={errors?.last_name?.message as string}
       />
       <Input
         id="email"
-        name="email"
         label="Email"
         placeholder="Email"
         type="email"
-        value={form.email}
-        onChange={changeHandler}
+        {...register('email')}
+        error={errors?.email?.message as string}
       />
       <Input
         id="address"
-        name="address"
         label="address"
         placeholder="Customer address"
         type="text"
-        value={form.address}
-        onChange={changeHandler}
+        {...register('address')}
+        error={errors?.address?.message as string}
       />
       <Button className="mb-16" type="submit">
         Save
       </Button>
       <div style={{ display: 'flex' }}>
-        <Button variant="transparent" style={{ margin: '0 auto' }} type="button" onClick={() => setActive(false)}>
+        <Button variant="transparent" style={{ margin: '0 auto' }} type="button" onClick={onClose}>
           Cancel
         </Button>
       </div>
