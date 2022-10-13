@@ -4,10 +4,7 @@ import Logo from '../Logo';
 import './SideBar.scss';
 import { OverviewIcon, TicketsIcon, SettingsIcon, ContactsIcon } from '../../icons/SvgIcons';
 
-type SidebarProps = {
-  change: (name: string) => void;
-};
-const SideBar = ({ change }: SidebarProps) => {
+const SideBar = () => {
   const pathTo = [
     { name: 'Overview', to: 'overview', Icon: OverviewIcon },
     { name: 'Tickets', to: 'tickets', Icon: TicketsIcon },
@@ -17,11 +14,7 @@ const SideBar = ({ change }: SidebarProps) => {
   const links = pathTo.map(({ to, name, Icon }) => {
     return (
       <li key={to}>
-        <NavLink
-          onClick={() => change(name)}
-          to={to}
-          className={({ isActive }) => (isActive ? 'nav__item nav__item--active' : 'nav__item')}
-        >
+        <NavLink to={to} className={({ isActive }) => (isActive ? 'nav__item nav__item--active' : 'nav__item')}>
           <Icon />
           <p>{name}</p>
         </NavLink>
@@ -35,11 +28,7 @@ const SideBar = ({ change }: SidebarProps) => {
       <ul className="nav nav--with-border">{links}</ul>
       <ul className="nav">
         <li>
-          <NavLink
-            onClick={() => change('Settings')}
-            to="settings"
-            className={({ isActive }) => (isActive ? 'nav__item nav__item--active' : 'nav__item')}
-          >
+          <NavLink to="settings" className={({ isActive }) => (isActive ? 'nav__item nav__item--active' : 'nav__item')}>
             <SettingsIcon />
             <p>Settings</p>
           </NavLink>

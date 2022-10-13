@@ -1,0 +1,19 @@
+.user {
+  display: flex;
+  align-items: center;
+  border-left: 1px solid #dfe0eb;
+  padding-left: 32px;
+  cursor: pointer;
+  &__name {
+    margin-right: 14px;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 20px;
+  }
+  &__avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    overflow: hidden;
+  }
+}

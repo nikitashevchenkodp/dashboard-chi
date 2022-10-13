@@ -10,6 +10,7 @@ import { useAppDispatch } from '../../hooks/typedDispatch';
 import { sagaActions } from '../../store/saga/saga-actions';
 import { Controller, useForm, useFormContext } from 'react-hook-form';
 import { textFieldClasses } from '@mui/material';
+import { loginUser } from '../../store/slices/userSlice';
 type LoginForm = {
   email: string;
   password: string;
@@ -18,15 +19,14 @@ type LoginForm = {
 const LoginPage = () => {
   const {
     handleSubmit,
-    control,
-    formState: {},
+    register,
+    formState: { errors },
   } = useForm();
 
   const dispatch = useAppDispatch();
 
   const submit = (data: any) => {
-    console.log(data);
-    dispatch({ type: sagaActions.LOGIN_USER_SAGA });
+    dispatch(loginUser());
   };
 
   return (
@@ -34,20 +34,20 @@ const LoginPage = () => {
       <Form onSubmit={handleSubmit(submit)}>
         <Logo />
         <FormTitle title={'Log In to Dashboard Kit'} subtitle={'Enter your email and password'} />
-        <Controller
-          name="email"
-          control={control}
-          defaultValue=""
-          render={({ field }) => (
-            <Input id="email" type="text" label={'email'} placeholder={'Email adress'} {...field} />
-          )}
+        <Input
+          id="email"
+          type="text"
+          label={'email'}
+          placeholder={'Email adress'}
+          {...register('email', { required: true })}
+          error={errors?.email && 'Email is required field'}
         />
-
-        <Controller
-          name="password"
-          control={control}
-          defaultValue=""
-          render={({ field }) => <Input id="password" type="password" label={'Password'} {...field} />}
+        <Input
+          id="password"
+          type="password"
+          label={'Password'}
+          {...register('password', { required: true })}
+          error={errors?.password && 'Password is required field'}
         />
 
         <Button>Log In</Button>

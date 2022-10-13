@@ -15,7 +15,7 @@ import { Controller, FieldValues, useForm } from 'react-hook-form';
 import { addTicket, editTicket } from '../../store/slices/ticketsSlice';
 import { yupResolver } from '@hookform/resolvers/yup';
 import PreviewImage from '../PreviewImage/PreviewImage';
-import { addTicketSchema } from '../../utils/addticketSchema';
+import { addTicketSchema } from '../../utils/validationSchemas/addticketSchema';
 import { randomId } from '../../utils/randomId';
 import { BsCalendar2Date } from 'react-icons/bs';
 

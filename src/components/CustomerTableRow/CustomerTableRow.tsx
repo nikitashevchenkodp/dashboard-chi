@@ -12,16 +12,7 @@ type TickerTableRowProps = {
 
 const CustomerTableRow = ({ rowData, onEdit, setDeleteItem }: TickerTableRowProps) => {
   return (
-    <TableRow
-      sx={{
-        '&:last-child td, &:last-child th': { border: 0 },
-        cursor: 'pointer',
-        '&:hover': { background: 'rgba(55, 81, 255, 0.04)' },
-        height: 'auto',
-        paddingLeft: '16px',
-        paddingRight: '16px',
-      }}
-    >
+    <TableRow sx={tableStyles.tableRowBody}>
       <TableCell>
         <div style={tableStyles.mainCell}>
           <div style={tableStyles.mainCellImg}>
@@ -71,6 +62,13 @@ export const tableStyles = {
   cellImg: {
     height: '100%',
     borderRadius: '50%',
+  },
+  tableRowBody: {
+    cursor: 'pointer',
+    '&:hover': { background: 'rgba(55, 81, 255, 0.04)' },
+    height: 'auto',
+    paddingLeft: '16px',
+    paddingRight: '16px',
   },
   mainCellImg: { width: '44px', borderRadius: '50%', overflow: 'hidden' },
   cellTitle: { fontSize: '14px', fontWeight: '600', lineHeight: '20px', marginBottom: '4px' },

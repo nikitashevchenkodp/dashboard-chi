@@ -45,7 +45,6 @@ const userSlice = createSlice({
     },
     cleanUser: (state) => {
       state.user = null;
-      localStorage.removeItem('user');
     },
     editUser: (state, action: PayloadAction<User>) => {
       state.user = action.payload;

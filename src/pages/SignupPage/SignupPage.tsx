@@ -6,7 +6,7 @@ import { FormTitle } from '../../components/Form/Form';
 import { useForm } from 'react-hook-form';
 import { Step, StepLabel, Stepper } from '@mui/material';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { schema } from '../../utils/schema';
+import { schema } from '../../utils/validationSchemas/signUpSchema';
 import { useAppDispatch, useAppSelector } from '../../hooks/typedDispatch';
 import { sagaActions } from '../../store/saga/saga-actions';
 import AuthinfoForm from './components/AuthDataForm';
