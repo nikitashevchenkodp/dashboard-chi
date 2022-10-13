@@ -10,21 +10,11 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { addCustomer, editCustomer } from '../../store/slices/customersSlice';
 import FileInput from '../FileInput';
 import PreviewImage from '../PreviewImage/PreviewImage';
+import { randomId } from '../../utils/randomId';
 
 type AddCustomerFormProps = {
   id: number | null;
   onClose: () => void;
-};
-
-type InitialState = {
-  first_name: string;
-  last_name: string;
-  email: string;
-  address: string;
-};
-
-const randomId = () => {
-  return Math.floor(Math.random() * 1000 + 33);
 };
 
 const AddCustomerForm = ({ id, onClose }: AddCustomerFormProps) => {
@@ -32,7 +22,13 @@ const AddCustomerForm = ({ id, onClose }: AddCustomerFormProps) => {
 
   const dispatch = useAppDispatch();
   const customers = useAppSelector((state) => state.customers.customers);
-  const customer = customers.filter((item) => item.id === id)[0];
+  const customer = customers.filter((item) => item.id === id)[0] || {
+    first_name: '',
+    last_name: '',
+    email: '',
+    address: '',
+    image: '',
+  };
 
   const {
     handleSubmit,
@@ -44,21 +40,8 @@ const AddCustomerForm = ({ id, onClose }: AddCustomerFormProps) => {
   });
 
   useEffect(() => {
-    if (id) {
-      setImgUrl(customer.image);
-      reset({
-        ...customer,
-        image: '',
-      });
-    } else {
-      reset({
-        first_name: '',
-        last_name: '',
-        email: '',
-        address: '',
-        image: '',
-      });
-    }
+    setImgUrl(customer.image);
+    reset(customer);
   }, [id]);
 
   const previewImage = (file: File) => {
@@ -66,10 +49,8 @@ const AddCustomerForm = ({ id, onClose }: AddCustomerFormProps) => {
   };
 
   const onSubmit = (data: FieldValues) => {
-    const image = data.image[0];
     const item = {
       ...data,
-      image: image ? image : customer.image,
       id: id ? id : randomId(),
     };
     dispatch(id ? editCustomer(item) : addCustomer(item));

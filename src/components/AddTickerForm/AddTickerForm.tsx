@@ -17,6 +17,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import PreviewImage from '../PreviewImage/PreviewImage';
 import { addTicketSchema } from '../../utils/addticketSchema';
 import { randomId } from '../../utils/randomId';
+import { BsCalendar2Date } from 'react-icons/bs';
 
 type AddTickerFormProps = {
   id: number | null;
@@ -26,7 +27,13 @@ type AddTickerFormProps = {
 const AddTickerForm = ({ id, onClose }: AddTickerFormProps) => {
   const [imgUrl, setImgUrl] = useState('');
   const tickets = useAppSelector((state) => state.tickets.tickets);
-  const ticket = tickets.filter((item) => item.id === id)[0];
+  const ticket = tickets.filter((item) => item.id === id)[0] || {
+    details_text: '',
+    name: '',
+    date: dayjs(),
+    status: '',
+    image: '',
+  };
   const dispatch = useAppDispatch();
 
   const {
@@ -40,22 +47,8 @@ const AddTickerForm = ({ id, onClose }: AddTickerFormProps) => {
   });
 
   useEffect(() => {
-    if (id) {
-      setImgUrl(ticket.image);
-      reset({
-        ...ticket,
-        image: '',
-        date: dayjs(ticket.date),
-      });
-    } else {
-      reset({
-        details_text: '',
-        name: '',
-        date: dayjs(),
-        status: '',
-        image: '',
-      });
-    }
+    setImgUrl(ticket.image);
+    reset(ticket);
   }, [id]);
 
   const previewImage = (file: File) => {
@@ -63,10 +56,10 @@ const AddTickerForm = ({ id, onClose }: AddTickerFormProps) => {
   };
 
   const onSubmit = (data: FieldValues) => {
-    const image = data.image[0];
+    console.log(data);
+
     const item = {
       ...data,
-      image: image ? image : ticket.image,
       id: id ? id : randomId(),
       date: dayjs(data.date).toString(),
     };
@@ -119,6 +112,15 @@ const AddTickerForm = ({ id, onClose }: AddTickerFormProps) => {
                 <DesktopDatePicker
                   className="datepicker"
                   inputFormat="MM/DD/YYYY"
+                  components={{
+                    OpenPickerIcon: BsCalendar2Date,
+                  }}
+                  InputProps={{
+                    sx: {
+                      height: '42px',
+                      border: ' 1px solid #f0f1f7;',
+                    },
+                  }}
                   renderInput={(params) => <TextField {...params} />}
                   {...field}
                 />
@@ -146,7 +148,14 @@ const AddTickerForm = ({ id, onClose }: AddTickerFormProps) => {
         Save
       </Button>
       <div style={{ display: 'flex' }}>
-        <Button variant="transparent" style={{ margin: '0 auto' }} type="button" onClick={onClose}>
+        <Button
+          variant="transparent"
+          style={{ margin: '0 auto' }}
+          type="button"
+          onClick={() => {
+            onClose();
+          }}
+        >
           Cancel
         </Button>
       </div>

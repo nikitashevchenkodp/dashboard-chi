@@ -6,12 +6,21 @@ import { Provider } from 'react-redux';
 import { store, persistor } from './store';
 import { PersistGate } from 'redux-persist/integration/react';
 // import reportWebVitals from './reportWebVitals';
+import { createTheme, ThemeProvider } from '@mui/material';
+
+const customTheme = createTheme({
+  components: {
+    MuiFormControl: {},
+  },
+});
 
 const root = ReactDOM.createRoot(document.getElementById('root')!);
 root.render(
   <Provider store={store}>
     <PersistGate persistor={persistor}>
-      <App />
+      <ThemeProvider theme={customTheme}>
+        <App />
+      </ThemeProvider>
     </PersistGate>
   </Provider>
 );

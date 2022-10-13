@@ -1,4 +1,4 @@
-import { call, put, takeEvery } from 'redux-saga/effects';
+import { call, put, select, takeEvery } from 'redux-saga/effects';
 import { CustomerItem } from '../../utils/consts';
 import {
   fetchAllCustomersSuccess,
@@ -16,6 +16,7 @@ import {
 } from '../slices/customersSlice';
 import DashbordApiService from '../../services/DashboardApiService';
 import { sendPhoto } from '../../services/cloudinary';
+import { RootState } from '..';
 
 const dashboardApi = new DashbordApiService();
 
@@ -52,7 +53,20 @@ function* deleteItemCSaga(action: any) {
 
 function* addCustomerSaga(action: any): Generator<any, any, any> {
   try {
-    const data = yield call(transformImageData, action.payload);
+    let data = action.payload;
+    if (typeof data.image !== 'string') {
+      const response = yield call(sendPhoto, data.image[0]);
+      console.log(response);
+      data = {
+        ...data,
+        image: response.url,
+      };
+    } else {
+      data = {
+        ...data,
+        image: 'https://res.cloudinary.com/dmd6ckoob/image/upload/v1665658222/image-not-found_anrbg7.png',
+      };
+    }
     const res: CustomerItem = yield call(dashboardApi.addCustomer, data);
     yield put(addCustomerSuccess(res));
   } catch (e: any) {
@@ -62,7 +76,23 @@ function* addCustomerSaga(action: any): Generator<any, any, any> {
 
 function* editCustomerSaga(action: any): Generator<any, any, any> {
   try {
-    const data = yield call(transformImageData, action.payload);
+    let data = action.payload;
+    if (typeof data.image !== 'string') {
+      const response = yield call(sendPhoto, data.image[0]);
+      console.log(response);
+      data = {
+        ...data,
+        image: response.url,
+      };
+    } else {
+      const customer = yield select((state: RootState) =>
+        state.customers.customers.find((item) => item.id === action.payload.id)
+      );
+      data = {
+        ...data,
+        image: customer.image,
+      };
+    }
     const res: CustomerItem = yield call(dashboardApi.editCustomer, data);
     yield put(editCustomerSuccess(res));
   } catch (e: any) {

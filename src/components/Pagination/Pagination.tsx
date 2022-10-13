@@ -18,7 +18,13 @@ const Pagination = ({ setPerPage, page, setPage, paginationItems, startIndex, en
     <div className="pagination">
       <div className="pagination__block">
         <p className="pagination__perpage">Rows per page:</p>
-        <select defaultValue={4} onChange={(e) => setPerPage(Number(e.target.value))} name="" id="">
+        <select
+          style={{ border: 'none', outline: 'none' }}
+          defaultValue={4}
+          onChange={(e) => setPerPage(Number(e.target.value))}
+          name=""
+          id=""
+        >
           <option value="4">4</option>
           <option value="8">8</option>
           <option value="12">12</option>
