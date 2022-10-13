@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-const localStorageUser = JSON.parse(localStorage.getItem('user')!);
+// const localStorageUser = JSON.parse(localStorage.getItem('user')!);
 
 export type User = {
   firstName: string;
@@ -16,7 +16,7 @@ export type UserState = {
 };
 
 const initialState: UserState = {
-  user: localStorageUser ? localStorageUser : null,
+  user: null,
   loading: false,
   error: '',
 };

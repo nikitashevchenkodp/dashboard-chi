@@ -363,6 +363,14 @@
       "name": "Никита Шевченко",
       "details_text": "Contact Email not Linked",
       "id": 727
+    },
+    {
+      "image": "http://res.cloudinary.com/dmd6ckoob/image/upload/v1665644596/%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA_%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0_2022-07-05_%D0%B2_10.16.51_veky2m.png",
+      "status": "normal",
+      "date": "Thu, 13 Oct 2022 07:02:30 GMT",
+      "name": "Никита Шевченко",
+      "details_text": "Contact Email not Linked",
+      "id": 825
     }
   ],
   "customers": [
@@ -397,7 +405,7 @@
     {
       "id": 18,
       "image": "/static/media/customer_8.6edab5dd31267bd716557ffefcadd6c7.svg",
-      "first_name": "Elena",
+      "first_name": "El",
       "last_name": "Sheldon",
       "email": "elena.sheldon@gmail.com",
       "address": "South Lodge, Reddish Lane, Lymm,WA13 9PY",
@@ -451,6 +459,14 @@
       "address": "Lipova street 20, 89",
       "image": "http://res.cloudinary.com/dmd6ckoob/image/upload/v1665583608/%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA_%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0_2022-07-28_%D0%B2_16.42.48_qamuhc.png",
       "id": 299
+    },
+    {
+      "first_name": "Mykyta",
+      "last_name": "Shevchenko",
+      "email": "nrcnekita9@gmail.com",
+      "address": "Lipova street 20, 89",
+      "image": "http://res.cloudinary.com/dmd6ckoob/image/upload/v1665644244/%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA_%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0_2022-06-27_%D0%B2_16.26.41_um59iq.png",
+      "id": 528
     }
   ]
 }
