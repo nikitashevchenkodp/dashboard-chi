@@ -1,3 +1,11 @@
+.select__block {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 24px;
+  width: 100%;
+  position: relative;
+}
 .select {
   width: 100%;
   height: 42px;
@@ -5,4 +13,21 @@
   border-radius: 8px;
   padding: 0 16px;
   background: #fcfdfe;
+  &__label {
+    font-size: 12px;
+    line-height: 17px;
+    font-weight: 700px;
+    color: #9fa2b4;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  &__error {
+    border: 1px solid red;
+  }
+  &__error-message {
+    position: absolute;
+    bottom: -27%;
+    color: red;
+    font-size: 11px;
+  }
 }

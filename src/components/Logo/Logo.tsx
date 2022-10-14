@@ -1,11 +1,11 @@
 import classNames from 'classnames';
-import React from 'react';
+import React, { FC } from 'react';
 import logo from '../../asset/logologo.svg';
 import './Logo.scss';
 
 type LogoProps = { position?: string };
 
-const Logo = ({ position }: LogoProps) => {
+const Logo: FC<LogoProps> = ({ position }) => {
   const logoClasses = classNames({
     logo: true,
     'logo--horizontal': position === 'horizontal',

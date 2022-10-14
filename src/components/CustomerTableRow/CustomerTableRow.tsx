@@ -1,31 +1,22 @@
 import { TableCell, TableRow } from '@mui/material';
-import React from 'react';
+import React, { FC } from 'react';
 import { transformData } from '../../utils';
 import { CustomerItem } from '../../utils/consts';
 import ItemMenu from '../ItemMenu';
-
+import imgNotFound from '../../asset/image-not-found.png';
 type TickerTableRowProps = {
   rowData: CustomerItem;
   setDeleteItem: () => void;
   onEdit: () => void;
 };
 
-const CustomerTableRow = ({ rowData, onEdit, setDeleteItem }: TickerTableRowProps) => {
+const CustomerTableRow: FC<TickerTableRowProps> = ({ rowData, onEdit, setDeleteItem }) => {
   return (
-    <TableRow
-      sx={{
-        '&:last-child td, &:last-child th': { border: 0 },
-        cursor: 'pointer',
-        '&:hover': { background: 'rgba(55, 81, 255, 0.04)' },
-        height: 'auto',
-        paddingLeft: '16px',
-        paddingRight: '16px',
-      }}
-    >
+    <TableRow sx={tableStyles.tableRowBody}>
       <TableCell>
         <div style={tableStyles.mainCell}>
           <div style={tableStyles.mainCellImg}>
-            <img style={tableStyles.cellImg} src={rowData.image} alt="user_avatar" />
+            <img style={tableStyles.cellImg} src={rowData.image ? rowData.image : imgNotFound} alt="user_avatar" />
           </div>
           <div>
             <p style={tableStyles.cellTitle}>
@@ -72,7 +63,14 @@ export const tableStyles = {
     height: '100%',
     borderRadius: '50%',
   },
-  mainCellImg: { width: '44px', borderRadius: '50%', overflow: 'hidden' },
+  tableRowBody: {
+    cursor: 'pointer',
+    '&:hover': { background: 'rgba(55, 81, 255, 0.04)' },
+    height: 'auto',
+    paddingLeft: '16px',
+    paddingRight: '16px',
+  },
+  mainCellImg: { width: '44px', height: '44px', borderRadius: '50%', overflow: 'hidden' },
   cellTitle: { fontSize: '14px', fontWeight: '600', lineHeight: '20px', marginBottom: '4px' },
   cellText: { fontSize: '12px', fontWeight: '400', lineHeight: '16px', color: '#C5C7CD' },
 };

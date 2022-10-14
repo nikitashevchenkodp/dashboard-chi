@@ -13,38 +13,13 @@ const changeToNumber = (priority: string) => {
   }
 };
 
-export const sortFunctionTicker = (items: TickerItem[], sortType: string) => {
+export const sortFunction = (items: CustomerItem[] & TickerItem[], sortType: string) => {
   switch (sortType) {
     case 'name':
-      return [...items].sort((a, b) => {
-        if (a.name > b.name) {
-          return 1;
-        }
-        if (a.name < b.name) {
-          return -1;
-        }
-        return 0;
-      });
+      if (items[0].first_name) return [...items].sort((a, b) => (a.first_name > b.first_name ? 1 : -1));
+      return [...items].sort((a, b) => (a.name > b.name ? 1 : -1));
     case 'priority':
       return [...items].sort((a, b) => changeToNumber(a.status) - changeToNumber(b.status));
-    case 'date':
-      return [...items].sort((a, b) => Date.parse(a.date) - Date.parse(b.date));
-    default:
-      return items;
-  }
-};
-export const sortFunctionCustomer = (items: CustomerItem[], sortType: string) => {
-  switch (sortType) {
-    case 'name':
-      return [...items].sort((a, b) => {
-        if (a.first_name > b.first_name) {
-          return 1;
-        }
-        if (a.first_name < b.first_name) {
-          return -1;
-        }
-        return 0;
-      });
     case 'date':
       return [...items].sort((a, b) => Date.parse(a.date) - Date.parse(b.date));
     default:

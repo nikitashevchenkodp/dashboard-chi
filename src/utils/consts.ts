@@ -1,3 +1,4 @@
+import { FieldErrorsImpl, UseFormRegister } from 'react-hook-form';
 import { user1, user2, user3, user4, user5, user6, user7, user8 } from '../asset';
 
 export const PATHS = {
@@ -11,17 +12,36 @@ export const PATHS = {
 export const tickerCellTitles = ['Ticket details', 'Customer name', 'Date', 'Priority'];
 export const customersCellTitles = ['Name', 'Email', 'Address', 'Created at'];
 
+export type DefaultValues = {
+  firstName: string;
+  lastName: string;
+  dateOfBirth: string;
+  sex: string;
+  address: {
+    country: string;
+    city: string;
+    street: string;
+    build: string;
+    appartment: string;
+  };
+  relatives: {
+    motherFullName: string;
+    fatherFullName: string;
+    members: { role: string; fullName: string }[];
+  };
+  email: string;
+  password: string;
+  confirmPassword: string;
+  terms: string;
+};
+
 export type TickerItem = {
   id: number;
-  image?: any;
+  image: string;
   details_text: string;
   name: string;
   date: string;
   status: string;
-  // update?: {
-  //   date?: string;
-  //   time?: string;
-  // };
 };
 
 export type CustomerItem = {
@@ -32,6 +52,15 @@ export type CustomerItem = {
   email: string;
   address: string;
   date: string;
+};
+
+export type SignUpFormProps = {
+  register: UseFormRegister<DefaultValues>;
+  errors: FieldErrorsImpl<DefaultValues>;
+};
+
+export type ImageResponse = {
+  url: string;
 };
 
 const customerBodyData: CustomerItem[] = [
@@ -217,31 +246,15 @@ const tickerBodyData: TickerItem[] = [
   },
 ];
 
-export function getTickerData() {
-  return new Promise<TickerItem[]>((resolve) => {
-    setTimeout(() => resolve(tickerBodyData), 500);
-  });
-}
-export function getCustomerData() {
-  return new Promise<CustomerItem[]>((resolve) => {
-    resolve(customerBodyData);
-  });
-}
-
 export const paginationIndexes = (page: number, perPage: number) => {
   return [(page - 1) * perPage, (page - 1) * perPage + perPage];
 };
 
-export function getCustomer(items: CustomerItem[], id: number) {
-  const item = items.filter((item) => item.id === id)[0]!;
-  return new Promise<CustomerItem>((resolve) => {
-    setTimeout(() => resolve(item), 1000);
-  });
-}
-
-export function getTicker(items: TickerItem[], id: number) {
-  const item = items.filter((item) => item.id === id)[0]!;
-  return new Promise<TickerItem>((resolve) => {
-    resolve(item);
-  });
-}
+// const convert = (items: any) => {
+//   let res = '';
+//   items.forEach((item: any) => {
+//     res += JSON.stringify(item);
+//   });
+//   return res;
+// };
+// console.log(convert(tickerBodyData));

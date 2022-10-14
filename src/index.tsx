@@ -3,15 +3,25 @@ import ReactDOM from 'react-dom/client';
 import './index.scss';
 import App from './components/App/App';
 import { Provider } from 'react-redux';
-import { setupStore } from './store';
+import { store, persistor } from './store';
+import { PersistGate } from 'redux-persist/integration/react';
 // import reportWebVitals from './reportWebVitals';
+import { createTheme, ThemeProvider } from '@mui/material';
 
-const store = setupStore();
+const customTheme = createTheme({
+  components: {
+    MuiFormControl: {},
+  },
+});
 
 const root = ReactDOM.createRoot(document.getElementById('root')!);
 root.render(
   <Provider store={store}>
-    <App />
+    <PersistGate persistor={persistor}>
+      <ThemeProvider theme={customTheme}>
+        <App />
+      </ThemeProvider>
+    </PersistGate>
   </Provider>
 );
 

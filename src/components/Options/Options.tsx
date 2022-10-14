@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import React, { useEffect } from 'react';
+import React, { FC, useEffect } from 'react';
 import './Options.scss';
 
 type OptionsProps = {
@@ -8,7 +8,7 @@ type OptionsProps = {
   setActive: (active: boolean) => void;
 };
 
-const Options = ({ children, active, setActive }: OptionsProps) => {
+const Options: FC<OptionsProps> = ({ children, active, setActive }) => {
   useEffect(() => {
     const closeOptions = (e: Event) => {
       const target = e.target as HTMLElement;

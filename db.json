@@ -1,0 +1,220 @@
+{
+  "tickets": [
+    {
+      "image": "http://res.cloudinary.com/dmd6ckoob/image/upload/v1665572910/customer_8.6edab5dd31267bd716557ffefcadd6c7_cncn75.svg",
+      "status": "low",
+      "date": "Wed, 19 Oct 2022 13:28:50 GMT",
+      "name": "Tom Cruise",
+      "details_text": "Contact Email not Linked ",
+      "id": 6
+    },
+    {
+      "image": "http://res.cloudinary.com/dmd6ckoob/image/upload/v1665574038/customer_8.6edab5dd31267bd716557ffefcadd6c7_e0sle6.svg",
+      "status": "normal",
+      "date": "Wed, 05 Oct 2022 13:28:50 GMT",
+      "name": "Alex Cruise",
+      "details_text": "Contact Email not Linked",
+      "id": 7
+    },
+    {
+      "image": "http://res.cloudinary.com/dmd6ckoob/image/upload/v1665567378/customer_6.3a080d779183c1e5b926da2ff35ddbdd_jtrsu4.svg",
+      "status": "high",
+      "date": "Sat, 29 Oct 2022 09:35:58 GMT",
+      "name": "Никита Шевченко",
+      "details_text": "Contact Email",
+      "id": 168
+    },
+    {
+      "details_text": "Contact Email not Linke",
+      "name": "Tom Cruise",
+      "date": "Wed, 12 Oct 2022 10:32:29 GMT",
+      "status": "low",
+      "image": "http://res.cloudinary.com/dmd6ckoob/image/upload/v1665573357/customer_6.3a080d779183c1e5b926da2ff35ddbdd_kz60b8.svg",
+      "id": 163
+    },
+    {
+      "details_text": "sddd",
+      "name": "111112",
+      "date": "Thu, 13 Oct 2022 11:10:41 GMT",
+      "status": "normal",
+      "image": "http://res.cloudinary.com/dmd6ckoob/image/upload/v1665573700/customer_3.04b44acae3fd9cd77afe1485790e78f3_ww1gpx.svg",
+      "id": 174
+    },
+    {
+      "status": "normal",
+      "date": "Sun, 09 Oct 2022 11:54:10 GMT",
+      "name": "Никита Шевченко",
+      "details_text": "Contact Email not Linked",
+      "image": "http://res.cloudinary.com/dmd6ckoob/image/upload/v1665575673/customer_7.2d21dfc46cdfb9dbb0972f965ef2e804_q8akch.svg",
+      "id": 347
+    },
+    {
+      "image": "http://res.cloudinary.com/dmd6ckoob/image/upload/v1665656660/shevchenko_%D0%BA%D0%BE%D0%BF%D0%B8%D1%8F_ba2cqb.jpg",
+      "status": "high",
+      "date": "Thu, 13 Oct 2022 10:23:49 GMT",
+      "name": "sdf",
+      "details_text": "sdf",
+      "id": 610
+    },
+    {
+      "image": "http://res.cloudinary.com/dmd6ckoob/image/upload/v1665656875/shevchenko_%D0%BA%D0%BE%D0%BF%D0%B8%D1%8F_djubsq.jpg",
+      "status": "normal",
+      "date": "Thu, 13 Oct 2022 10:27:36 GMT",
+      "name": "Никита Шевченко",
+      "details_text": "Contact Email not Linked",
+      "id": 214
+    },
+    {
+      "image": "http://res.cloudinary.com/dmd6ckoob/image/upload/v1665657637/%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA_%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0_2022-10-12_%D0%B2_12.18.38_klrhui.png",
+      "status": "normal",
+      "date": "Fri, 07 Oct 2022 22:00:00 GMT",
+      "name": "Никита Шевченко",
+      "details_text": "Contact Email ",
+      "id": 663
+    },
+    {
+      "image": "https://res.cloudinary.com/dmd6ckoob/image/upload/v1665658222/image-not-found_anrbg7.png",
+      "status": "normal",
+      "date": "Thu, 13 Oct 2022 10:50:53 GMT",
+      "name": "Никита Шевченко",
+      "details_text": "Contact Email not Linked",
+      "id": 99
+    },
+    {
+      "image": "https://res.cloudinary.com/dmd6ckoob/image/upload/v1665658222/image-not-found_anrbg7.png",
+      "status": "normal",
+      "date": "Thu, 13 Oct 2022 11:00:28 GMT",
+      "name": "Никита Шевченко",
+      "details_text": "Contact Email not Linked",
+      "id": 768
+    },
+    {
+      "image": "https://res.cloudinary.com/dmd6ckoob/image/upload/v1665658222/image-not-found_anrbg7.png",
+      "status": "normal",
+      "date": "Thu, 13 Oct 2022 11:08:28 GMT",
+      "name": "sdf",
+      "details_text": "sdf",
+      "id": 891
+    },
+    {
+      "image": "",
+      "status": "high",
+      "date": "Fri, 14 Oct 2022 10:25:01 GMT",
+      "name": "Никита Шевченко",
+      "details_text": "Contact Email not Linked",
+      "id": 530
+    },
+    {
+      "image": "http://res.cloudinary.com/dmd6ckoob/image/upload/v1665753922/%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA_%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0_2022-10-13_%D0%B2_14.29.06_dxrgvj.png",
+      "status": "low",
+      "date": "Fri, 14 Oct 2022 13:25:02 GMT",
+      "name": "Никита Шевченко",
+      "details_text": "Contact Email not ",
+      "id": 348
+    }
+  ],
+  "customers": [
+    {
+      "id": 12,
+      "image": "/static/media/customer_2.f39324ae838090f045d76730b7d8a35f.svg",
+      "first_name": "Elen",
+      "last_name": "Sheon",
+      "email": "elena.sheldon@gmail.com",
+      "address": "South Lodge, Reddish Lane, Lymm,WA13 9PY",
+      "date": "Fri Oct 28 2022",
+      "": "South Lodge, Reddish Lane, Lymm,WA13 9PYf"
+    },
+    {
+      "id": 16,
+      "image": "/static/media/customer_6.3a080d779183c1e5b926da2ff35ddbdd.svg",
+      "first_name": "Kim",
+      "last_name": "Goul",
+      "email": "kim.gould@gmail.com",
+      "address": "South Lodge, Reddish Lane, Lymm,WA13 9PY",
+      "date": "Wed, 05 Oct 2022 13:12:36 GMT"
+    },
+    {
+      "id": 17,
+      "image": "/static/media/customer_7.2d21dfc46cdfb9dbb0972f965ef2e804.svg",
+      "first_name": "Tom",
+      "last_name": "Cruise",
+      "email": "mandeep.walton@gmail.com",
+      "address": "Unit 1, Moons Park, Burnt Meadow Road, Moons Moat North Industrial Estate,B98 9PA",
+      "date": "Wed, 05 Oct 2022 13:12:36 GMT"
+    },
+    {
+      "id": 18,
+      "image": "/static/media/customer_8.6edab5dd31267bd716557ffefcadd6c7.svg",
+      "first_name": "El",
+      "last_name": "Sheldon",
+      "email": "elena.sheldon@gmail.com",
+      "address": "South Lodge, Reddish Lane, Lymm,WA13 9PY",
+      "date": "Wed, 05 Oct 2022 13:12:36 GMT"
+    },
+    {
+      "id": 19,
+      "image": "/static/media/customer_1.97ad5e9a3d513816e217f8e17d8d3a2c.svg",
+      "first_name": "Kim",
+      "last_name": "Gould",
+      "email": "kim.gould@gmail.com",
+      "address": "Unit 1, Moons Park, Burnt Meadow Road, Moons Moat North Industrial Estate,B98 9PA",
+      "date": "Wed, 05 Oct 2022 13:12:36 GMT"
+    },
+    {
+      "first_name": "Никита",
+      "last_name": "Шевченко",
+      "email": "nrcnekita9@gmail.com",
+      "address": "Ул. Ватутина 29, 11",
+      "id": 901,
+      "date": "Thu, 06 Oct 2022 11:20:27 GMT"
+    },
+    {
+      "first_name": "Mykyta",
+      "last_name": "Shevchenko",
+      "email": "nrcnekita9@gmail.com",
+      "address": "Ул. Ватутина 29, 12",
+      "id": 688,
+      "date": "Thu, 06 Oct 2022 11:20:39 GMT"
+    },
+    {
+      "first_name": "Mykyta",
+      "last_name": "Shevchenko",
+      "email": "nrcnekita9@gmail.com",
+      "address": "Lipova street 20, 89",
+      "image": "http://res.cloudinary.com/dmd6ckoob/image/upload/v1665583608/%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA_%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0_2022-07-28_%D0%B2_16.42.48_qamuhc.png",
+      "id": 299
+    },
+    {
+      "first_name": "Mykyta",
+      "last_name": "Shevchenko",
+      "email": "nrcnekita9@gmail.com",
+      "address": "Lipova street 20, 89",
+      "image": "http://res.cloudinary.com/dmd6ckoob/image/upload/v1665644244/%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA_%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0_2022-06-27_%D0%B2_16.26.41_um59iq.png",
+      "id": 528
+    },
+    {
+      "first_name": "Mykyta",
+      "last_name": "Shevchenko",
+      "email": "nrcnekita9@gmail.com",
+      "address": "Lipova street 20, 89",
+      "image": "http://res.cloudinary.com/dmd6ckoob/image/upload/v1665744047/%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA_%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0_2022-10-13_%D0%B2_17.46.49_abxc4x.png",
+      "id": 826
+    },
+    {
+      "first_name": "Mykyta",
+      "last_name": "Shevchenko",
+      "email": "nrcnekita9@gmail.com",
+      "address": "ova street 20, 89",
+      "image": "http://res.cloudinary.com/dmd6ckoob/image/upload/v1665753978/%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA_%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0_2022-10-12_%D0%B2_12.18.38_r8wcrt.png",
+      "id": 943
+    },
+    {
+      "first_name": "Anton",
+      "last_name": "Shevchenko",
+      "email": "nrcnekita9@gmail.com",
+      "address": "Lipova street 20, 89",
+      "image": "",
+      "id": 843
+    }
+  ]
+}

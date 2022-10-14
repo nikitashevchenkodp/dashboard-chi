@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import classNames from 'classnames';
+import React, { forwardRef, useState } from 'react';
 import { FaEyeSlash } from 'react-icons/fa';
 import './Input.scss';
 
@@ -6,11 +7,16 @@ type InputProp = React.InputHTMLAttributes<HTMLInputElement> & {
   type: string;
   label?: string;
   id: string;
+  error?: string | undefined;
 };
 
-const Input = ({ id, label, type, placeholder, ...restProps }: InputProp) => {
+const Input = forwardRef<HTMLInputElement, InputProp>((props, ref) => {
+  const { id, placeholder, label, type, error, ...restProps } = props;
   const [showPassword, setShowPassword] = useState(false);
-
+  const inputClass = classNames({
+    input__field: true,
+    input__error: !!error,
+  });
   return (
     <div className="input__block">
       <label className="input__label" htmlFor={id}>
@@ -21,9 +27,10 @@ const Input = ({ id, label, type, placeholder, ...restProps }: InputProp) => {
           <input
             {...restProps}
             id={id}
-            className="input__field"
+            className={inputClass}
             type={showPassword ? 'text' : 'password'}
             placeholder={placeholder}
+            ref={ref}
           />
           <FaEyeSlash
             className="input__password__show"
@@ -32,10 +39,11 @@ const Input = ({ id, label, type, placeholder, ...restProps }: InputProp) => {
           />
         </div>
       ) : (
-        <input id={id} type={type} {...restProps} className="input__field" />
+        <input id={id} type={type} {...restProps} ref={ref} className={inputClass} />
       )}
+      <p className="input__error-message">{error}</p>
     </div>
   );
-};
+});
 
 export default Input;

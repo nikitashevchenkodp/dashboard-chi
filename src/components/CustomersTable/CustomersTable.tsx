@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import './CustomersTable.scss';
 
-import { customersCellTitles, getCustomerData, filterCustomerFunction, sortFunctionCustomer } from '../../utils';
+import { customersCellTitles, filterCustomerFunction, sortFunction } from '../../utils';
 import { ModalWindow, AddCustomerForm } from '../../components';
 import { CustomerItem } from '../../utils/consts';
 
@@ -9,8 +9,8 @@ import DeleteForm from '../../components/DeleteForm';
 import MainTable from '../../components/MainTable';
 import CustomerTableRow from '../../components/CustomerTableRow';
 import { useAppDispatch, useAppSelector } from '../../hooks/typedDispatch';
-import { deleteCustomer, fetchCustomers } from '../../store/slices/customersSlice';
 import { customersSelector } from '../../store/selectors';
+import { deleteCustomer, fetchAllCustomers } from '../../store/slices/customersSlice';
 
 const CustomersTable = () => {
   const [active, setActive] = useState<boolean>(false);
@@ -36,8 +36,13 @@ const CustomersTable = () => {
     setCurrentId(id);
   };
 
+  const onClose = () => {
+    setActive(false);
+    setCurrentId(null);
+  };
+
   useEffect(() => {
-    dispatch(fetchCustomers());
+    dispatch(fetchAllCustomers());
   }, [dispatch]);
 
   const renderItem = (item: CustomerItem) => {
@@ -57,14 +62,14 @@ const CustomersTable = () => {
         data={customers}
         loading={loading}
         sortCriterias={['name', 'date']}
-        sortFunction={sortFunctionCustomer}
+        sortFunction={sortFunction}
         filterFunction={filterCustomerFunction}
         renderItem={renderItem}
         headerTitles={customersCellTitles}
         onEdit={onEdit}
       />
       <ModalWindow active={active} setActive={setActive}>
-        <AddCustomerForm id={currentId} setActive={setActive} />
+        <AddCustomerForm id={currentId} onClose={onClose} />
       </ModalWindow>
       <ModalWindow active={confirmActive} setActive={setConfirmActive}>
         <DeleteForm setConfirmActive={setConfirmActive} deleteItem={deleteItem} />

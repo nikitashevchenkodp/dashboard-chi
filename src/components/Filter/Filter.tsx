@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import React, { useState } from 'react';
+import React, { FC, useState } from 'react';
 import Button from '../Button';
 import filterIcon from '../../asset/filter.svg';
 
@@ -10,7 +10,7 @@ type FilterProps = {
   setFilter: (filter: string) => void;
 };
 
-const Filter = ({ filter, setFilter }: FilterProps) => {
+const Filter: FC<FilterProps> = ({ filter, setFilter }) => {
   const [openFilter, setOpenFilter] = useState<boolean>(false);
 
   const openFilters = (e: React.MouseEvent<HTMLButtonElement>) => {

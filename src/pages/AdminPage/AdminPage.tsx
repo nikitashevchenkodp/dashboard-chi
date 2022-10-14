@@ -9,14 +9,10 @@ import TicketPage from '../TicketsPage';
 import './AdminPage.scss';
 
 const AdminPage = () => {
-  const [headerTitle, setHeaderTitle] = useState<string | null>('Overview');
-  const location = useLocation();
-  // const isActive = location.pathname === item.To;
   return (
     <div className="admin-page">
-      <SideBar change={setHeaderTitle} />
+      <SideBar />
       <div className="admin-page__container">
-        <Header title={headerTitle} />
         <Routes>
           <Route path="overview" element={<OverviewPage />} />
           <Route path="tickets" element={<TicketPage />} />

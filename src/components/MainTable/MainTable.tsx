@@ -1,5 +1,5 @@
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
-import React, { useMemo, useState } from 'react';
+import React, { FC, useMemo, useState } from 'react';
 import { paginationIndexes } from '../../utils';
 import ControlPanel from '../ControlPanel';
 import Loader from '../Loader';
@@ -16,7 +16,7 @@ type TableProps = {
   filterFunction: (items: any[], filter: string) => any[];
 };
 
-const MainTable = ({
+const MainTable: FC<TableProps> = ({
   data,
   loading,
   headerTitles,
@@ -25,7 +25,7 @@ const MainTable = ({
   filterFunction,
   onEdit,
   renderItem,
-}: TableProps) => {
+}) => {
   const [perPage, setPerPage] = useState(4);
   const [page, setPage] = useState(1);
   const [sort, setSort] = useState('');

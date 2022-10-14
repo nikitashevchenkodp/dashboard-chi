@@ -1,5 +1,5 @@
 import { Menu, MenuItem } from '@mui/material';
-import React, { useState } from 'react';
+import React, { FC, useState } from 'react';
 import Button from '../Button';
 import './Sort.scss';
 import sort from '../../asset/sort.svg';
@@ -9,7 +9,7 @@ type SortProps = {
   sortCriterias: string[];
 };
 
-const Sort = ({ setSort, sortCriterias }: SortProps) => {
+const Sort: FC<SortProps> = ({ setSort, sortCriterias }) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
