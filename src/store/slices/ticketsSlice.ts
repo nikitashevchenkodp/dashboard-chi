@@ -35,7 +35,7 @@ const ticketsSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     },
-    addTicket: (state, action: PayloadAction<TickerItem | FieldValues>) => {
+    addTicket: (state, action: PayloadAction<TickerItem>) => {
       state.ticketLoading = true;
     },
     addTicketSuccess: (state, action: PayloadAction<TickerItem>) => {

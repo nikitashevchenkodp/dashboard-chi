@@ -1,8 +1,12 @@
 import classNames from 'classnames';
-import React from 'react';
+import React, { FC } from 'react';
 import './Priority.scss';
 
-const Priority = ({ status }: { status: string }) => {
+type PriorityProps = {
+  status: string;
+};
+
+const Priority: FC<PriorityProps> = ({ status }) => {
   const priotityClasses = classNames({
     priority: true,
     'priority--high': status === 'high',

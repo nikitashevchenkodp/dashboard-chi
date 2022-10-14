@@ -1,5 +1,5 @@
-import { call, put, takeEvery, select } from 'redux-saga/effects';
-import { TickerItem } from '../../utils/consts';
+import { call, put, takeEvery, select, CallEffect, PutEffect, SelectEffect } from 'redux-saga/effects';
+import { ImageResponse, TickerItem } from '../../utils/consts';
 import {
   fetchAllTickets,
   fetchAllTicketsSuccess,
@@ -14,26 +14,13 @@ import {
   deleteTicketSuccess,
   deleteTicketReject,
 } from '../slices/ticketsSlice';
-import DashbordApiService from '../../services/DashboardApiService';
 import { sendPhoto } from '../../services/cloudinary';
 import { RootState } from '..';
+import { dashboardApi } from '../../services/DashboardApiService';
+import { AnyAction } from 'redux';
+import { PayloadAction } from '@reduxjs/toolkit';
 
-const dashboardApi = new DashbordApiService();
-
-// function* transformImageData(data: any): Generator<any, any, any> {
-//   if (typeof data.image !== 'string') {
-//     const response = yield call(sendPhoto, data.image[0]);
-//     console.log(response);
-//     data = {
-//       ...data,
-//       image: response.url,
-//     };
-//   } else if (data.image) {
-//   }
-//   return data;
-// }
-
-function* fetchTicketsSaga() {
+function* fetchTicketsSaga(): Generator<CallEffect<TickerItem[]> | PutEffect<AnyAction>, void, TickerItem[]> {
   try {
     const result: TickerItem[] = yield call(dashboardApi.getTickets);
     yield put(fetchAllTicketsSuccess(result));
@@ -42,7 +29,7 @@ function* fetchTicketsSaga() {
   }
 }
 
-function* deleteItemSaga(action: any) {
+function* deleteTicketSaga(action: PayloadAction<number>) {
   try {
     yield call(dashboardApi.delTicket, action.payload);
     yield put(deleteTicketSuccess(action.payload));
@@ -51,12 +38,13 @@ function* deleteItemSaga(action: any) {
   }
 }
 
-function* addTicketSaga(action: any): Generator<any, any, any> {
+function* addTicketSaga(
+  action: PayloadAction<TickerItem>
+): Generator<CallEffect<TickerItem> | PutEffect<AnyAction>, void, TickerItem & ImageResponse> {
   try {
     let data = action.payload;
     if (typeof data.image !== 'string') {
       const response = yield call(sendPhoto, data.image[0]);
-      console.log(response);
       data = {
         ...data,
         image: response.url,
@@ -64,17 +52,19 @@ function* addTicketSaga(action: any): Generator<any, any, any> {
     } else {
       data = {
         ...data,
-        image: 'https://res.cloudinary.com/dmd6ckoob/image/upload/v1665658222/image-not-found_anrbg7.png',
+        image: '',
       };
     }
-    const res: TickerItem = yield call(dashboardApi.addTicker, data);
+    const res = yield call(dashboardApi.addTicker, data);
     yield put(addTicketSuccess(res));
   } catch (e: any) {
     yield put(addTicketReject(e.message));
   }
 }
 
-function* editTicketSaga(action: any): Generator<any, any, any> {
+function* editTicketSaga(
+  action: PayloadAction<TickerItem>
+): Generator<CallEffect<TickerItem> | SelectEffect | PutEffect<AnyAction>, void, TickerItem & ImageResponse> {
   try {
     let data = action.payload;
     if (typeof data.image !== 'string') {
@@ -103,7 +93,7 @@ function* editTicketSaga(action: any): Generator<any, any, any> {
 
 export function* ticketsWatcher() {
   yield takeEvery(fetchAllTickets.type, fetchTicketsSaga);
-  yield takeEvery(deleteTicket.type, deleteItemSaga);
+  yield takeEvery(deleteTicket.type, deleteTicketSaga);
   yield takeEvery(addTicket.type, addTicketSaga);
   yield takeEvery(editTicket.type, editTicketSaga);
 }

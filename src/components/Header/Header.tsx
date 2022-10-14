@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import User from '../User/User';
 import './Header.scss';
 
@@ -6,7 +6,7 @@ type HeaderProps = {
   title: string | null;
 };
 
-const Header = ({ title }: HeaderProps) => {
+const Header: FC<HeaderProps> = ({ title }) => {
   return (
     <div className="header">
       <div className="container">

@@ -1,62 +1,41 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { Controller } from 'react-hook-form';
 import { Input } from '../../../components';
+import { SignUpFormProps } from '../../../utils/consts';
 
-const AddressForm = ({ control, errors }: { control: any; errors: any }) => {
+const AddressForm: FC<SignUpFormProps> = ({ register, errors }) => {
   return (
     <>
-      <Controller
-        name="address.country"
-        control={control}
-        defaultValue=""
-        render={({ field }) => (
-          <Input
-            id="country"
-            type="text"
-            label={'Country'}
-            placeholder={'Type the Country'}
-            {...field}
-            error={errors?.address?.country?.message}
-          />
-        )}
+      <Input
+        id="country"
+        type="text"
+        label={'Country'}
+        placeholder={'Type the Country'}
+        {...register('address.country')}
+        error={errors?.address?.country?.message}
       />
-      <Controller
-        name="address.city"
-        control={control}
-        defaultValue=""
-        render={({ field }) => (
-          <Input id="city" type="text" label="City" {...field} error={errors?.address?.city?.message} />
-        )}
+      =
+      <Input id="city" type="text" label="City" {...register('address.city')} error={errors?.address?.city?.message} />
+      <Input
+        id="street"
+        type="text"
+        label="Street"
+        {...register('address.street')}
+        error={errors?.address?.street?.message}
       />
-      <Controller
-        name="address.street"
-        control={control}
-        defaultValue=""
-        render={({ field }) => (
-          <Input id="street" type="text" label="Street" {...field} error={errors?.address?.street?.message} />
-        )}
+      <Input
+        id="build"
+        type="text"
+        label="Build No."
+        {...register('address.build')}
+        error={errors?.address?.build?.message}
       />
-      <Controller
-        name="address.build"
-        control={control}
-        defaultValue=""
-        render={({ field }) => (
-          <Input id="build" type="text" label="Build No." {...field} error={errors?.address?.build?.message} />
-        )}
-      />
-      <Controller
-        name="address.appartment"
-        control={control}
-        defaultValue=""
-        render={({ field }) => (
-          <Input
-            id="appartment"
-            type="text"
-            label="Appartment No."
-            {...field}
-            error={errors?.address?.appartment?.message}
-          />
-        )}
+      <Input
+        id="appartment"
+        type="text"
+        label="Appartment No."
+        {...register('address.appartment')}
+        error={errors?.address?.appartment?.message}
       />
     </>
   );

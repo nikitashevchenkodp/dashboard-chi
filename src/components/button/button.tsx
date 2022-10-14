@@ -1,15 +1,15 @@
-import React from 'react';
+import React, { FC } from 'react';
 import classNames from 'classnames';
 import './Button.scss';
 
-type ButtonProp = React.ButtonHTMLAttributes<HTMLButtonElement> & {
+type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   variant?: string;
   size?: string;
   children: React.ReactNode | string;
   className?: string;
 };
 
-const Button = ({ variant, size, children, className, ...restProps }: ButtonProp) => {
+const Button: FC<ButtonProps> = ({ variant, size, children, className, ...restProps }) => {
   const btnClasses = classNames({
     btn: true,
     'btn--outlined': variant === 'outlined',

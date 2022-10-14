@@ -8,12 +8,12 @@ import { Step, StepLabel, Stepper } from '@mui/material';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { schema } from '../../utils/validationSchemas/signUpSchema';
 import { useAppDispatch, useAppSelector } from '../../hooks/typedDispatch';
-import { sagaActions } from '../../store/saga/saga-actions';
 import AuthinfoForm from './components/AuthDataForm';
 import RelativesForm from './components/RelativesForm';
 import AddressForm from './components/AddressForm';
 import PersonalInfoForm from './components/PersonalinfoForm';
 import { loginUser } from '../../store/slices/userSlice';
+import { DefaultValues } from '../../utils/consts';
 
 const steps = ['Personal info', 'Address', 'Relatives info', 'Other info'];
 const maxSteps = steps.length;
@@ -25,14 +25,37 @@ const SignUpPage = () => {
   const {
     handleSubmit,
     control,
+    register,
     formState: { errors },
   } = useForm({
+    defaultValues: {
+      firstName: '',
+      lastName: '',
+      dateOfBirth: '',
+      sex: '',
+      address: {
+        country: '',
+        city: '',
+        street: '',
+        build: '',
+        appartment: '',
+      },
+      relatives: {
+        motherFullName: '',
+        fatherFullName: '',
+        members: [{ role: '', fullName: '' }],
+      },
+      email: '',
+      password: '',
+      confirmPassword: '',
+      terms: 'false',
+    },
     mode: 'all',
     resolver: yupResolver(schema),
   });
 
   const dispatch = useAppDispatch();
-  const submit = (data: any) => {
+  const submit = (data: DefaultValues) => {
     console.log(data);
     dispatch(loginUser());
   };
@@ -50,10 +73,10 @@ const SignUpPage = () => {
           ))}
         </Stepper>
         <fieldset disabled={loading}>
-          {step === 1 && <PersonalInfoForm control={control} errors={errors} />}
-          {step === 2 && <AddressForm control={control} errors={errors} />}
-          {step === 3 && <RelativesForm control={control} errors={errors} />}
-          {step === 4 && <AuthinfoForm control={control} errors={errors} />}
+          {step === 1 && <PersonalInfoForm register={register} errors={errors} />}
+          {step === 2 && <AddressForm register={register} errors={errors} />}
+          {step === 3 && <RelativesForm register={register} control={control} errors={errors} />}
+          {step === 4 && <AuthinfoForm register={register} errors={errors} />}
         </fieldset>
         {step + 1 <= maxSteps && (
           <Button

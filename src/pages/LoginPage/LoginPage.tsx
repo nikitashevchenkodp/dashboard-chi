@@ -1,16 +1,14 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Form, Button, Input } from '../../components';
 import { Link } from 'react-router-dom';
-import { MainState } from '../../MainContext';
 
 import './LoginPage.scss';
 import Logo from '../../components/Logo';
 import { FormTitle } from '../../components/Form/Form';
 import { useAppDispatch } from '../../hooks/typedDispatch';
-import { sagaActions } from '../../store/saga/saga-actions';
-import { Controller, useForm, useFormContext } from 'react-hook-form';
-import { textFieldClasses } from '@mui/material';
+import { useForm } from 'react-hook-form';
 import { loginUser } from '../../store/slices/userSlice';
+
 type LoginForm = {
   email: string;
   password: string;

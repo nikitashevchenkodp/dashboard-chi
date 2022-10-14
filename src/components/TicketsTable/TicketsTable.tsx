@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks/typedDispatch';
-import { filterTickerFunction, sortFunctionTicker, tickerCellTitles } from '../../utils';
+import { filterTickerFunction, tickerCellTitles, sortFunction } from '../../utils';
 import { TickerItem } from '../../utils/consts';
 import AddTickerForm from '../AddTickerForm';
 import DeleteForm from '../DeleteForm';
@@ -9,8 +9,7 @@ import ModalWindow from '../ModalWindow';
 import TicketTableRow from '../TicketTableRow/TicketTableRow';
 import './TicketsTable.scss';
 import { ticketsSelector } from '../../store/selectors';
-import { deleteCustomer } from '../../store/slices/customersSlice';
-import { fetchAllTickets } from '../../store/slices/ticketsSlice';
+import { deleteTicket, fetchAllTickets } from '../../store/slices/ticketsSlice';
 
 const TicketsTable = () => {
   const [active, setActive] = useState<boolean>(false);
@@ -27,7 +26,7 @@ const TicketsTable = () => {
   };
 
   const deleteItem = () => {
-    dispatch(deleteCustomer(deleteId.current));
+    dispatch(deleteTicket(deleteId.current));
     setConfirmActive(false);
   };
 
@@ -62,7 +61,7 @@ const TicketsTable = () => {
         data={tickets}
         loading={loading}
         sortCriterias={['name', 'date', 'priority']}
-        sortFunction={sortFunctionTicker}
+        sortFunction={sortFunction}
         filterFunction={filterTickerFunction}
         renderItem={renderItem}
         headerTitles={tickerCellTitles}

@@ -10,7 +10,7 @@ type InputProp = React.InputHTMLAttributes<HTMLInputElement> & {
   error?: string | undefined;
 };
 
-const Input = forwardRef((props: InputProp, ref: any) => {
+const Input = forwardRef<HTMLInputElement, InputProp>((props, ref) => {
   const { id, placeholder, label, type, error, ...restProps } = props;
   const [showPassword, setShowPassword] = useState(false);
   const inputClass = classNames({

@@ -1,7 +1,6 @@
 import { CustomerItem, TickerItem } from './consts';
 
 export const filterTickerFunction = (items: TickerItem[], filter: string) => {
-    console.log(items);
   return items.filter(
     (item) =>
       item.name.toLowerCase().includes(filter.toLowerCase()) ||
@@ -9,8 +8,6 @@ export const filterTickerFunction = (items: TickerItem[], filter: string) => {
   );
 };
 export const filterCustomerFunction = (items: CustomerItem[], filter: string) => {
-
-  
   return items.filter(
     (item) =>
       item.first_name.toLowerCase().includes(filter.toLowerCase()) ||

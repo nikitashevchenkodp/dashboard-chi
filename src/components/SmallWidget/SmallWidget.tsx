@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import React from 'react';
+import React, { FC } from 'react';
 import './SmallWidget.scss';
 
 type SmallWidgetProps = {
@@ -9,7 +9,7 @@ type SmallWidgetProps = {
   style?: object;
 };
 
-const SmallWidget = ({ title, value, border, style }: SmallWidgetProps) => {
+const SmallWidget: FC<SmallWidgetProps> = ({ title, value, border, style }) => {
   const widgetClases = classNames({
     'small-widget': true,
     'small-widget--with_border': border,

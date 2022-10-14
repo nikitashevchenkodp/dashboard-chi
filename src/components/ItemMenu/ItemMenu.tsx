@@ -1,5 +1,5 @@
 import { Menu, MenuItem } from '@mui/material';
-import React from 'react';
+import React, { FC } from 'react';
 import { BsThreeDotsVertical } from 'react-icons/bs';
 import Button from '../Button';
 
@@ -8,7 +8,7 @@ type ItemMenuProps = {
   deleteItem: () => void;
 };
 
-const ItemMenu = ({ onEdit, deleteItem }: ItemMenuProps) => {
+const ItemMenu: FC<ItemMenuProps> = ({ onEdit, deleteItem }) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {

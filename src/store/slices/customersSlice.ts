@@ -61,14 +61,14 @@ const customersSlice = createSlice({
       state.customerError = action.payload;
     },
     deleteCustomer: (state, action: PayloadAction<number>) => {
-      state.customerLoading = true;
+      state.loading = true;
     },
     deleteCustomerSuccess: (state, action: PayloadAction<number>) => {
       state.customers = state.customers.filter((customer) => customer.id !== action.payload);
-      state.customerLoading = false;
+      state.loading = false;
     },
     deleteCustomerReject: (state, action: PayloadAction<string>) => {
-      state.customerLoading = false;
+      state.loading = false;
       state.customerError = action.payload;
     },
   },

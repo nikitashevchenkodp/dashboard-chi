@@ -2,7 +2,7 @@ import { CustomerItem, TickerItem } from '../utils/consts';
 
 const delay = (ms: number) => new Promise((res) => setTimeout(res, ms));
 
-export default class DashbordApiService {
+class DashbordApiService {
   _baseUrl = 'http://localhost:3003/';
 
   getResource = async (url: string, options?: any) => {
@@ -88,3 +88,5 @@ export default class DashbordApiService {
     });
   };
 }
+
+export const dashboardApi = new DashbordApiService();

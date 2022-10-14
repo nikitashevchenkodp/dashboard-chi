@@ -1,9 +1,10 @@
 import { TableCell, TableRow } from '@mui/material';
-import React from 'react';
+import React, { FC } from 'react';
 import { transformData } from '../../utils';
 import { TickerItem } from '../../utils/consts';
 import ItemMenu from '../ItemMenu';
 import Priority from '../Priority';
+import imgNotFound from '../../asset/image-not-found.png';
 
 type TickerTableRowProps = {
   rowData: TickerItem;
@@ -11,13 +12,17 @@ type TickerTableRowProps = {
   onEdit: () => void;
 };
 
-const TicketTableRow = ({ rowData, onEdit, setDeleteItem }: TickerTableRowProps) => {
+const TicketTableRow: FC<TickerTableRowProps> = ({ rowData, onEdit, setDeleteItem }) => {
   return (
     <TableRow sx={tableStyles.tableRowBody}>
       <TableCell>
         <div style={tableStyles.mainCell}>
           <div style={tableStyles.mainCellImg}>
-            <img style={tableStyles.mainCellImgImg} src={rowData.image} alt="user_avatar" />
+            <img
+              style={tableStyles.mainCellImgImg}
+              src={rowData.image ? rowData.image : imgNotFound}
+              alt="user_avatar"
+            />
           </div>
           <div>
             <p style={tableStyles.cellTitle}>{rowData.details_text}</p>
@@ -62,7 +67,7 @@ export const tableStyles = {
     cursor: 'pointer',
     '&:hover': { background: 'rgba(55, 81, 255, 0.04)' },
   },
-  mainCellImg: { width: '44px', borderRadius: '50%', overflow: 'hidden' },
+  mainCellImg: { width: '44px', height: '44px', borderRadius: '50%', overflow: 'hidden' },
   cellTitle: { fontSize: '14px', fontWeight: '600', lineHeight: '20px', marginBottom: '4px' },
   cellText: { fontSize: '12px', fontWeight: '400', lineHeight: '16px', color: '#C5C7CD' },
 };

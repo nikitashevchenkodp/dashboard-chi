@@ -1,5 +1,5 @@
-import { call, put, select, takeEvery } from 'redux-saga/effects';
-import { CustomerItem } from '../../utils/consts';
+import { call, CallEffect, put, PutEffect, select, SelectEffect, takeEvery } from 'redux-saga/effects';
+import { CustomerItem, ImageResponse } from '../../utils/consts';
 import {
   fetchAllCustomersSuccess,
   fetchAllCustomersReject,
@@ -14,35 +14,22 @@ import {
   addCustomerReject,
   fetchAllCustomers,
 } from '../slices/customersSlice';
-import DashbordApiService from '../../services/DashboardApiService';
 import { sendPhoto } from '../../services/cloudinary';
 import { RootState } from '..';
+import { dashboardApi } from '../../services/DashboardApiService';
+import { AnyAction } from 'redux';
+import { PayloadAction } from '@reduxjs/toolkit';
 
-const dashboardApi = new DashbordApiService();
-
-function* transformImageData(data: any): Generator<any, any, any> {
-  if (typeof data.image !== 'string') {
-    const response = yield call(sendPhoto, data.image);
-    console.log(response);
-
-    data = {
-      ...data,
-      image: response.url,
-    };
-  }
-  return data;
-}
-
-function* fetchCustomersSaga() {
+function* fetchCustomersSaga(): Generator<CallEffect<CustomerItem[]> | PutEffect<AnyAction>, void, CustomerItem[]> {
   try {
-    const result: CustomerItem[] = yield call(dashboardApi.getCustomers);
+    const result = yield call(dashboardApi.getCustomers);
     yield put(fetchAllCustomersSuccess(result));
   } catch (e: any) {
     yield put(fetchAllCustomersReject(e.message));
   }
 }
 
-function* deleteItemCSaga(action: any) {
+function* deleteItemCSaga(action: PayloadAction<number>): Generator<CallEffect | PutEffect<AnyAction>, void, void> {
   try {
     yield call(dashboardApi.delCustomer, action.payload);
     yield put(deleteCustomerSuccess(action.payload));
@@ -51,12 +38,13 @@ function* deleteItemCSaga(action: any) {
   }
 }
 
-function* addCustomerSaga(action: any): Generator<any, any, any> {
+function* addCustomerSaga(
+  action: PayloadAction<CustomerItem>
+): Generator<CallEffect<CustomerItem> | PutEffect<AnyAction>, void, CustomerItem & ImageResponse> {
   try {
     let data = action.payload;
     if (typeof data.image !== 'string') {
       const response = yield call(sendPhoto, data.image[0]);
-      console.log(response);
       data = {
         ...data,
         image: response.url,
@@ -64,22 +52,23 @@ function* addCustomerSaga(action: any): Generator<any, any, any> {
     } else {
       data = {
         ...data,
-        image: 'https://res.cloudinary.com/dmd6ckoob/image/upload/v1665658222/image-not-found_anrbg7.png',
+        image: '',
       };
     }
-    const res: CustomerItem = yield call(dashboardApi.addCustomer, data);
+    const res = yield call(dashboardApi.addCustomer, data);
     yield put(addCustomerSuccess(res));
   } catch (e: any) {
     yield put(addCustomerReject(e.message));
   }
 }
 
-function* editCustomerSaga(action: any): Generator<any, any, any> {
+function* editCustomerSaga(
+  action: PayloadAction<CustomerItem>
+): Generator<CallEffect<CustomerItem> | SelectEffect | PutEffect<AnyAction>, void, CustomerItem & ImageResponse> {
   try {
     let data = action.payload;
     if (typeof data.image !== 'string') {
       const response = yield call(sendPhoto, data.image[0]);
-      console.log(response);
       data = {
         ...data,
         image: response.url,

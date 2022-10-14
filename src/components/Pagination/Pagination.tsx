@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import arrowBack from '../../asset/arrow_back.svg';
 import arrowNext from '../../asset/arrow_next.svg';
 import './Pagination.scss';
@@ -13,7 +13,15 @@ type PaginationProps = {
   count: number;
 };
 
-const Pagination = ({ setPerPage, page, setPage, paginationItems, startIndex, endIndex, count }: PaginationProps) => {
+const Pagination: FC<PaginationProps> = ({
+  setPerPage,
+  page,
+  setPage,
+  paginationItems,
+  startIndex,
+  endIndex,
+  count,
+}) => {
   return (
     <div className="pagination">
       <div className="pagination__block">

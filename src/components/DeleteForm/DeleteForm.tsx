@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import Button from '../Button';
 import Form from '../Form';
 import { FormTitle } from '../Form/Form';
@@ -7,21 +7,24 @@ type DeleteFormProps = {
   setConfirmActive: (active: boolean) => void;
 };
 
-const DeleteForm = ({ setConfirmActive, deleteItem }: DeleteFormProps) => {
+const DeleteForm: FC<DeleteFormProps> = ({ setConfirmActive, deleteItem }) => {
   return (
     <Form>
       <FormTitle title="Are you sure ?" />
-      <Button type="button" onClick={deleteItem}>
+      <Button type="button" onClick={deleteItem} className="mb-16">
         Yes
       </Button>
-      <Button
-        variant="transparent"
-        type="button"
-        className="controll-panel__add"
-        onClick={() => setConfirmActive(false)}
-      >
-        No
-      </Button>
+      <div style={{ display: 'flex' }}>
+        <Button
+          variant="transparent"
+          type="button"
+          className="controll-panel__add"
+          style={{ margin: '0 auto' }}
+          onClick={() => setConfirmActive(false)}
+        >
+          No
+        </Button>
+      </div>
     </Form>
   );
 };

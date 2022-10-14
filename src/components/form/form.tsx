@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import './Form.scss';
 
 type FormProps = {
@@ -6,7 +6,7 @@ type FormProps = {
   onSubmit?: (e: React.FormEvent<HTMLFormElement>) => void;
 };
 
-const Form = ({ children, onSubmit }: FormProps) => {
+const Form: FC<FormProps> = ({ children, onSubmit }) => {
   return (
     <form className="form" onSubmit={onSubmit}>
       {children}

@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import './CustomersTable.scss';
 
-import { customersCellTitles, filterCustomerFunction, sortFunctionCustomer } from '../../utils';
+import { customersCellTitles, filterCustomerFunction, sortFunction } from '../../utils';
 import { ModalWindow, AddCustomerForm } from '../../components';
 import { CustomerItem } from '../../utils/consts';
 
@@ -62,7 +62,7 @@ const CustomersTable = () => {
         data={customers}
         loading={loading}
         sortCriterias={['name', 'date']}
-        sortFunction={sortFunctionCustomer}
+        sortFunction={sortFunction}
         filterFunction={filterCustomerFunction}
         renderItem={renderItem}
         headerTitles={customersCellTitles}

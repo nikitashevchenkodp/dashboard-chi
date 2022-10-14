@@ -3,7 +3,7 @@ import React, { forwardRef } from 'react';
 import './Select.scss';
 
 type SelectProps = React.SelectHTMLAttributes<HTMLSelectElement> & {
-  value: string;
+  value?: string;
   name: string;
   placeholder: string;
   options: string[] | number[];
@@ -12,7 +12,7 @@ type SelectProps = React.SelectHTMLAttributes<HTMLSelectElement> & {
   error?: string;
 };
 
-const Select = forwardRef((props: SelectProps, ref: any) => {
+const Select = forwardRef<HTMLSelectElement, SelectProps>((props, ref) => {
   const { value, placeholder, name, options, id, label, error, ...restProps } = props;
 
   const selectClass = classNames({

@@ -2,7 +2,7 @@ import React from 'react';
 import './Chart.scss';
 import { Chart, registerables, ScriptableContext } from 'chart.js';
 import { Line } from 'react-chartjs-2';
-import { BsTextRight } from 'react-icons/bs';
+
 Chart.register(...registerables);
 
 const labels = [0, 1, 2, 3, 4, 5, 6, 7];

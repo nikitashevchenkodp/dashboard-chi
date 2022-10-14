@@ -1,43 +1,33 @@
-import React, { useState } from 'react';
-import { Controller } from 'react-hook-form';
+import React, { FC, useState } from 'react';
+import { Control, useFieldArray } from 'react-hook-form';
 import { Button, Input } from '../../../components';
 import Select from '../../../components/Select';
+import { DefaultValues, SignUpFormProps } from '../../../utils/consts';
 
-const RelativesForm = ({ control, errors }: { control: any; errors: any }) => {
-  const [fields, setFields] = useState(['child']);
+const RelativesForm: FC<SignUpFormProps & { control: Control<DefaultValues> }> = ({ register, control, errors }) => {
   const [error, setError] = useState('');
+  const { fields, append } = useFieldArray({
+    control,
+    name: 'relatives.members',
+  });
 
   const childrenFields = fields?.map((field, i) => {
     return (
-      <React.Fragment key={`${field}${i}`}>
-        <Controller
-          name={`relatives.members[${i}].role`}
-          control={control}
-          defaultValue=""
-          render={({ field }) => (
-            <Select
-              id="memberOfFamily"
-              label={'Member of family'}
-              placeholder={'choose variant'}
-              options={['son', 'daughter', 'sister', 'brother']}
-              {...field}
-              error={errors?.relatives?.members[i]?.role?.message}
-            />
-          )}
+      <React.Fragment key={field.id}>
+        <Select
+          id={`${field.role}${i}`}
+          label={'Member of family'}
+          placeholder={'choose variant'}
+          options={['son', 'daughter', 'sister', 'brother']}
+          {...register(`relatives.members.${i}.role`)}
+          error={errors?.relatives?.members?.[i]?.role?.message}
         />
-        <Controller
-          name={`relatives.members[${i}].fullName`}
-          defaultValue=""
-          control={control}
-          render={({ field }) => (
-            <Input
-              id={`${field}${1}`}
-              type="text"
-              label="Full Name"
-              {...field}
-              error={errors?.relatives?.members[i]?.fullName?.message}
-            />
-          )}
+        <Input
+          id={`${field.fullName}${i}`}
+          type="text"
+          label="Full Name"
+          {...register(`relatives.members.${i}.fullName`)}
+          error={errors?.relatives?.members?.[i]?.fullName?.message}
         />
       </React.Fragment>
     );
@@ -45,7 +35,7 @@ const RelativesForm = ({ control, errors }: { control: any; errors: any }) => {
 
   const addChildField = () => {
     if (fields.length < 5) {
-      setFields((fields) => [...fields, 'member']);
+      append({ role: '', fullName: '' });
     } else {
       setError('You cannot add more than 4 children');
       setTimeout(() => setError(''), 3000);
@@ -54,36 +44,24 @@ const RelativesForm = ({ control, errors }: { control: any; errors: any }) => {
 
   return (
     <>
-      <Controller
-        name="relatives.fatherFullName"
-        control={control}
-        defaultValue=""
-        render={({ field }) => (
-          <Input
-            id="fatherFullName"
-            type="text"
-            label={'Father full name'}
-            placeholder={'Father full name'}
-            error={errors?.relatives?.fatherFullName?.message}
-            {...field}
-          />
-        )}
+      <Input
+        id="fatherFullName"
+        type="text"
+        label={'Father full name'}
+        placeholder={'Father full name'}
+        error={errors?.relatives?.fatherFullName?.message}
+        {...register('relatives.fatherFullName')}
       />
-      <Controller
-        name="relatives.motherFullName"
-        control={control}
-        defaultValue=""
-        render={({ field }) => (
-          <Input
-            id="motherFullName"
-            type="text"
-            label={'Mother full name'}
-            placeholder={'Mother full name'}
-            error={errors?.relatives?.motherFullName?.message}
-            {...field}
-          />
-        )}
+
+      <Input
+        id="motherFullName"
+        type="text"
+        label={'Mother full name'}
+        placeholder={'Mother full name'}
+        error={errors?.relatives?.motherFullName?.message}
+        {...register('relatives.motherFullName')}
       />
+
       {childrenFields}
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '16px' }}>
         <p style={{ marginRight: '10px' }}>Add more children</p>

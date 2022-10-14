@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import './ControlPanel.scss';
 import Sort from '../Sort';
 import Filter from '../Filter';
@@ -11,7 +11,7 @@ type ControlPanelProps = {
   filter: string;
 };
 
-const ControlPanel = ({ onEdit, setSort, sortCriterias, setFilter, filter }: ControlPanelProps) => {
+const ControlPanel: FC<ControlPanelProps> = ({ onEdit, setSort, sortCriterias, setFilter, filter }) => {
   return (
     <div className="controll-panel">
       <Sort setSort={setSort} sortCriterias={sortCriterias} />

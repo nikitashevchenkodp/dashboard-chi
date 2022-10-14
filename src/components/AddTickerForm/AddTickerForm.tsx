@@ -1,5 +1,5 @@
 import Select from '../Select';
-import React, { useEffect, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { FormTitle } from '../Form/Form';
 import Form from '../Form/Form';
 import Input from '../Input';
@@ -11,53 +11,49 @@ import dayjs from 'dayjs';
 import Button from '../Button';
 import { useAppDispatch, useAppSelector } from '../../hooks/typedDispatch';
 import FileInput from '../FileInput';
-import { Controller, FieldValues, useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import { addTicket, editTicket } from '../../store/slices/ticketsSlice';
 import { yupResolver } from '@hookform/resolvers/yup';
 import PreviewImage from '../PreviewImage/PreviewImage';
 import { addTicketSchema } from '../../utils/validationSchemas/addticketSchema';
 import { randomId } from '../../utils/randomId';
 import { BsCalendar2Date } from 'react-icons/bs';
+import { ticketById } from '../../store/selectors';
+import { TickerItem } from '../../utils/consts';
 
 type AddTickerFormProps = {
   id: number | null;
   onClose: () => void;
 };
 
-const AddTickerForm = ({ id, onClose }: AddTickerFormProps) => {
-  const [imgUrl, setImgUrl] = useState('');
-  const tickets = useAppSelector((state) => state.tickets.tickets);
-  const ticket = tickets.filter((item) => item.id === id)[0] || {
+const AddTickerForm: FC<AddTickerFormProps> = ({ id, onClose }) => {
+  const ticket = useAppSelector((state) => ticketById(state, id)) || {
     details_text: '',
     name: '',
     date: dayjs(),
     status: '',
     image: '',
   };
+
+  const [imgUrl, setImgUrl] = useState(ticket.image);
+
   const dispatch = useAppDispatch();
 
   const {
     control,
     handleSubmit,
-    reset,
     register,
     formState: { errors },
   } = useForm({
+    defaultValues: ticket,
     resolver: yupResolver(addTicketSchema),
   });
-
-  useEffect(() => {
-    setImgUrl(ticket.image);
-    reset(ticket);
-  }, [id]);
 
   const previewImage = (file: File) => {
     setImgUrl(URL.createObjectURL(file));
   };
 
-  const onSubmit = (data: FieldValues) => {
-    console.log(data);
-
+  const onSubmit = (data: TickerItem) => {
     const item = {
       ...data,
       id: id ? id : randomId(),
@@ -73,7 +69,7 @@ const AddTickerForm = ({ id, onClose }: AddTickerFormProps) => {
       <FormTitle title={id ? 'Edit ticker' : 'Add ticker'} />
       <FileInput
         {...register('image', { onChange: (e) => previewImage(e.target.files[0]) })}
-        error={errors?.image?.message as string}
+        error={errors?.image?.message}
       />
       <PreviewImage imgUrl={imgUrl} />
       <Input
@@ -81,24 +77,16 @@ const AddTickerForm = ({ id, onClose }: AddTickerFormProps) => {
         label="Ticket details"
         placeholder="Add description"
         type="text"
-        error={errors?.details_text?.message as string}
+        error={errors?.details_text?.message}
         {...register('details_text')}
       />
-
-      <Controller
-        name="name"
-        control={control}
-        defaultValue=""
-        render={({ field }) => (
-          <Input
-            id="name"
-            label="Customer name"
-            placeholder="Name"
-            type="text"
-            {...field}
-            error={errors?.name?.message as string}
-          />
-        )}
+      <Input
+        id="name"
+        label="Customer name"
+        placeholder="Name"
+        type="text"
+        {...register('name')}
+        error={errors?.name?.message}
       />
       <Controller
         name="date"
@@ -125,25 +113,18 @@ const AddTickerForm = ({ id, onClose }: AddTickerFormProps) => {
                   {...field}
                 />
               </LocalizationProvider>
-            </div>{' '}
+            </div>
           </>
         )}
       />
-      <Controller
-        name="status"
-        defaultValue=""
-        control={control}
-        render={({ field }) => (
-          <Select
-            id="status"
-            placeholder="Choose value"
-            options={['high', 'normal', 'low']}
-            {...field}
-            error={errors?.status?.message as string}
-          />
-        )}
-      />
 
+      <Select
+        id="status"
+        placeholder="Choose value"
+        options={['high', 'normal', 'low']}
+        {...register('status')}
+        error={errors?.status?.message}
+      />
       <Button className="mb-16" type="submit">
         Save
       </Button>

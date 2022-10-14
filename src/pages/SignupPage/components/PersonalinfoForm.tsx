@@ -1,9 +1,9 @@
-import React from 'react';
-import { Controller } from 'react-hook-form';
+import React, { FC } from 'react';
 import { Input } from '../../../components';
 import Select from '../../../components/Select';
+import { SignUpFormProps } from '../../../utils/consts';
 
-const PersonalInfoForm = ({ control, errors }: { control: any; errors: any }) => {
+const PersonalInfoForm: FC<SignUpFormProps> = ({ register, errors }) => {
   const maxDate = new Date();
   maxDate.setFullYear(new Date().getFullYear() - 18);
   const minDate = new Date();
@@ -11,67 +11,41 @@ const PersonalInfoForm = ({ control, errors }: { control: any; errors: any }) =>
 
   return (
     <>
-      <Controller
-        name="firstName"
-        control={control}
-        defaultValue=""
-        render={({ field }) => (
-          <Input
-            id="firstName"
-            type="text"
-            label={'First name'}
-            placeholder={'First name'}
-            {...field}
-            error={errors?.firstName?.message}
-          />
-        )}
-      />
-      <Controller
-        name="lastName"
-        control={control}
-        defaultValue=""
-        render={({ field }) => (
-          <Input
-            id="lastName"
-            type="text"
-            label={'Last name'}
-            placeholder={'Last name'}
-            {...field}
-            error={errors?.lastName?.message}
-          />
-        )}
+      <Input
+        id="firstName"
+        type="text"
+        label={'First name'}
+        placeholder={'First name'}
+        {...register('firstName')}
+        error={errors.firstName?.message}
       />
 
-      <Controller
-        name="dateOfBirth"
-        control={control}
-        defaultValue=""
-        render={({ field }) => (
-          <Input
-            id="dateOfBirth"
-            type="date"
-            min={minDate.toISOString().slice(0, 10)}
-            max={maxDate.toISOString().slice(0, 10)}
-            label={'Date of Birth'}
-            {...field}
-            error={errors?.dateOfBirth?.message}
-          />
-        )}
+      <Input
+        id="lastName"
+        type="text"
+        label={'Last name'}
+        placeholder={'Last name'}
+        {...register('lastName')}
+        error={errors.lastName?.message}
       />
-      <Controller
-        name="sex"
-        control={control}
-        defaultValue=""
-        render={({ field }) => (
-          <Select
-            id="sex"
-            label={'Sex'}
-            placeholder={'choose variant'}
-            options={['male', 'female', 'other']}
-            {...field}
-            error={errors?.sex?.message}
-          />
-        )}
+
+      <Input
+        id="dateOfBirth"
+        type="date"
+        min={minDate.toISOString().slice(0, 10)}
+        max={maxDate.toISOString().slice(0, 10)}
+        label={'Date of Birth'}
+        {...register('dateOfBirth')}
+        error={errors.dateOfBirth?.message}
+      />
+
+      <Select
+        id="sex"
+        label={'Sex'}
+        placeholder={'choose variant'}
+        options={['male', 'female', 'other']}
+        {...register('sex')}
+        error={errors.sex?.message}
       />
     </>
   );

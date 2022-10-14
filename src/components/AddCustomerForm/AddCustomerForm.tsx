@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import Button from '../Button';
 import Form from '../Form';
 import { FormTitle } from '../Form/Form';
@@ -11,38 +11,31 @@ import { addCustomer, editCustomer } from '../../store/slices/customersSlice';
 import FileInput from '../FileInput';
 import PreviewImage from '../PreviewImage/PreviewImage';
 import { randomId } from '../../utils/randomId';
+import { customerById } from '../../store/selectors';
 
 type AddCustomerFormProps = {
   id: number | null;
   onClose: () => void;
 };
 
-const AddCustomerForm = ({ id, onClose }: AddCustomerFormProps) => {
-  const [imgUrl, setImgUrl] = useState('');
-
+const AddCustomerForm: FC<AddCustomerFormProps> = ({ id, onClose }) => {
   const dispatch = useAppDispatch();
-  const customers = useAppSelector((state) => state.customers.customers);
-  const customer = customers.filter((item) => item.id === id)[0] || {
+  const customer = useAppSelector((state) => customerById(state, id)) || {
     first_name: '',
     last_name: '',
     email: '',
     address: '',
     image: '',
   };
-
+  const [imgUrl, setImgUrl] = useState(customer.image);
   const {
     handleSubmit,
-    reset,
     register,
     formState: { errors },
   } = useForm({
+    defaultValues: customer,
     // resolver: yupResolver(),
   });
-
-  useEffect(() => {
-    setImgUrl(customer.image);
-    reset(customer);
-  }, [id]);
 
   const previewImage = (file: File) => {
     setImgUrl(URL.createObjectURL(file));
