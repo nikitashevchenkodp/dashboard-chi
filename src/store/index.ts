@@ -33,7 +33,6 @@ export const store = setupStore();
 export const persistor = persistStore(store);
 
 sagaMiddleware.run(rootWatcher);
-console.log(store.getState().user);
 
 export type RootState = ReturnType<typeof rootReducer>;
 export type AppStore = ReturnType<typeof setupStore>;

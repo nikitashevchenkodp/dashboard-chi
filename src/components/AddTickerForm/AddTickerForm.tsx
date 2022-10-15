@@ -6,7 +6,7 @@ import Input from '../Input';
 import './AddTickerForm.scss';
 import { DesktopDatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { TextField } from '@mui/material';
+import { styled, TextField } from '@mui/material';
 import dayjs from 'dayjs';
 import Button from '../Button';
 import { useAppDispatch, useAppSelector } from '../../hooks/typedDispatch';

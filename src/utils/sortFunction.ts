@@ -13,7 +13,7 @@ const changeToNumber = (priority: string) => {
   }
 };
 
-export const sortFunction = (items: CustomerItem[] & TickerItem[], sortType: string) => {
+export const sortFunction = (items: Array<CustomerItem & TickerItem>, sortType: string) => {
   switch (sortType) {
     case 'name':
       if (items[0].first_name) return [...items].sort((a, b) => (a.first_name > b.first_name ? 1 : -1));

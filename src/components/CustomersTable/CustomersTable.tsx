@@ -1,7 +1,7 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import './CustomersTable.scss';
 
-import { customersCellTitles, filterCustomerFunction, sortFunction } from '../../utils';
+import { customersCellTitles } from '../../utils';
 import { ModalWindow, AddCustomerForm } from '../../components';
 import { CustomerItem } from '../../utils/consts';
 
@@ -31,10 +31,10 @@ const CustomersTable = () => {
     setConfirmActive(false);
   };
 
-  const onEdit = (id: number | null) => {
+  const onEdit = useCallback((id: number | null) => {
     setActive(true);
     setCurrentId(id);
-  };
+  }, []);
 
   const onClose = () => {
     setActive(false);
@@ -43,9 +43,9 @@ const CustomersTable = () => {
 
   useEffect(() => {
     dispatch(fetchAllCustomers());
-  }, [dispatch]);
+  }, []);
 
-  const renderItem = (item: CustomerItem) => {
+  const renderItem = useCallback((item: CustomerItem) => {
     return (
       <CustomerTableRow
         key={item.id}
@@ -54,16 +54,14 @@ const CustomersTable = () => {
         setDeleteItem={() => setDeleteItem(item.id)}
       />
     );
-  };
+  }, []);
 
   return (
     <>
       <MainTable
         data={customers}
         loading={loading}
-        sortCriterias={['name', 'date']}
-        sortFunction={sortFunction}
-        filterFunction={filterCustomerFunction}
+        sortCriterias={useMemo(() => ['name', 'date'], [])}
         renderItem={renderItem}
         headerTitles={customersCellTitles}
         onEdit={onEdit}

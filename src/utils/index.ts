@@ -1,14 +1,6 @@
-import { filterCustomerFunction, filterTickerFunction } from './filterFunction';
+import { filterFunction } from './filterFunction';
 import { sortFunction } from './sortFunction';
 import { paginationIndexes, tickerCellTitles, customersCellTitles } from './consts';
 import { transformData } from './transformData';
 
-export {
-  filterCustomerFunction,
-  filterTickerFunction,
-  sortFunction,
-  paginationIndexes,
-  transformData,
-  tickerCellTitles,
-  customersCellTitles,
-};
+export { filterFunction, sortFunction, paginationIndexes, transformData, tickerCellTitles, customersCellTitles };

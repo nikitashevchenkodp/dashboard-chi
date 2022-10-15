@@ -1,6 +1,6 @@
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
-import React, { FC, useMemo, useState } from 'react';
-import { paginationIndexes } from '../../utils';
+import React, { FC, memo, useMemo, useState } from 'react';
+import { filterFunction, paginationIndexes, sortFunction } from '../../utils';
 import ControlPanel from '../ControlPanel';
 import Loader from '../Loader';
 import Pagination from '../Pagination';
@@ -12,20 +12,11 @@ type TableProps = {
   renderItem: (item: any) => JSX.Element;
   onEdit: (id: number | null) => void;
   sortCriterias: string[];
-  sortFunction: (items: any[], filter: string) => any[];
-  filterFunction: (items: any[], filter: string) => any[];
 };
 
-const MainTable: FC<TableProps> = ({
-  data,
-  loading,
-  headerTitles,
-  sortCriterias,
-  sortFunction,
-  filterFunction,
-  onEdit,
-  renderItem,
-}) => {
+const MainTable: FC<TableProps> = ({ data, loading, headerTitles, sortCriterias, onEdit, renderItem }) => {
+  console.log('render Table');
+
   const [perPage, setPerPage] = useState(4);
   const [page, setPage] = useState(1);
   const [sort, setSort] = useState('');
@@ -118,4 +109,4 @@ export const tableStyles = {
   cellText: { fontSize: '12px', fontWeight: '400', lineHeight: '16px', color: '#C5C7CD' },
 };
 
-export default MainTable;
+export default memo(MainTable);

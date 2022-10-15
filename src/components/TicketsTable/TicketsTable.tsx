@@ -1,6 +1,6 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks/typedDispatch';
-import { filterTickerFunction, tickerCellTitles, sortFunction } from '../../utils';
+import { tickerCellTitles } from '../../utils';
 import { TickerItem } from '../../utils/consts';
 import AddTickerForm from '../AddTickerForm';
 import DeleteForm from '../DeleteForm';
@@ -30,10 +30,10 @@ const TicketsTable = () => {
     setConfirmActive(false);
   };
 
-  const onEdit = (id: number | null) => {
+  const onEdit = useCallback((id: number | null) => {
     setActive(true);
     setCurrentId(id);
-  };
+  }, []);
 
   const onClose = () => {
     setActive(false);
@@ -44,7 +44,7 @@ const TicketsTable = () => {
     dispatch(fetchAllTickets());
   }, []);
 
-  const renderItem = (item: TickerItem) => {
+  const renderItem = useCallback((item: TickerItem) => {
     return (
       <TicketTableRow
         key={item.id}
@@ -53,16 +53,14 @@ const TicketsTable = () => {
         setDeleteItem={() => setDeleteItem(item.id)}
       />
     );
-  };
+  }, []);
 
   return (
     <>
       <MainTable
         data={tickets}
         loading={loading}
-        sortCriterias={['name', 'date', 'priority']}
-        sortFunction={sortFunction}
-        filterFunction={filterTickerFunction}
+        sortCriterias={useMemo(() => ['name', 'date', 'priority'], [])}
         renderItem={renderItem}
         headerTitles={tickerCellTitles}
         onEdit={onEdit}
