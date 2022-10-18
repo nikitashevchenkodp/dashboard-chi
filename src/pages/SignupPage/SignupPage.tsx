@@ -50,13 +50,12 @@ const SignUpPage = () => {
       confirmPassword: '',
       terms: 'false',
     },
-    mode: 'all',
+    mode: 'onBlur',
     resolver: yupResolver(schema),
   });
 
   const dispatch = useAppDispatch();
   const submit = (data: DefaultValues) => {
-    console.log(data);
     dispatch(loginUser());
   };
 

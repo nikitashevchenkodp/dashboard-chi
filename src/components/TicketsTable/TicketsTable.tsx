@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, { MutableRefObject, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks/typedDispatch';
 import { tickerCellTitles } from '../../utils';
 import { TickerItem } from '../../utils/consts';
@@ -76,3 +76,8 @@ const TicketsTable = () => {
 };
 
 export default TicketsTable;
+
+const el = React.createElement('div', { className: 'hello' });
+const elDiv = document.createElement('div');
+console.dir(elDiv);
+console.dir(el);
