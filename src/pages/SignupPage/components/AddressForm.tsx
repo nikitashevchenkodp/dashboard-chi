@@ -14,7 +14,6 @@ const AddressForm: FC<SignUpFormProps> = ({ register, errors }) => {
         {...register('address.country')}
         error={errors?.address?.country?.message}
       />
-      =
       <Input id="city" type="text" label="City" {...register('address.city')} error={errors?.address?.city?.message} />
       <Input
         id="street"

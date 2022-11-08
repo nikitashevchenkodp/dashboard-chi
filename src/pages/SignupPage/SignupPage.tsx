@@ -26,7 +26,7 @@ const SignUpPage = () => {
     handleSubmit,
     control,
     register,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm({
     defaultValues: {
       firstName: '',
@@ -53,6 +53,9 @@ const SignUpPage = () => {
     mode: 'onBlur',
     resolver: yupResolver(schema),
   });
+
+  console.log(errors);
+  console.log(isValid);
 
   const dispatch = useAppDispatch();
   const submit = (data: DefaultValues) => {

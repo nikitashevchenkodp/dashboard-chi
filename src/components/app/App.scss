@@ -19,6 +19,14 @@
   min-height: 100vh;
 }
 
+.admin-page {
+  display: flex;
+  &__container {
+    background: #f7f8fc;
+    width: 100%;
+  }
+}
+
 .container {
   margin-right: 30px;
   margin-left: 30px;

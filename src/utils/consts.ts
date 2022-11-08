@@ -2,11 +2,17 @@ import { FieldErrorsImpl, UseFormRegister } from 'react-hook-form';
 import { user1, user2, user3, user4, user5, user6, user7, user8 } from '../asset';
 
 export const PATHS = {
-  LOGIN_PAGE: '/login',
-  SIGNUP_PAGE: '/signup',
-  RESET_PASSWORD_PAGE: '/resetpassword',
-  FORGOT_PASSWORD_PAGE: '/forgotpassword',
-  ADMIN_PAGE: '/admin/*',
+  BASE_PATH: '/*',
+  LOGIN_PAGE: 'login',
+  SIGNUP_PAGE: 'signup',
+  RESET_PASSWORD_PAGE: 'resetpassword',
+  FORGOT_PASSWORD_PAGE: 'forgotpassword',
+  ADMIN_PAGE: 'admin/*',
+  TICKETS_PAGE: 'tickets',
+  CUSTOMERS_PAGE: 'contacts',
+  SETTINGS_PAGE: 'settings',
+  OVERVIEW_PAGE: 'overview',
+  NOT_FOUND: '*',
 };
 
 export const tickerCellTitles = ['Ticket details', 'Customer name', 'Date', 'Priority'];

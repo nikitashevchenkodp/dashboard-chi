@@ -1,6 +1,8 @@
 import React from 'react';
 
-export const OverviewIcon = () => {
+export const OverviewIcon = ({ active }: { active?: boolean }) => {
+  console.log(active);
+
   return (
     <svg className="svg" width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
       <path
@@ -10,7 +12,9 @@ export const OverviewIcon = () => {
     </svg>
   );
 };
-export const TicketsIcon = () => {
+export const TicketsIcon = ({ active }: { active?: boolean }) => {
+  console.log(active);
+
   return (
     <svg className="svg" width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
       <g opacity="0.4">
@@ -19,7 +23,9 @@ export const TicketsIcon = () => {
     </svg>
   );
 };
-export const ContactsIcon = () => {
+export const ContactsIcon = ({ active }: { active?: boolean }) => {
+  console.log(active);
+
   return (
     <svg className="svg" width="24" height="22" viewBox="0 0 24 22" xmlns="http://www.w3.org/2000/svg">
       <g>
@@ -56,7 +62,9 @@ export const ContactsIcon = () => {
     </svg>
   );
 };
-export const SettingsIcon = () => {
+export const SettingsIcon = ({ active }: { active?: boolean }) => {
+  console.log(active);
+
   return (
     <svg className="svg" width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
       <g clipPath="url(#clip0_597_250)">

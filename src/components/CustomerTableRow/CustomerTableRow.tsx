@@ -42,15 +42,6 @@ const CustomerTableRow: FC<TickerTableRowProps> = ({ rowData, onEdit, setDeleteI
 };
 
 export const tableStyles = {
-  tHead: {
-    borderBottom: '1px solid rgba(224, 224, 224, 1)',
-  },
-  headCell: {
-    fontWeight: '700',
-    fontSize: '14px',
-    lineHeight: '18px',
-    color: '#9FA2B4',
-  },
   mainCell: {
     display: 'flex',
     paddintTop: '24px',

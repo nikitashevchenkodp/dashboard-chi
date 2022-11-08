@@ -1,6 +1,6 @@
-import React from 'react';
-import { Routes, Route, Navigate, BrowserRouter } from 'react-router-dom';
-import { publickRoutes, privatRoutes } from '../../routes';
+import React, { ReactNode } from 'react';
+import { Routes, Route, BrowserRouter } from 'react-router-dom';
+import { publickRoutes, privatRoutes, RouteItem } from '../../routes';
 import './AppRouter.scss';
 import { useAppSelector } from '../../hooks/typedDispatch';
 import { userSelector } from '../../store/selectors';
@@ -8,28 +8,19 @@ import { userSelector } from '../../store/selectors';
 const AppRouter = () => {
   const { user } = useAppSelector(userSelector);
 
-  const publickRoute = publickRoutes.map(({ path, Component }) => {
-    return <Route key={path} path={path} element={<Component />} />;
-  });
+  const renderRoutes = (routes: Array<RouteItem>): ReactNode => {
+    return routes.map(({ path, Component, children }) => (
+      <Route key={path} path={path} element={Component} children={children && renderRoutes(children)} />
+    ));
+  };
 
-  const privatRoute = privatRoutes.map(({ path, Component }) => {
-    return <Route key={path} path={path} element={<Component />} />;
-  });
+  const publickRoute = renderRoutes(publickRoutes);
+  const privatRoute = renderRoutes(privatRoutes);
 
   return (
     <div style={{ width: '100%' }}>
       <BrowserRouter>
-        {user ? (
-          <Routes>
-            {privatRoute}
-            <Route path="*" element={<Navigate to="/admin" replace />} />
-          </Routes>
-        ) : (
-          <Routes>
-            {publickRoute}
-            <Route path="*" element={<Navigate to="/login" replace />} />
-          </Routes>
-        )}
+        <Routes>{user ? privatRoute : publickRoute}</Routes>
       </BrowserRouter>
     </div>
   );
